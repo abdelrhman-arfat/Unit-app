@@ -1,0 +1,34 @@
+{
+  "HomePage": {
+    "title": "Faculty of Computers and Information Students Platform, Tanta University",
+    "description": "We provide you with a comprehensive platform to manage assignments, messages, comments, and university events with ease.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "services": {
+      "title": "Our Services",
+      "pdfTitle": "PDF Summaries",
+      "pdfDescription": "We provide concise and practical PDF summaries to make studying easier.",
+      "quizTitle": "Quizzes",
+      "quizDescription": "Test yourself with a variety of quizzes according to the subject.",
+      "exercisesTitle": "Exercises and Problems",
+      "exercisesDescription": "Solved exercises and problems to help you understand deeply and apply knowledge.",
+      "examsTitle": "Past Exams",
+      "examsDescription": "Collections of previous exams for effective training and preparation."
+    },
+    "footer": {
+      "copyright": "All rights reserved",
+      "description": "We aim to provide the best educational services in a simple, effective, and enjoyable way for all students.",
+      "main": "Home",
+      "services": "Our Services",
+      "links": "Quick Links",
+      "about": "About the Platform",
+      "contact": "Contact Us",
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy",
+      "social": "Follow Us"
+    }
+
+
+
+  }
+}
