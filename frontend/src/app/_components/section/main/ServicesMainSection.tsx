@@ -30,15 +30,15 @@ const cardVariants = {
 };
 const ServicesMainSection = ({
   services,
-  header,
+  title,
 }: {
   services: services;
-  header: string;
+  title: string;
 }) => {
   return (
     <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
       <Heading size="xl" className="mb-12 text-center">
-        {header}
+        {title}
       </Heading>
 
       <motion.div

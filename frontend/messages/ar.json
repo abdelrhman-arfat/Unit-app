@@ -15,17 +15,52 @@
       "examsTitle": "مسبقات امتحانات",
       "examsDescription": "مجموعات من الامتحانات السابقة للتدريب والاستعداد الفعال."
     },
-    "footer": {
-      "copyright": "جميع الحقوق محفوظة",
-      "description": "نهدف لتقديم أفضل الخدمات التعليمية بأسلوب بسيط، فعال، وممتع لجميع الطلاب.",
-      "main": "الرئيسية",
-      "services": "خدماتنا",
-      "links": "روابط سريعة",
-      "about": "عن المنصة",
-      "contact": "اتصل بنا",
-      "terms": "شروط الاستخدام",
-      "privacy": "سياسة الخصوصية",
-      "social":"تابعنا"
+    "plans":{
+      "plansTitle": "اختر خطتك",
+      "freeTitle": "الخطة المجانية",
+      "freePrice": "مجانية",
+      "freeFeature1": "الافتراضيه",
+      "freeFeature2": "ملخصات PDF عامة",
+      "freeFeature3": "وصول محدود للكويزات",
+      "freeFeature4": "لا يوجد تحليلات أو مجتمع",
+      "freeNumber":"1",
+      
+      "premiumTitle": "الخطة المدفوعة",
+      "premiumPrice": "10 جنيه / شهريًا",
+      "premiumFeature1": "تجربة مجانية 7 أيام",
+      "premiumFeature2": "وصول لكل الملفات والملخصات",
+      "premiumFeature3": "الانضمام للمجتمع الطلابي",
+      "premiumFeature4": "تحليلات الأداء",
+      "premiumNumber":"2",
+
+      "startupTitle": "خطة الشركات الناشئة",
+      "startupPrice": "50 جنيه / شهريًا",
+      "startupFeature1": "كل ما في الخطة المدفوعة",
+      "startupFeature2": "العمل على مشاريع حقيقية",
+      "startupFeature3": "الانضمام إلى فرق شركات ناشئة",
+      "startupFeature4": "توجيه وخبرة عملية",
+      "startupNumber":"3",
+
+      "buyNow": "اشتراك الآن"
+    },
+    "contact":{
+      "title":"تواصل معنا",
+      "buttonMessage":"ارسال",
+      "yourName":"اسمك",
+      "yourEmail":"ايملك",
+      "yourMessage":"رسالتك"
     }
+  },
+  "footer": {
+    "copyright": "جميع الحقوق محفوظة",
+    "description": "نهدف لتقديم أفضل الخدمات التعليمية بأسلوب بسيط، فعال، وممتع لجميع الطلاب.",
+    "main": "الرئيسية",
+    "services": "خدماتنا",
+    "links": "روابط سريعة",
+    "about": "عن المنصة",
+    "contact": "اتصل بنا",
+    "terms": "شروط الاستخدام",
+    "privacy": "سياسة الخصوصية",
+    "social":"تابعنا"
   }
 }

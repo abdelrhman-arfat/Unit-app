@@ -1,33 +1,16 @@
+import ContactUsMainSection from "@/app/_components/section/main/ContactUsMainSection";
 import HeroMainSection from "@/app/_components/section/main/HeroMainSection";
+import PricingMainSection from "@/app/_components/section/main/PricingMainSection";
 import ServicesMainSection from "@/app/_components/section/main/ServicesMainSection";
 import { services } from "@/app/types/Services";
+import { ExtractPlans, TPlan } from "@/app/utils/funcs/ExtractPlans";
+import { ExtractService } from "@/app/utils/funcs/ExtractService";
 import { getTranslations } from "next-intl/server";
 
 export default async function Home() {
   const t = await getTranslations("HomePage");
-
-  const services: services = [
-    {
-      title: t("services.pdfTitle"),
-      description: t("services.pdfDescription"),
-      icon: "FileText",
-    },
-    {
-      title: t("services.quizTitle"),
-      description: t("services.quizDescription"),
-      icon: "ClipboardList",
-    },
-    {
-      title: t("services.exercisesTitle"),
-      description: t("services.exercisesDescription"),
-      icon: "BookOpen",
-    },
-    {
-      title: t("services.examsTitle"),
-      description: t("services.examsDescription"),
-      icon: "CalendarCheck",
-    },
-  ];
+  const services: services = ExtractService(t);
+  const plans: TPlan[] = ExtractPlans(t);
   return (
     <div>
       <HeroMainSection
@@ -36,7 +19,13 @@ export default async function Home() {
         learnMore={t("learnMore")}
         getStarted={t("getStarted")}
       />
-      <ServicesMainSection header={t("services.title")} services={services} />
+      <ServicesMainSection title={t("services.title")} services={services} />
+      <PricingMainSection
+        plans={plans}
+        title={t("plans.plansTitle")}
+        start={t("plans.buyNow")}
+      />
+      <ContactUsMainSection />
     </div>
   );
 }

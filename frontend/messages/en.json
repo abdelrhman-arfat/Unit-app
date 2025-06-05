@@ -15,20 +15,55 @@
       "examsTitle": "Past Exams",
       "examsDescription": "Collections of previous exams for effective training and preparation."
     },
-    "footer": {
-      "copyright": "All rights reserved",
-      "description": "We aim to provide the best educational services in a simple, effective, and enjoyable way for all students.",
-      "main": "Home",
-      "services": "Our Services",
-      "links": "Quick Links",
-      "about": "About the Platform",
-      "contact": "Contact Us",
-      "terms": "Terms of Use",
-      "privacy": "Privacy Policy",
-      "social": "Follow Us"
+    "plans":{
+      "plansTitle": "Choose Your Plan",
+      "freeTitle": "Free Plan",
+      "freePrice": "Free",
+      "freeFeature1": "Default ",
+      "freeFeature2": "General PDF summaries",
+      "freeFeature3": "Limited access to quizzes",
+      "freeFeature4": "No analytics or community access",
+      "freeNumber":"1",
+    
+
+      "premiumTitle": "Premium Plan",
+      "premiumPrice": "EGP 10 / month",
+      "premiumFeature1": "30-day free trial",
+      "premiumFeature2": "Access to all PDFs and materials",
+      "premiumFeature3": "Join the student community",
+      "premiumFeature4": "Performance analytics",
+      "premiumNumber":"2",
+
+      "startupTitle": "Startup Plan",
+      "startupPrice": "EGP 50 / month",
+      "startupFeature1": "Everything in Premium",
+      "startupFeature2": "Work on real projects",
+      "startupFeature3": "Join startup teams",
+      "startupFeature4": "Mentorship and experience",
+      "startupNumber":"3",
+
+      "buyNow": "Buy Now"
+    },
+
+    "contact":{
+      "title":"Contact Us" ,
+      "yourName":"Your Name",
+      "yourEmail":"Your Email",
+      "yourMessage":"Your Message",
+      "buttonMessage":"send message"
     }
 
-
-
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "description": "We aim to provide the best educational services in a simple, effective, and enjoyable way for all students.",
+    "main": "Home",
+    "services": "Our Services",
+    "links": "Quick Links",
+    "about": "About the Platform",
+    "contact": "Contact Us",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "social": "Follow Us"
   }
 }
