@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Menu } from "lucide-react";
-import Link from "next/link";
 import Logo from "../common/Logo";
 import LanguageSwitcher from "../Buttons/LanguageSwitcher";
+import { Link } from "@/i18n/navigation";
 
 export default function LandingPageHeader() {
   return (
