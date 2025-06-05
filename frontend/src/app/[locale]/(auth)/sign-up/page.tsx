@@ -35,6 +35,7 @@ const SignupPage = async () => {
         signUpBtn={t("signUpBtn")}
       />
       <LoginWithMicrosoft />
+
       <div className="text-center text-sm">
         {t("alreadyAccount")}{" "}
         <Link

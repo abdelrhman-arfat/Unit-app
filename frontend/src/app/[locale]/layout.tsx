@@ -9,7 +9,7 @@ import { LangInitializer } from "../_components/Layout/LangInitializer";
 const roboto = Roboto({
   variable: "--font-roboto",
   weight: ["300", "400", "500", "600"],
-  subsets: ["latin"], // Added subset to fix preload error
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {

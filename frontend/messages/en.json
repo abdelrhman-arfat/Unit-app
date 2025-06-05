@@ -54,6 +54,14 @@
     }
 
   },
+  "AboutPage":{
+      "title": "Faculty of Computers and Information Students Platform",
+      "intro1": "We provide a comprehensive platform designed specifically for students of Tanta University's Faculty of Computers and Information. Easily manage your assignments, messages, comments, and university events — all in one convenient place.",
+      "intro2": "Our mission is to support students throughout their entire learning lifecycle by offering practical tools and resources that simplify studying and enhance communication. We continuously develop the platform to be scalable and adaptable, aiming to serve students across all universities in Egypt in the near future.",
+      "futureTitle": "Expanding Our Reach",
+      "futureDesc": "We are committed to continuous development, aiming to scale our platform for use by all universities across Egypt. By creating a unified educational ecosystem, we hope to empower students nationwide to succeed in their academic journey with ease and support.",
+      "cta": "Get Started"
+  },
   "footer": {
     "copyright": "All rights reserved",
     "description": "We aim to provide the best educational services in a simple, effective, and enjoyable way for all students.",
@@ -92,5 +100,10 @@
     "signUpBtn": "Sign Up",
     "alreadyAccount": "Already have an account?",
     "logIn": "Log in now"
+  },
+  "error": {
+    "title": "Oops! Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "button": "Go Back Home"
   }
 }

@@ -29,7 +29,7 @@ export default function LandingPageHeader() {
               Home
             </Button>
           </Link>
-          <Link href="#">
+          <Link href="/about">
             <Button
               variant="ghost"
               className="text-base cursor-pointer  dark:hover:bg-indigo-950/30"
@@ -70,7 +70,7 @@ export default function LandingPageHeader() {
                     Home
                   </Button>
                 </Link>
-                <Link href="#">
+                <Link href="/about">
                   <Button
                     variant="ghost"
                     className="w-full  justify-start text-base"
