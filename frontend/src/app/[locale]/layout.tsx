@@ -31,7 +31,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${roboto.variable}   w-full antialiased`}>
+      <body className={`${roboto.variable} w-full antialiased`}>
         <AppProvider>
           <NextIntlClientProvider messages={message}>
             <LangInitializer />
