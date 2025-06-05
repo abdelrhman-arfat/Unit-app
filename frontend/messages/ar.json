@@ -62,5 +62,32 @@
     "terms": "شروط الاستخدام",
     "privacy": "سياسة الخصوصية",
     "social":"تابعنا"
+  },
+  "LoginPage":{
+    "loginTitle": "تسجيل الدخول إلى حسابك",
+    "welcomeText": "مرحبًا بعودتك! الرجاء إدخال بياناتك.",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "loginBtn": "تسجيل الدخول",
+    "noAccount": "لا تملك حسابًا؟",
+    "signUp": "سجل الآن"
+  },
+  "SignUpPage":{
+    "signUpTitle": "إنشاء حساب",
+    "welcomeText": "ابدأ رحلتك معنا بإنشاء حساب جديد.",
+    "nameLabel":"اسمك",
+    "namePlaceholder":"ادخل اسمك",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "confirmPasswordLabel": "تأكيد كلمة المرور",
+    "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور",
+    "signUpBtn": "إنشاء حساب",
+    "alreadyAccount": "هل لديك حساب بالفعل؟",
+    "logIn": "سجّل الدخول الآن"
   }
 }

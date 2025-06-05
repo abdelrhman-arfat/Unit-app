@@ -2,48 +2,50 @@ import React from "react";
 import { Heading } from "@/components/ui/Heading";
 import { Paragraph } from "@/components/ui/Paragraph";
 import Link from "next/link";
-import LoginForm from "@/app/_components/forms/LoginForm";
+import SignUpForm from "@/app/_components/forms/SignUpForm";
 import LoginWithMicrosoft from "@/app/_components/Buttons/LoginWithMicrosoft";
-import Logo from "@/app/_components/common/Logo";
 import { getTranslations } from "next-intl/server";
+import Logo from "@/app/_components/common/Logo";
 
-const LoginPage = async () => {
-  const t = await getTranslations("LoginPage");
+const SignupPage = async () => {
+  const t = await getTranslations("SignUpPage");
 
   return (
-    <div className="w-full  shadow-sm p-5 max-w-md space-y-8 animate-fade-up">
+    <div className="w-full sm:max-w-md space-y-6 p-4 sm:p-6 rounded-md shadow animate-fade-up">
       <div>
         <Logo />
       </div>
 
-      <div className="space-y-3">
-        <Heading size="xl">{t("loginTitle")}</Heading>
+      <div className="space-y-2">
+        <Heading size="xl">{t("signUpTitle")}</Heading>
         <Paragraph className="text-muted-foreground text-lg">
           {t("welcomeText")}
         </Paragraph>
       </div>
 
-      <LoginForm
+      <SignUpForm
+        nameLabel={t("nameLabel")}
+        namePlaceholder={t("namePlaceholder")}
         emailLabel={t("emailLabel")}
         emailPlaceholder={t("emailPlaceholder")}
         passwordLabel={t("passwordLabel")}
         passwordPlaceholder={t("passwordPlaceholder")}
-        forgotPasswordText={t("forgotPassword")}
-        loginBtn={t("loginBtn")}
+        confirmPasswordLabel={t("confirmPasswordLabel")}
+        confirmPasswordPlaceholder={t("confirmPasswordPlaceholder")}
+        signUpBtn={t("signUpBtn")}
       />
       <LoginWithMicrosoft />
-
-      <div className="text-center text-sm pt-4 space-x-1">
-        <span>{t("noAccount")}</span>
+      <div className="text-center text-sm">
+        {t("alreadyAccount")}{" "}
         <Link
-          href="/sign-up"
+          href="/login"
           className="text-indigo-600 hover:underline font-medium"
         >
-          {t("signUp")}
+          {t("logIn")}
         </Link>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default SignupPage;

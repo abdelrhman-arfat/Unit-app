@@ -65,5 +65,32 @@
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "social": "Follow Us"
+  },
+  "LoginPage":{
+      "loginTitle": "Log in to your account",
+      "welcomeText": "Welcome back! Please enter your details.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot password?",
+      "loginBtn": "Log In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up now"
+  },
+  "SignUpPage":{
+    "signUpTitle": "Create an account",
+    "welcomeText": "Get started with your account.",
+    "nameLabel":"Name",
+    "namePlaceholder":"Enter your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "signUpBtn": "Sign Up",
+    "alreadyAccount": "Already have an account?",
+    "logIn": "Log in now"
   }
 }

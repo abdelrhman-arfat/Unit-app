@@ -5,22 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Menu } from "lucide-react";
-import LanguageSwitcher from "../Buttons/LanguageSwitcher";
 import Link from "next/link";
+import Logo from "../common/Logo";
+import LanguageSwitcher from "../Buttons/LanguageSwitcher";
 
 export default function LandingPageHeader() {
   return (
     <header className="sticky  top-0 z-50 w-full  bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className=" flex h-20 items-center justify-between">
         {/* Logo */}
-        <div>
-          <Link
-            href="/"
-            className="text-2xl flex gap-4 tracking-wider md:text-3xl font-extrabold text-indigo-600 hover:text-indigo-500 transition-colors"
-          >
-            FCI
-            <LanguageSwitcher />
-          </Link>
+        <div className="flex gap-4 items-center">
+          <Logo />
+          <LanguageSwitcher />
         </div>
 
         {/* Desktop nav */}
@@ -41,7 +37,7 @@ export default function LandingPageHeader() {
               About
             </Button>
           </Link>
-          <Link href="#">
+          <Link href="/login">
             <Button
               variant="outline"
               className="text-base cursor-pointer  dark:hover:bg-indigo-950/30"
@@ -49,7 +45,7 @@ export default function LandingPageHeader() {
               Login
             </Button>
           </Link>
-          <Link href="#">
+          <Link href="/sign-up">
             <Button className="text-base cursor-pointer bg-indigo-600 hover:bg-indigo-700">
               Register
             </Button>
@@ -83,7 +79,7 @@ export default function LandingPageHeader() {
                   </Button>
                 </Link>
                 <div className="h-px bg-border my-2"></div>
-                <Link href="#">
+                <Link href="/login">
                   <Button
                     variant="outline"
                     className="w-full  justify-start text-base"
@@ -91,7 +87,7 @@ export default function LandingPageHeader() {
                     Login
                   </Button>
                 </Link>
-                <Link href="#">
+                <Link href="/sign-up">
                   <Button className="w-full  justify-start text-base bg-indigo-600 hover:bg-indigo-700">
                     Register
                   </Button>

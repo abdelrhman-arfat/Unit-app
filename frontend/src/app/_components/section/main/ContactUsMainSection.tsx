@@ -21,7 +21,6 @@ const formVariants = {
 const ContactUsMainSection = () => {
   const dir = returnDirection(useLangSelector());
   const t = useTranslations("HomePage");
-  console.log();
 
   return (
     <section className="py-16 bg-white">
