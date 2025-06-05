@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { returnDirection } from "@/app/utils/funcs/TextDirection";
 import { useLangSelector } from "@/app/hooks/Selectors";
 import { Heading } from "@/components/ui/Heading";
-const iconMap = [Rocket, Briefcase, Star]; // أو غيّر حسب عدد الخطط
+const iconMap = [Rocket, Briefcase, Star];
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: {
@@ -17,8 +17,7 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.5,
-      ease: "easeOut",
+      duration: 0.6,
     },
   },
 };
@@ -49,7 +48,8 @@ const PricingMainSection = ({
               key={plan.title}
               variants={cardVariants}
               initial="hidden"
-              animate="visible"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
             >
               <Card className="rounded-2xl border h-[380px] border-indigo-200 shadow-sm hover:shadow-md transition-all bg-white">
                 <CardContent className="p-6 flex flex-col h-full justify-between">
@@ -60,9 +60,7 @@ const PricingMainSection = ({
                         {plan.title}
                       </h3>
                     </div>
-
                     <p className="text-xl font-semibold mb-4">{plan.price}</p>
-
                     <ul className="space-y-3 mb-6">
                       {plan.features.map((feature, i) => (
                         <li
@@ -75,11 +73,7 @@ const PricingMainSection = ({
                       ))}
                     </ul>
                   </div>
-
-                  <Button
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition"
-                    variant="default"
-                  >
+                  <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition">
                     {start}
                   </Button>
                 </CardContent>

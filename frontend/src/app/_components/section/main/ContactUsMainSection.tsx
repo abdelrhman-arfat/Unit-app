@@ -32,7 +32,8 @@ const ContactUsMainSection = () => {
       <motion.div
         variants={formVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
         className={`${dir}  px-6 md:px-20`}
       >
         {/* Form Section */}
