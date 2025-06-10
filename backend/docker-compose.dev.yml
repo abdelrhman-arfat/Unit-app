@@ -25,10 +25,10 @@ services:
     image: mysql:8
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: abdoyasser
+      MYSQL_ROOT_PASSWORD: abdoyasser # use your name for fast and easy access
       MYSQL_DATABASE: unit
-      MYSQL_USER: abdoyasser
-      MYSQL_PASSWORD: devpass
+      MYSQL_USER: abdoyasser # use your name for fast and easy access
+      MYSQL_PASSWORD: devpass # to easy access
     ports:
       - "3307:3306"
     volumes:
