@@ -54,7 +54,7 @@ root/
 
 ## ⚙️ Environment Variables
 
-### 🌐 Frontend (`frontend/.env.local`)
+### 🌐 Frontend (`frontend/.env`)
 
 ```env
 NEXT_PUBLIC_BACKEND_URL=
@@ -82,9 +82,34 @@ CLOUDINARY_API_SECRET=
 
 ```
 
-
 ## 🐟 Docker Build Dev :
+
 ```bash
   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 ```
 
+## 📘 Prisma Schema Overview
+
+| Model            | Key Fields                                    | Relations                                                                 |
+|------------------|-----------------------------------------------|---------------------------------------------------------------------------|
+| **Users**        | `id`, `email`, `name`, `role`, `Grade`        | - `communities`: [CommunityUser]  <br> - `created subjects`, `tasks`, etc. |
+| **Subject**      | `id`, `name`, `grade`, `specialization[]`     | - `doctor`: Users <br> - `documentations`, `tasks`, `quizzes`             |
+| **Documentations** | `id`, `title`, `description`, `isDeleted`   | - `subject`: Subject <br> - `uploader`: Users                              |
+| **Task**         | `id`, `title`, `description`, `endDate`       | - `subject`: Subject <br> - `creator`: Users                               |
+| **Quiz**         | `id`, `title`, `startDate`, `duration`        | - `subject`: Subject <br> - `creator`: Users                               |
+| **Events**       | `id`, `title`, `description`, `startDate`     | Standalone model for scheduled events                                     |
+| **Communities**  | `id`, `title`, `description`, `image`         | - `users`: [CommunityUser]                                                |
+| **CommunityUser**| `userId`, `communityId`, `role`, `joinedAt`   | Bridge table <br> - `user`: Users <br> - `community`: Communities         |
+
+---
+
+### 📦 Enums Used
+
+| Enum               | Values |
+|--------------------|--------|
+| `Roles`            | `doctor`, `assistant`, `worker`, `admin`, `leader`, `student` |
+| `Grades`           | `first`, `second`, `third`, `fourth` |
+| `Specializations`  | `general`, `cs`, `it`, `is`, `ai`, `se` |
+| `CommunityRoles`   | `manager`, `helper`, `reader` |
+
+---

@@ -1,0 +1,171 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  doctor
+  assistant
+  worker
+  admin
+  leader
+  student
+}
+
+enum Grades {
+  first
+  second
+  third
+  fourth
+}
+
+enum Specializations {
+  general
+  cs
+  it
+  is
+  ai
+  se
+}
+
+
+model Users {
+  id         Int     @id @default(autoincrement())
+  email      String   @unique
+  name       String 
+  image      String
+  password   String? 
+
+
+  role    Roles     @default(student)
+  specialization Specializations @default(general)
+  Grade   Grades
+
+
+  communities CommunityUser[]
+
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Subject {
+  id         Int    @id @default(autoincrement())
+  specialization  specializations[]
+  grade       Grades 
+  name        String
+
+  doctorId Int
+  doctor   Users @relation(fields: [doctorId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+
+model Documentations {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+
+  subjectId   Int
+  subject     Subject @relation(fields: [subjectId], references: [id])
+  
+  uploaderId Int
+  uploader   Users @relation(fields: [uploaderId], references: [id])
+  
+  isDeleted  Boolean @default(false)
+  deletedAt   DateTime? 
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  
+  endDate     DateTime
+  
+  subjectId   Int
+  subject     Subject @relation(fields: [subjectId], references: [id])
+
+  creatorId Int
+  creator   Users @relation(fields: [creatorId], references: [id])
+
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Quiz {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+    
+  startDate   DateTime
+  duration    Int
+  
+  subjectId   Int
+  subject     Subject @relation(fields: [subjectId], references: [id])
+
+  creatorId Int
+  creator   Users @relation(fields: [creatorId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Events {
+  id         Int     @id @default(autoincrement())
+  title         String
+  description   String
+  link          String 
+  image      String?
+
+  startDate   DateTime
+  endDate    DateTime
+
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Communities {
+  id           Int     @id @default(autoincrement())
+  title        String
+  description  String
+  image        String
+
+  users        CommunityUser[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum CommunityRoles {
+  manager
+  helper
+  reader
+}
+
+model CommunityUser {
+  user      Users     @relation(fields: [userId], references: [id])
+  userId    Int
+  community Communities @relation(fields: [communityId], references: [id])
+  communityId Int
+
+  role      CommunityRoles @default(reader) 
+  joinedAt  DateTime @default(now())
+
+  @@id([userId, communityId])
+}
+
+

@@ -28,7 +28,7 @@ services:
       MYSQL_ROOT_PASSWORD: abdoyasser # use your name for fast and easy access
       MYSQL_DATABASE: unit
       MYSQL_USER: abdoyasser # use your name for fast and easy access
-      MYSQL_PASSWORD: devpass # to easy access
+      MYSQL_PASSWORD: abdoyasser # use your name for fast and easy access
     ports:
       - "3307:3306"
     volumes:
