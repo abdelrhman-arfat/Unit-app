@@ -38,6 +38,7 @@ A full-stack web application designed to bring together students of the faculty 
 
 ## 🗂️ Folder Structure
 
+```bash
 root/
 ├── backend/ # Express.js API with Prisma
 │ ├── src/
@@ -49,6 +50,8 @@ root/
 │ ├── components/
 │ └── .env.local # Frontend environment variables
 └── README.md
+
+```
 
 ---
 
@@ -80,6 +83,7 @@ CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 
+
 ```
 
 ## 🐟 Docker Build Dev :
@@ -90,26 +94,112 @@ CLOUDINARY_API_SECRET=
 
 ## 📘 Prisma Schema Overview
 
-| Model            | Key Fields                                    | Relations                                                                 |
-|------------------|-----------------------------------------------|---------------------------------------------------------------------------|
-| **Users**        | `id`, `email`, `name`, `role`, `Grade`        | - `communities`: [CommunityUser]  <br> - `created subjects`, `tasks`, etc. |
-| **Subject**      | `id`, `name`, `grade`, `specialization[]`     | - `doctor`: Users <br> - `documentations`, `tasks`, `quizzes`             |
-| **Documentations** | `id`, `title`, `description`, `isDeleted`   | - `subject`: Subject <br> - `uploader`: Users                              |
-| **Task**         | `id`, `title`, `description`, `endDate`       | - `subject`: Subject <br> - `creator`: Users                               |
-| **Quiz**         | `id`, `title`, `startDate`, `duration`        | - `subject`: Subject <br> - `creator`: Users                               |
-| **Events**       | `id`, `title`, `description`, `startDate`     | Standalone model for scheduled events                                     |
-| **Communities**  | `id`, `title`, `description`, `image`         | - `users`: [CommunityUser]                                                |
-| **CommunityUser**| `userId`, `communityId`, `role`, `joinedAt`   | Bridge table <br> - `user`: Users <br> - `community`: Communities         |
+### 👤 Users
+
+Represents all platform users (students, doctors, admins, etc.).
+
+| Field            | Type              | Description                               |
+| ---------------- | ----------------- | ----------------------------------------- |
+| `role`           | `Roles` enum      | Role of the user (doctor, student, etc.)  |
+| `communityName`  | `String?`         | Linked to the `Communities.name`          |
+| `communityRole`  | `CommunityRoles?` | Role inside the community (manager, etc.) |
+| `specialization` | `Specializations` | User's academic field                     |
+| `Grade`          | `Grades`          | User's academic year                      |
 
 ---
 
-### 📦 Enums Used
+### 👥 Communities
 
-| Enum               | Values |
-|--------------------|--------|
-| `Roles`            | `doctor`, `assistant`, `worker`, `admin`, `leader`, `student` |
-| `Grades`           | `first`, `second`, `third`, `fourth` |
-| `Specializations`  | `general`, `cs`, `it`, `is`, `ai`, `se` |
-| `CommunityRoles`   | `manager`, `helper`, `reader` |
+Organized student groups like clubs, teams, or faculty divisions.
+
+| Field   | Type    | Description                    |
+| ------- | ------- | ------------------------------ |
+| `name`  | String  | Unique name used in relations  |
+| `title` | String  | Display title                  |
+| `users` | Users[] | Linked users in this community |
+
+---
+
+### 📚 Subject
+
+Courses for each specialization & grade, assigned to doctors.
+
+| Field            | Type             | Description                   |
+| ---------------- | ---------------- | ----------------------------- |
+| `specialization` | Enum[]           | Target specializations        |
+| `grade`          | Grades           | Target academic year          |
+| `doctorId`       | Users (relation) | Doctor who teaches the course |
+
+---
+
+### 📄 Documentations
+
+Lecture notes, PDFs, and resources uploaded by users.
+
+| Field        | Type     | Description                    |
+| ------------ | -------- | ------------------------------ |
+| `subjectId`  | Subject  | Linked subject                 |
+| `uploaderId` | Users    | Who uploaded the documentation |
+| `isDeleted`  | Boolean  | Soft-delete flag               |
+| `deletedAt`  | DateTime | When it was deleted (if any)   |
+
+---
+
+### ✅ Tasks
+
+Homework or assignments linked to subjects.
+
+| Field       | Type     | Description                 |
+| ----------- | -------- | --------------------------- |
+| `creatorId` | Users    | Creator (doctor, assistant) |
+| `endDate`   | DateTime | Deadline for the task       |
+
+---
+
+### ❓ Quizzes
+
+Online tests created by staff for students.
+
+| Field       | Type     | Description                 |
+| ----------- | -------- | --------------------------- |
+| `startDate` | DateTime | When quiz becomes available |
+| `duration`  | Int      | Duration in minutes         |
+
+---
+
+### 📅 Events
+
+Events hosted by the university or a community (e.g., seminars, contests).
+
+| Field       | Type     | Description           |
+| ----------- | -------- | --------------------- |
+| `link`      | String   | External or Zoom link |
+| `startDate` | DateTime | Event start time      |
+| `image`     | String?  | Optional event image  |
+
+---
+
+## 🧱 Enums Used
+
+### 🎭 Roles
+
+- `doctor`
+- `assistant`
+- `worker`
+- `admin`
+- `leader`
+- `student`
+
+### 🧠 Specializations
+
+- `general`, `cs`, `it`, `is`, `ai`, `se`
+
+### 🎓 Grades
+
+- `first`, `second`, `third`, `fourth`
+
+### 👥 CommunityRoles
+
+- `manager`, `helper`, `reader`
 
 ---
