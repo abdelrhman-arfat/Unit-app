@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -32,124 +31,122 @@ enum Specializations {
   ai
   se
 }
+
 model Users {
-  id         Int     @id @default(autoincrement())
-  email      String  @unique
-  name       String 
-  image      String
-  password   String? 
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String
+  image    String
+  password String?
 
-  role            Roles           @default(student)
-  specialization  Specializations @default(general)
-  Grade           Grades
+  role           Roles           @default(student)
+  specialization Specializations @default(general)
+  Grade          Grades
 
-  communityRole   CommunityRoles?
-  communityName   String?
-  community       Communities? @relation(fields: [communityName], references: [name])
+  communityRole CommunityRoles?
+  communityName String?
+  community     Communities?    @relation(fields: [communityName], references: [name])
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  Documentations Documentations[]
+  Task           Task[]
+  Quiz           Quiz[]
 }
-
-
 
 model Subject {
-  id         Int    @id @default(autoincrement())
-  specialization  specializations[]
-  grade       Grades 
-  name        String
+  id             Int             @id @default(autoincrement())
+  specialization Specializations
+  grade          Grades
+  name           String
 
-  doctorId Int
-  doctor   Users @relation(fields: [doctorId], references: [id])
-
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  Documentations Documentations[]
+  Task           Task[]
+  Quiz           Quiz[]
 }
 
-
 model Documentations {
-  id          Int     @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   title       String
   description String
   link        String
 
-  subjectId   Int
-  subject     Subject @relation(fields: [subjectId], references: [id])
-  
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
   uploaderId Int
   uploader   Users @relation(fields: [uploaderId], references: [id])
-  
-  isDeleted  Boolean @default(false)
-  deletedAt   DateTime? 
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-
 model Task {
-  id          Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   title       String
   description String
-  
-  endDate     DateTime
-  startDate   DateTime
 
-  subjectId   Int
-  subject     Subject @relation(fields: [subjectId], references: [id])
+  endDate   DateTime
+  startDate DateTime
+
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
 
   creatorId Int
   creator   Users @relation(fields: [creatorId], references: [id])
 
-
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Quiz {
-  id          Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   title       String
   description String
-    
-  startDate   DateTime
-  duration    Int
-  
-  subjectId   Int
-  subject     Subject @relation(fields: [subjectId], references: [id])
+
+  startDate DateTime
+  duration  Int
+
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
 
   creatorId Int
   creator   Users @relation(fields: [creatorId], references: [id])
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Events {
-  id         Int     @id @default(autoincrement())
-  title         String
-  description   String
-  link          String 
-  image      String?
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  link        String
+  image       String?
 
-  startDate   DateTime
-  endDate    DateTime
+  startDate DateTime
+  endDate   DateTime
 
-  
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Communities {
-  id          Int     @id @default(autoincrement())
-  name        String  @unique
+  id          Int    @id @default(autoincrement())
+  name        String @unique
   title       String
   description String
   image       String
 
-  users       Users[] 
+  users Users[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum CommunityRoles {
@@ -157,7 +154,3 @@ enum CommunityRoles {
   helper
   reader
 }
-
-
-
-

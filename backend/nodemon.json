@@ -1,7 +1,5 @@
 {
-  "watch": ["src"],
-  "ext": "ts,json",
-  "ignore": ["node_modules"],
-  "exec": "node --loader ts-node/esm src/index.ts",
-  "verbose": true
+  "watch": ["dist"],
+  "ext": "js",
+  "exec": "node dist/index.js"
 }

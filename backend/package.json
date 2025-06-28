@@ -9,7 +9,7 @@
     "build": " tsc",
     "start": "node dist/index.js",
     "build-and-start": "npm run db:push && npm run db:generate && npm run build && npm run start",
-    "dev": "nodemon"
+    "dev": "concurrently \"tsc --watch\" \"nodemon dist/index.js\""
   },
   "keywords": [],
   "author": "Abdo Yasser <abdoarfat2006@gmail.com> (https://github.com/abdelrhman-arfat)",
@@ -17,6 +17,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^6.9.0",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "commander": "^13.1.0",
     "cookie-parser": "^1.4.7",
@@ -24,20 +25,22 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
     "inquirer": "^12.4.2",
     "jsonwebtoken": "^9.0.2",
     "rimraf": "^6.0.1",
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
-    "@types/jsonwebtoken": "^9.0.9",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.13.10",
     "@typescript-eslint/eslint-plugin": "^8.27.0",
     "@typescript-eslint/parser": "^8.27.0",
-    "concurrently": "^9.1.2",
+    "concurrently": "^9.2.0",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.3",
