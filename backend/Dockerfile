@@ -1,17 +1,13 @@
-FROM node:22 as base
-
+FROM node:22 AS base
 WORKDIR /app
-
 COPY package*.json ./
+COPY tsconfig.json ./
+
+FROM base as development
+ENV NODE_ENV=development
+
+RUN npm install --include=dev
 
 COPY . .
 
-FROM base as development
-RUN npm install
-ENV NODE_ENV=development
 CMD ["npm", "run", "dev"]
-
-FROM base as production
-RUN npm install --only=production
-ENV NODE_ENV=production
-CMD ["npm", "run", "build-and-start"]

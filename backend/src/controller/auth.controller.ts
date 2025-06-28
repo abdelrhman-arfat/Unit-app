@@ -1,25 +1,26 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
 
 import { jsonStandard } from "../utils/jsonStander.js";
 import { jwtRefreshService, jwtService } from "../services/JwtService.js";
 import { Tokens } from "../constants/Tokens.js";
 
 import type { TokenSettingType } from "../types/TokenSettingType.js";
-import type { User } from "../types/User.js";
+import { userService } from "../services/UserService.js";
+import { Grades, Roles } from "../types/enums.js";
+import { User } from "../types/User.js";
+import { user } from "@prisma/client";
 
 dotenv.config();
-const prisma = new PrismaClient();
+
 
 // ------------------------------ Controllers --------------------------------
-
 /**
- * @name   General
  * @param  req work with dependency injection take request body data
  * @param  res work with dependency injection to return the response
  */
+
 
 /**
  * @name    register
@@ -27,22 +28,29 @@ const prisma = new PrismaClient();
  */
 const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
-  const existingUser = await prisma.users.findUnique({ where: { email } });
+  const existingUser = await userService.getUserByEmail(email);
   if (existingUser) {
     return res.status(409).json(jsonStandard(null, 409, "User already exists"));
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = await prisma.users.create({
-    data: {
-      name,
-      email,
-      password: hashedPassword,
-      image: "",
-      Grade: "first",
-    },
-  });
+  const userData = {
+    name,
+    email,
+    password: hashedPassword,
+    role: Roles.student,
+    image: "",
+    grade: Grades.first,
+  };
+
+  const newUser = await userService.createUser(userData as user);
+
+  if (!newUser) {
+    return res
+      .status(500)
+      .json(jsonStandard(null, 500, "can't create the suers"));
+  }
 
   return setResponseForAuth(res, newUser, "Register successfully");
 };
@@ -54,18 +62,15 @@ const register = async (req: Request, res: Response) => {
 const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = await prisma.users.findUnique({ where: { email } });
+  const user = await userService.getUserByEmail(email);
+  const invalidMessage = "Invalid email or password";
   if (!user || !user.password) {
-    return res
-      .status(401)
-      .json(jsonStandard(null, 401, "Invalid email or password"));
+    return res.status(401).json(jsonStandard(null, 401, invalidMessage));
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return res
-      .status(401)
-      .json(jsonStandard(null, 401, "Invalid email or password"));
+    return res.status(401).json(jsonStandard(null, 401, invalidMessage));
   }
 
   return setResponseForAuth(res, user, "login Successfully");
@@ -79,17 +84,17 @@ const login = async (req: Request, res: Response) => {
 const loginWithGoogle = async (req: Request, res: Response) => {
   const { email, name, image } = req.body;
 
-  let user = await prisma.users.findUnique({ where: { email } });
+  let user = await userService.getUserByEmail(email);
 
   if (!user) {
-    user = await prisma.users.create({
-      data: {
-        name,
-        email,
-        image,
-        Grade: "first",
-      },
-    });
+    const data = {
+      name,
+      email,
+      image,
+      role: Roles.student,
+      grade: Grades.first,
+    };
+    user = await userService.createUser(data as user);
   }
 
   return setResponseForAuth;
@@ -133,7 +138,7 @@ const userInResponse = (user: any) => ({
 // Handle setting response's cookies and json data
 const setResponseForAuth = (
   res: Response,
-  user: User,
+  user: user | User,
   message: string
 ): Response => {
   const payload = {

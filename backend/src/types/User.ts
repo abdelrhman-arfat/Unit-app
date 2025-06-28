@@ -1,9 +1,15 @@
+import { Roles, CommunityRoles, Grades, Specializations } from "./enums.js";
 export type User = {
   id: number;
   name: string;
   email: string;
-  image: string;
-  Grade: string;
-  createdAt: Date;
-  updatedAt: Date;
+  password?: string;
+  community?: string;
+  communityRole?: CommunityRoles;
+  image?: string;
+  grade: Grades;
+  role: Roles;
+  specialization?: Specializations;
+  createdAt?: Date;
+  updatedAt?: Date;
 };

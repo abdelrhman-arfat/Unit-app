@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+
 }
 
 datasource db {
@@ -7,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Roles {
+enum roles {
   doctor
   assistant
   worker
@@ -16,14 +17,14 @@ enum Roles {
   student
 }
 
-enum Grades {
+enum grades {
   first
   second
   third
   fourth
 }
 
-enum Specializations {
+enum specializations {
   general
   cs
   it
@@ -32,125 +33,141 @@ enum Specializations {
   se
 }
 
-model Users {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  name     String
-  image    String
-  password String?
-
-  role           Roles           @default(student)
-  specialization Specializations @default(general)
-  Grade          Grades
-
-  communityRole CommunityRoles?
-  communityName String?
-  community     Communities?    @relation(fields: [communityName], references: [name])
-
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  Documentations Documentations[]
-  Task           Task[]
-  Quiz           Quiz[]
-}
-
-model Subject {
-  id             Int             @id @default(autoincrement())
-  specialization Specializations
-  grade          Grades
-  name           String
-
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  Documentations Documentations[]
-  Task           Task[]
-  Quiz           Quiz[]
-}
-
-model Documentations {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
-  link        String
-
-  subjectId Int
-  subject   Subject @relation(fields: [subjectId], references: [id])
-
-  uploaderId Int
-  uploader   Users @relation(fields: [uploaderId], references: [id])
-
-  isDeleted Boolean   @default(false)
-  deletedAt DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Task {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
-
-  endDate   DateTime
-  startDate DateTime
-
-  subjectId Int
-  subject   Subject @relation(fields: [subjectId], references: [id])
-
-  creatorId Int
-  creator   Users @relation(fields: [creatorId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Quiz {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
-
-  startDate DateTime
-  duration  Int
-
-  subjectId Int
-  subject   Subject @relation(fields: [subjectId], references: [id])
-
-  creatorId Int
-  creator   Users @relation(fields: [creatorId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Events {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String
-  link        String
-  image       String?
-
-  startDate DateTime
-  endDate   DateTime
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Communities {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
-  title       String
-  description String
-  image       String
-
-  users Users[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum CommunityRoles {
+enum communityRoles {
   manager
   helper
   reader
+}
+
+model user {
+  id              Int               @id @default(autoincrement())
+  email           String            @unique
+  name            String
+  image           String
+  password        String?
+
+  role            roles             @default(student)
+  specialization  specializations   @default(general)
+  grade           grades
+
+  communityRole   communityRoles?
+  communityName   String?
+  community       community?        @relation(fields: [communityName], references: [name])
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  documentations  documentation[]
+  tasks           task[]
+  quizzes         quiz[]
+
+  @@map("Users")
+}
+
+model subject {
+  id              Int               @id @default(autoincrement())
+  specialization  specializations
+  grade           grades
+  name            String
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  documentations  documentation[]
+  tasks           task[]
+  quizzes         quiz[]
+
+  @@map("Subject")
+}
+
+model documentation {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  link          String
+
+  subjectId     Int
+  subject       subject  @relation(fields: [subjectId], references: [id])
+
+  uploaderId    Int
+  uploader      user     @relation(fields: [uploaderId], references: [id])
+
+  isDeleted     Boolean  @default(false)
+  deletedAt     DateTime?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("Documentations")
+}
+
+model task {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+
+  startDate     DateTime
+  endDate       DateTime
+
+  subjectId     Int
+  subject       subject  @relation(fields: [subjectId], references: [id])
+
+  creatorId     Int
+  creator       user     @relation(fields: [creatorId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("Task")
+}
+
+model quiz {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+
+  startDate     DateTime
+  duration      Int
+
+  subjectId     Int
+  subject       subject  @relation(fields: [subjectId], references: [id])
+
+  creatorId     Int
+  creator       user     @relation(fields: [creatorId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("Quiz")
+}
+
+model event {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  link          String
+  image         String?
+
+  startDate     DateTime
+  endDate       DateTime
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("Events")
+}
+
+model community {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  title         String
+  description   String
+  image         String
+
+  users         user[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("Communities")
 }
