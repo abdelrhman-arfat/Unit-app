@@ -68,7 +68,8 @@ model subject {
   id              Int               @id @default(autoincrement())
   specialization  specializations
   grade           grades
-  name            String
+  name            String            @unique
+
 
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt

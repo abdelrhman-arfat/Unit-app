@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Tokens } from "../constants/Tokens.js";
 import { jsonStandard } from "../utils/jsonStander.js";
-import { jwtService } from "../services/JwtService";
+import { jwtService } from "../services/JwtService.js";
 import { userService } from "../services/UserService.js";
 import { JwtPayload } from "jsonwebtoken";
 import { user } from "@prisma/client";
@@ -23,23 +23,21 @@ export const isLoginMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const Unauthorized = UnauthorizedResponse(res);
-
   const token = req.cookies[Tokens.token];
   if (!token) {
-    return Unauthorized;
+    return UnauthorizedResponse(res);
   }
+
   const payload = jwtService.decodeToken(token) as JwtPayload;
   if (!payload) {
-    return Unauthorized;
+    return UnauthorizedResponse(res);
   }
 
   const user = await userService.getUserById(payload.id);
-
   if (!user) {
-    return Unauthorized;
+    return UnauthorizedResponse(res);
   }
 
-  req.user = user;
+  req.user = user as user;
   next();
 };

@@ -9,10 +9,22 @@ import {
 
 const prisma = new PrismaClient();
 
+const userSelection = {
+  id: true,
+  name: true,
+  email: true,
+  image: true,
+  role: true,
+  grade: true,
+  specialization: true,
+  communityName: true,
+};
+
 class UserService {
-  async getUserById(id: string): Promise<user | null> {
+  async getUserById(id: string) {
     return await prisma.user.findUnique({
       where: { id: Number(id) },
+      select: userSelection,
     });
   }
 
@@ -37,36 +49,30 @@ class UserService {
     });
   }
 
-  async getUsersByRole(role: roles): Promise<user[]> {
+  async getUsersByCommunity(
+    communityName: string,
+    skip?: number,
+    limit?: number
+  ) {
     return await prisma.user.findMany({
-      where: { role },
-    });
-  }
-
-  async getUsersByGrade(grade: grades): Promise<user[]> {
-    return await prisma.user.findMany({
-      where: { grade },
-    });
-  }
-
-  async getUsersBySpecialization(
-    specialization: specializations
-  ): Promise<user[]> {
-    return await prisma.user.findMany({
-      where: { specialization },
-    });
-  }
-
-  async getUsersByCommunity(communityName: string): Promise<user[]> {
-    return await prisma.user.findMany({
+      ...(skip && { skip }),
+      ...(limit && { take: limit }),
       where: { communityName },
+      select: userSelection,
     });
   }
 
-  async getUsersByCommunityRole(role: communityRoles): Promise<user[]> {
+  async getAllUsers(where: any, skip?: number, limit?: number) {
     return await prisma.user.findMany({
-      where: { communityRole: role },
+      ...(skip && { skip }),
+      ...(limit && { take: limit }),
+      where,
+      select: userSelection,
     });
+  }
+
+  async getUsersPageAvailable(where: any) {
+    return await prisma.user.count({ where });
   }
 }
 

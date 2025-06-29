@@ -10,17 +10,15 @@ import type { TokenSettingType } from "../types/TokenSettingType.js";
 import { userService } from "../services/UserService.js";
 import { Grades, Roles } from "../types/enums.js";
 import { User } from "../types/User.js";
-import { user } from "@prisma/client";
+import { roles, user } from "@prisma/client";
 
 dotenv.config();
-
 
 // ------------------------------ Controllers --------------------------------
 /**
  * @param  req work with dependency injection take request body data
  * @param  res work with dependency injection to return the response
  */
-
 
 /**
  * @name    register
@@ -36,12 +34,8 @@ const register = async (req: Request, res: Response) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const userData = {
-    name,
-    email,
+    ...userInCreate({ email, name, image: "" }),
     password: hashedPassword,
-    role: Roles.student,
-    image: "",
-    grade: Grades.first,
   };
 
   const newUser = await userService.createUser(userData as user);
@@ -87,17 +81,11 @@ const loginWithGoogle = async (req: Request, res: Response) => {
   let user = await userService.getUserByEmail(email);
 
   if (!user) {
-    const data = {
-      name,
-      email,
-      image,
-      role: Roles.student,
-      grade: Grades.first,
-    };
+    const data = userInCreate({ email, name, image });
     user = await userService.createUser(data as user);
   }
 
-  return setResponseForAuth;
+  return setResponseForAuth(res, user, "login Successfully");
 };
 
 /**
@@ -132,7 +120,25 @@ const userInResponse = (user: any) => ({
   name: user.name,
   email: user.email,
   image: user.image,
-  Grade: user.Grade,
+  grade: user.grade,
+  role: user.role,
+  specialization: user.specialization,
+});
+
+const userInCreate = ({
+  email,
+  name,
+  image,
+}: {
+  email: string;
+  name: string;
+  image: string;
+}) => ({
+  name,
+  email,
+  image: image || "",
+  role: Roles.student,
+  grade: Grades.first,
 });
 
 // Handle setting response's cookies and json data
@@ -156,5 +162,5 @@ const setResponseForAuth = (
     .cookie(Tokens.token, token, cookieOfToken)
     .cookie(Tokens.refreshToken, refreshToken, cookieOfRefreshToken)
     .status(200)
-    .json(jsonStandard({ user: returnedUser }, 200, message));
+    .json(jsonStandard({ data: returnedUser }, 200, message));
 };

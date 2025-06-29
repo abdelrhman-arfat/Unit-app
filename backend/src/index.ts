@@ -1,9 +1,12 @@
-import express, { Request, Response } from "express";
+import express, { Response } from "express";
 import { CLIENT_URL, PORT } from "./constants/ENV.js";
-import { router as authRouter } from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
+import { authRouter } from "./routes/auth.route.js";
+import { userRouter } from "./routes/user.route.js";
+import { docsRouter } from "./routes/docs.route.js";
+import { subjectRouter } from "./routes/subject.route.js";
 const allowedOrigins = CLIENT_URL || "http://localhost:3000";
 const app = express();
 
@@ -41,7 +44,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 try {
-  app.use("/auth", authRouter);
+  app
+    .use("/auth", authRouter)
+    .use("/user", userRouter)
+    .use("/docs", docsRouter)
+    .use("/subject", subjectRouter)
+    .use("*", (_, res: Response) => {
+      res.status(404).json({ message: "Route not found" });
+    });
 
   app.listen(PORT, () => {
     console.log("server is running on port " + PORT);
