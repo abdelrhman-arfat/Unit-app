@@ -6,6 +6,10 @@ import setPagination, { getCountOfPages } from "../utils/setPagination.js";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 
 // ------------------------------ Controllers --------------------------------
+/**
+ * @param  req work with dependency injection take request body data
+ * @param  res work with dependency injection to return the response
+ */
 
 /**
   @desc    Get all users (with optional filters)

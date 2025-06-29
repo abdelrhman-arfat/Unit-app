@@ -18,6 +18,13 @@ const UnauthorizedResponse = (res: Response) => {
   return res.status(401).json(jsonStandard(null, 401, "Unauthorized"));
 };
 
+/**
+ * @param req
+ * @param res
+ * @param next
+ * @description check if the user is login
+ * @returns response with status 401 if not login | return the user in req.user
+ */
 export const isLoginMiddleware = async (
   req: Request,
   res: Response,

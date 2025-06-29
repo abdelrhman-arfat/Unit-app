@@ -3,14 +3,18 @@ import { docsService } from "../services/DocsService.js";
 import { setResponse } from "../utils/jsonStander.js";
 import setPagination from "../utils/setPagination.js";
 
-// لو محتاجهم للـ enum validation
 import { grades, specializations } from "@prisma/client";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { subjectService } from "../services/SubjectService.js";
 
+// ------------------------------ Controllers --------------------------------
+/**
+ * @param  req work with dependency injection take request body data
+ * @param  res work with dependency injection to return the response
+ */
+
 /**
   @desc    Get all documentation with filters
-  @route   GET /api/docs?title=...&subjectId=...&uploaderId=...
 */
 export const getAllDocs = async (req: Request, res: Response) => {
   const filters = req.query;
@@ -59,7 +63,6 @@ export const getAllDocs = async (req: Request, res: Response) => {
 
 /**
   @desc    Get single documentation by ID
-  @route   GET /api/docs/:id
 */
 export const getDocById = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
@@ -72,7 +75,6 @@ export const getDocById = async (req: Request, res: Response) => {
 
 /**
   @desc    Create new documentation
-  @route   POST /api/docs
 */
 export const createDoc = async (req: Request, res: Response) => {
   const { title, subjectId, link, description } = req.body;
@@ -93,7 +95,6 @@ export const createDoc = async (req: Request, res: Response) => {
 
 /**
   @desc    Update existing documentation
-  @route   PUT /api/docs/:id
 */
 export const updateDoc = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
@@ -121,7 +122,6 @@ export const updateDoc = async (req: Request, res: Response) => {
 
 /**
   @desc    Soft delete documentation
-  @route   DELETE /api/docs/:id
 */
 export const deleteDoc = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
@@ -137,7 +137,6 @@ export const deleteDoc = async (req: Request, res: Response) => {
 
 /**
   @desc    Get docs by subjectId
-  @route   GET /api/docs/by-subject/:subjectId
 */
 export const getDocsBySubjectId = async (req: Request, res: Response) => {
   const subjectId = Number(req.params.subjectId);
@@ -154,7 +153,6 @@ export const getDocsBySubjectId = async (req: Request, res: Response) => {
 
 /**
   @desc    Get docs by grade
-  @route   GET /api/docs/by-grade/:grade
 */
 export const getDocsByGrade = async (req: Request, res: Response) => {
   const grade = req.params.grade as grades;
@@ -165,7 +163,6 @@ export const getDocsByGrade = async (req: Request, res: Response) => {
 
 /**
   @desc    Get docs by specialization
-  @route   GET /api/docs/by-specialization/:specialization
 */
 export const getDocsBySpecialization = async (req: Request, res: Response) => {
   const specialization = req.params.specialization as specializations;

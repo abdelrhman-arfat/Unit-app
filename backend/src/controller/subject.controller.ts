@@ -4,11 +4,17 @@ import { setResponse } from "../utils/jsonStander.js";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { grades, specializations } from "@prisma/client";
 
+/**
+ * @description Get all subjects
+ */
 export const getAllSubjects = async (req: Request, res: Response) => {
   const subjects = await subjectService.getAll();
   return setResponse(res, { data: subjects }, 200, "Subjects fetched");
 };
 
+/**
+ * @description Get subject by ID
+ */
 export const getSubjectById = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const subject = await subjectService.getById(id);
@@ -18,6 +24,9 @@ export const getSubjectById = async (req: Request, res: Response) => {
   return setResponse(res, { data: subject }, 200, "Subject found");
 };
 
+/**
+ * @description Create new subject
+ */
 export const createSubject = async (req: Request, res: Response) => {
   const { name, grade, specialization } = req.body;
 
@@ -33,6 +42,9 @@ export const createSubject = async (req: Request, res: Response) => {
   return setResponse(res, { data: subject }, 201, "Subject created");
 };
 
+/**
+ * @description Update subject by ID
+ */
 export const updateSubject = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const { name, grade, specialization } = req.body;
@@ -44,12 +56,18 @@ export const updateSubject = async (req: Request, res: Response) => {
   return setResponse(res, { data: subject }, 200, "Subject updated");
 };
 
+/**
+ * @description Delete subject by ID
+ */
 export const deleteSubject = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const subject = await subjectService.delete(id);
   return setResponse(res, { data: subject }, 200, "Subject deleted");
 };
 
+/**
+ * @description Delete subject by ID
+ */
 export const getSubjectsByUserData = async (req: Request, res: Response) => {
   const grade = req.user.grade;
   const specialization = req.user.specialization as specializations;
