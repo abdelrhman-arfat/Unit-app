@@ -12,7 +12,7 @@ A full-stack web application designed to bring together students of the faculty 
 - 📅 **Task & Quiz Alerts** – Automated notifications/reminders before deadlines.
 - 📨 **Messages & Email Alerts** – Important notices and alerts sent directly to students.
 - 🧪 **Quiz & Task Management** – View assigned tasks/quizzes and track deadlines.
-- 🧠 **Microsoft Login** – Secure login using Microsoft OAuth 2.0.
+- 🧠 **Google Login** – Secure login using Google  OAuth 2.0.
 - 📤 **Upload Files** – Using `Multer` and `Cloudinary` for secure and scalable media upload.
 
 ### 🏛️ For Faculty & Union
