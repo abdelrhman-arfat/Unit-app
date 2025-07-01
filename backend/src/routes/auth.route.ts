@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { validationMiddleware } from "../middleware/validationMiddleware.js";
-import { login, logout, register } from "../controller/auth.controller.js";
+import {
+  login,
+  logout,
+  register,
+  updateToken,
+} from "../controller/auth.controller.js";
 import { asyncWrapper } from "../utils/AsyncWrapper.js";
 import { isLoginMiddleware } from "../middleware/isLoginMiddleware.js";
 import {
@@ -10,12 +15,22 @@ import {
 const router = Router();
 
 router
-  .post("/login", loginValidation, validationMiddleware, asyncWrapper(login))
+  .post(
+    "/login",
+    loginValidation,
+    asyncWrapper(validationMiddleware),
+    asyncWrapper(login)
+  )
   .post(
     "/register",
     registerValidation,
-    validationMiddleware,
+    asyncWrapper(validationMiddleware),
     asyncWrapper(register)
   )
-  .get("/logout", asyncWrapper(isLoginMiddleware), asyncWrapper(logout));
+  .get("/logout", asyncWrapper(isLoginMiddleware), asyncWrapper(logout))
+  .get(
+    "/refresh-token",
+    asyncWrapper(isLoginMiddleware),
+    asyncWrapper(updateToken)
+  );
 export { router as authRouter };

@@ -12,8 +12,8 @@ import { checkIfInEnum } from "../utils/checkIfInEnum.js";
  */
 
 /**
+ * @name    getAllUsers
   @desc    Get all users (with optional filters)
-  @route   GET /api/users/all-users?email=...&grade=...&role=...&specialization=...
 */
 const getAllUsers = async (req: Request, res: Response) => {
   const [skip, limit] = setPagination(req);
@@ -60,8 +60,18 @@ const getAllUsers = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name        getMe
+ * @description getUserData
+ */
+
+const getMe = (req: Request, res: Response) => {
+  const user = req.user;
+  return setResponse(res, { data: user }, 200, "User fetched");
+};
+
+/**
+ * @name    getUsersByCommunity
   @desc    Get users by community name
-  @route   GET /api/users/community/:communityName
 */
 const getUsersByCommunity = async (req: Request, res: Response) => {
   const { communityName } = req.params;
@@ -84,6 +94,6 @@ const getUsersByCommunity = async (req: Request, res: Response) => {
   );
 };
 
-export { getAllUsers, getUsersByCommunity };
+export { getAllUsers, getUsersByCommunity, getMe };
 
 // ------------------------------ Utils --------------------------------

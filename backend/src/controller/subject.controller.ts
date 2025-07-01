@@ -5,6 +5,7 @@ import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { grades, specializations } from "@prisma/client";
 
 /**
+ * @name       getAllSubjects
  * @description Get all subjects
  */
 export const getAllSubjects = async (req: Request, res: Response) => {
@@ -13,6 +14,7 @@ export const getAllSubjects = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name       getSubjectById
  * @description Get subject by ID
  */
 export const getSubjectById = async (req: Request, res: Response) => {
@@ -25,6 +27,7 @@ export const getSubjectById = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name       createSubject
  * @description Create new subject
  */
 export const createSubject = async (req: Request, res: Response) => {
@@ -43,6 +46,7 @@ export const createSubject = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name       updateSubject
  * @description Update subject by ID
  */
 export const updateSubject = async (req: Request, res: Response) => {
@@ -57,6 +61,7 @@ export const updateSubject = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name       deleteSubject
  * @description Delete subject by ID
  */
 export const deleteSubject = async (req: Request, res: Response) => {
@@ -66,6 +71,7 @@ export const deleteSubject = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name       getSubjectsByUserData
  * @description Delete subject by ID
  */
 export const getSubjectsByUserData = async (req: Request, res: Response) => {

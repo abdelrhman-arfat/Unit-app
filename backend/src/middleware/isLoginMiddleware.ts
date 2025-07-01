@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Tokens } from "../constants/Tokens.js";
-import { jsonStandard } from "../utils/jsonStander.js";
+import { jsonStandard, setResponse } from "../utils/jsonStander.js";
 import { jwtService } from "../services/JwtService.js";
 import { userService } from "../services/UserService.js";
 import { JwtPayload } from "jsonwebtoken";
@@ -10,12 +10,16 @@ declare global {
   namespace Express {
     interface Request {
       user: user;
+      file?: Express.Multer.File;
+      files?:
+        | { [fieldname: string]: Express.Multer.File[] }
+        | Express.Multer.File[];
     }
   }
 }
 
 const UnauthorizedResponse = (res: Response) => {
-  return res.status(401).json(jsonStandard(null, 401, "Unauthorized"));
+  return setResponse(res, { data: null }, 401, "Unauthorized");
 };
 
 /**

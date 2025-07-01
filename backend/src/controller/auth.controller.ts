@@ -11,6 +11,7 @@ import { userService } from "../services/UserService.js";
 import { Grades, Roles } from "../types/enums.js";
 import { User } from "../types/User.js";
 import { roles, user } from "@prisma/client";
+import { JwtPayload } from "jsonwebtoken";
 
 dotenv.config();
 
@@ -99,7 +100,38 @@ const logout = (req: Request, res: Response) => {
   return res.status(200).json(jsonStandard(null, 200, "Logout successfully"));
 };
 
-export { register, login, loginWithGoogle, logout };
+/**
+ * @name        updateToken
+ * @description update token with refresh token
+ */
+const updateToken = async (req: Request, res: Response) => {
+  const refreshToken = req.cookies[Tokens.refreshToken];
+
+  if (!refreshToken) {
+    return res.status(401).json(jsonStandard(null, 401, "Unauthorized"));
+  }
+
+  const decodedRefreshToken = jwtRefreshService.decodeToken(
+    refreshToken
+  ) as JwtPayload;
+
+  if (!decodedRefreshToken) {
+    return res.status(401).json(jsonStandard(null, 401, "Unauthorized"));
+  }
+
+  if (decodedRefreshToken.id !== req.user.id) {
+    return res.status(401).json(jsonStandard(null, 401, "Unauthorized"));
+  }
+
+  const token = jwtService.generateToken({ id: req.user.id });
+
+  return res
+    .cookie(Tokens.token, token, tokenSetting(defaultMaxAgeToken))
+    .status(200)
+    .json(jsonStandard(null, 200, "Token updated"));
+};
+
+export { register, login, loginWithGoogle, updateToken, logout };
 
 // -------------------------------- UTILS ----------------------------
 
@@ -125,6 +157,7 @@ const userInResponse = (user: any) => ({
   specialization: user.specialization,
 });
 
+// what will be returned to but in create data for the user data
 const userInCreate = ({
   email,
   name,
@@ -141,7 +174,13 @@ const userInCreate = ({
   grade: Grades.first,
 });
 
-// Handle setting response's cookies and json data
+/**
+ * @name setResponseForAuth
+ * @param res
+ * @param user
+ * @param message
+ * @returns response with handled tokens and json data
+ */
 const setResponseForAuth = (
   res: Response,
   user: user | User,

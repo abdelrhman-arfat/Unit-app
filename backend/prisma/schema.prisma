@@ -161,7 +161,6 @@ model event {
 model community {
   id            Int      @id @default(autoincrement())
   name          String   @unique
-  title         String
   description   String
   image         String
 

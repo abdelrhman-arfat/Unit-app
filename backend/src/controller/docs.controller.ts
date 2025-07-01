@@ -14,6 +14,7 @@ import { subjectService } from "../services/SubjectService.js";
  */
 
 /**
+  @name    getAllDocs
   @desc    Get all documentation with filters
 */
 export const getAllDocs = async (req: Request, res: Response) => {
@@ -62,6 +63,7 @@ export const getAllDocs = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    getDocById
   @desc    Get single documentation by ID
 */
 export const getDocById = async (req: Request, res: Response) => {
@@ -74,6 +76,7 @@ export const getDocById = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    createDoc
   @desc    Create new documentation
 */
 export const createDoc = async (req: Request, res: Response) => {
@@ -94,6 +97,7 @@ export const createDoc = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    updateDoc
   @desc    Update existing documentation
 */
 export const updateDoc = async (req: Request, res: Response) => {
@@ -121,6 +125,7 @@ export const updateDoc = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    deleteDoc
   @desc    Soft delete documentation
 */
 export const deleteDoc = async (req: Request, res: Response) => {
@@ -136,6 +141,7 @@ export const deleteDoc = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    getDocsBySubjectId
   @desc    Get docs by subjectId
 */
 export const getDocsBySubjectId = async (req: Request, res: Response) => {
@@ -152,6 +158,7 @@ export const getDocsBySubjectId = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    getDocsByGrade
   @desc    Get docs by grade
 */
 export const getDocsByGrade = async (req: Request, res: Response) => {
@@ -162,6 +169,7 @@ export const getDocsByGrade = async (req: Request, res: Response) => {
 };
 
 /**
+  @name    getDocsBySpecialization
   @desc    Get docs by specialization
 */
 export const getDocsBySpecialization = async (req: Request, res: Response) => {
