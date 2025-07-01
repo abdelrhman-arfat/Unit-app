@@ -80,6 +80,11 @@ GOOGLE_AUTH_SECRET=
 GOOGLE_AUTH_SERVER_CALLBACK=http://localhost:4000/auth/google/callback
 GOOGLE_AUTH_URL_SUCCESS=http://localhost:3000/success
 
+<!-- if u will use microsoft login -->
+MICROSOFT_AUTH_ID=
+MICROSOFT_AUTH_SECRET=
+MICROSOFT_AUTH_SERVER_CALLBACK=http://localhost:4000/auth/microsoft/callback
+
 ```
 
 ## 🐟 Docker Build Dev :
