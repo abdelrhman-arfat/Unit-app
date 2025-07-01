@@ -23,6 +23,7 @@ import { isAdminMiddleware } from "../middleware/isAdminMiddleware.js";
 const router = Router();
 
 router
+  .use(asyncWrapper(isLoginMiddleware))
   .get("/", asyncWrapper(getAllDocs))
   .get("/by-id/:id", asyncWrapper(getDocById))
   .get(

@@ -22,6 +22,7 @@ import { upload } from "../config/CloudinaryConfig.js";
 const router = Router();
 
 router
+  .use(asyncWrapper(isLoginMiddleware))
   .get("/", asyncWrapper(getAllCommunities))
   .get("/by-id/:id", asyncWrapper(getCommunityById))
   .get("/by-name/:name", asyncWrapper(getCommunityByName));

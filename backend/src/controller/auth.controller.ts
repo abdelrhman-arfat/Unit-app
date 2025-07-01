@@ -82,6 +82,15 @@ const loginWithGoogle = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name        loginWIthMicrosoft
+ * @description login with microsoft OAuth Protocol with Microsoft service using passport.js
+ * @returns     response with status 200 and cookies with tokens and json data
+ */
+// const loginWIthMicrosoft = async (req: Request, res: Response) => {
+//   const user = req.user;
+//   return setResponseForAuth(res, user, "login with microsoft Successfully");
+// };
+/**
  * @name        logout
  * @description clear cookies and end user session
  */
@@ -123,7 +132,14 @@ const updateToken = async (req: Request, res: Response) => {
     .json(jsonStandard(null, 200, "Token updated"));
 };
 
-export { register, login, loginWithGoogle, updateToken, logout };
+export {
+  register,
+  login,
+  loginWithGoogle,
+  updateToken,
+  logout,
+  // loginWIthMicrosoft,
+};
 
 // -------------------------------- UTILS ----------------------------
 

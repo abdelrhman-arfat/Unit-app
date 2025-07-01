@@ -75,6 +75,11 @@ JWT_REFRESH =
 CLIENT_URL = http://localhost:3000
 
 
+GOOGLE_AUTH_ID=
+GOOGLE_AUTH_SECRET=
+GOOGLE_AUTH_SERVER_CALLBACK=http://localhost:4000/auth/google/callback
+GOOGLE_AUTH_URL_SUCCESS=http://localhost:3000/success
+
 ```
 
 ## 🐟 Docker Build Dev :

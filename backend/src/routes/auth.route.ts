@@ -7,6 +7,7 @@ import {
   register,
   updateToken,
   loginWithGoogle,
+ 
 } from "../controller/auth.controller.js";
 import { asyncWrapper } from "../utils/AsyncWrapper.js";
 import { isLoginMiddleware } from "../middleware/isLoginMiddleware.js";
@@ -44,6 +45,7 @@ router
     }),
     asyncWrapper(loginWithGoogle)
   )
+
   .get("/logout", asyncWrapper(isLoginMiddleware), asyncWrapper(logout))
   .get(
     "/refresh-token",
@@ -51,3 +53,21 @@ router
     asyncWrapper(updateToken)
   );
 export { router as authRouter };
+
+/**
+ *  .get(
+    "/microsoft",
+    passport.authenticate("microsoft", {
+      prompt: "select_account",
+      session: false,
+    })
+  )
+  .get(
+    "/microsoft/callback",
+    passport.authenticate("microsoft", {
+      session: false,
+      failureRedirect: "/login",
+    }),
+    asyncWrapper(loginWIthMicrosoft)
+  )
+ */

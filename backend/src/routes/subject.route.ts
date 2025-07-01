@@ -20,6 +20,7 @@ import { isLoginMiddleware } from "../middleware/isLoginMiddleware.js";
 const router = Router();
 
 router
+  .use(asyncWrapper(isLoginMiddleware))
   .get("/", asyncWrapper(getAllSubjects))
   .get("/by-id/:id", asyncWrapper(getSubjectById))
   .get(

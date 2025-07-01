@@ -13,7 +13,8 @@ import { communityRouter } from "./routes/community.route.js";
 import { setResponse } from "./utils/jsonStander.js";
 import { asyncWrapper } from "./utils/AsyncWrapper.js";
 
-import "./config/PassportConfig.js";
+import "./config/PassportGoogleConfig.js";
+import "./config/PassportMicrosoftConfig.js";
 
 const allowedOrigins = CLIENT_URL || "http://localhost:3000";
 const app = express();
