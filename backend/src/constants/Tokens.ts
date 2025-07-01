@@ -1,4 +1,4 @@
 export enum Tokens {
-  token = "token",
-  refreshToken = "refreshToken",
+  token = "bkToken",
+  refreshToken = "bkRefreshToken",
 }

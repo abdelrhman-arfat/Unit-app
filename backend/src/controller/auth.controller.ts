@@ -77,16 +77,8 @@ const login = async (req: Request, res: Response) => {
  * @returns     response with status 200 and cookies with tokens and json data
  */
 const loginWithGoogle = async (req: Request, res: Response) => {
-  const { email, name, image } = req.body;
-
-  let user = await userService.getUserByEmail(email);
-
-  if (!user) {
-    const data = userInCreate({ email, name, image });
-    user = await userService.createUser(data as user);
-  }
-
-  return setResponseForAuth(res, user, "login Successfully");
+  const user = req.user;
+  return setResponseForAuth(res, user, "login with google Successfully");
 };
 
 /**
@@ -181,7 +173,7 @@ const userInCreate = ({
  * @param message
  * @returns response with handled tokens and json data
  */
-const setResponseForAuth = (
+export const setResponseForAuth = (
   res: Response,
   user: user | User,
   message: string

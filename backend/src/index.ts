@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
-import { CLIENT_URL, PORT } from "./constants/ENV.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
+import passport from "passport";
+
+import { CLIENT_URL, PORT } from "./constants/ENV.js";
 import { authRouter } from "./routes/auth.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { docsRouter } from "./routes/docs.route.js";
@@ -10,6 +12,8 @@ import { subjectRouter } from "./routes/subject.route.js";
 import { communityRouter } from "./routes/community.route.js";
 import { setResponse } from "./utils/jsonStander.js";
 import { asyncWrapper } from "./utils/AsyncWrapper.js";
+
+import "./config/PassportConfig.js";
 
 const allowedOrigins = CLIENT_URL || "http://localhost:3000";
 const app = express();
@@ -25,6 +29,7 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
 app.use(cookieParser());
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.urlencoded({ extended: true })); // Needed for form-data
