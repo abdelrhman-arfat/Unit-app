@@ -14,7 +14,7 @@ export default function LandingPageHeader() {
     <header className="sticky  top-0 z-50 w-full  bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className=" flex h-20 items-center justify-between">
         {/* Logo */}
-        <div className="flex gap-4 items-center">
+        <div className="flex  gap-4 items-center">
           <Logo />
           <LanguageSwitcher />
         </div>

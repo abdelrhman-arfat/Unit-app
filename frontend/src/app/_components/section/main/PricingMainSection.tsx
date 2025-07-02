@@ -9,7 +9,9 @@ import { motion } from "framer-motion";
 import { returnDirection } from "@/app/utils/funcs/TextDirection";
 import { useLangSelector } from "@/app/hooks/Selectors";
 import { Heading } from "@/components/ui/Heading";
+
 const iconMap = [Rocket, Briefcase, Star];
+
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: {
@@ -21,6 +23,7 @@ const cardVariants = {
     },
   },
 };
+
 const PricingMainSection = ({
   plans,
   title,
@@ -33,13 +36,13 @@ const PricingMainSection = ({
   const dir = returnDirection(useLangSelector());
 
   return (
-    <section className="py-16">
-      <Heading size="xl" className="mb-12 text-center">
+    <section className="py-16 px-4 sm:px-6 lg:px-12 xl:px-24">
+      <Heading size="xl" className="mb-12 text-center text-indigo-800">
         {title}
       </Heading>
 
       <div
-        className={`${dir} grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-20`}
+        className={`${dir} grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`}
       >
         {plans.map((plan, index) => {
           const Icon = iconMap[index % iconMap.length];
@@ -51,29 +54,31 @@ const PricingMainSection = ({
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
             >
-              <Card className="rounded-2xl border h-[380px] border-indigo-200 shadow-sm hover:shadow-md transition-all bg-white">
-                <CardContent className="p-6 flex flex-col h-full justify-between">
+              <Card className="rounded-2xl border border-indigo-200 shadow-lg hover:shadow-xl transition-all duration-300 bg-white flex flex-col h-full">
+                <CardContent className="p-6 flex flex-col justify-between h-full py-0 md:py-0 sm:py-10">
                   <div>
-                    <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-3 mb-4">
                       <Icon className="w-6 h-6 text-indigo-600" />
                       <h3 className="text-2xl font-bold text-indigo-700">
                         {plan.title}
                       </h3>
                     </div>
-                    <p className="text-xl font-semibold mb-4">{plan.price}</p>
-                    <ul className="space-y-3 mb-6">
+                    <p className="text-2xl font-semibold text-gray-800 mb-6">
+                      {plan.price}
+                    </p>
+                    <ul className="space-y-4">
                       {plan.features.map((feature, i) => (
                         <li
                           key={i}
-                          className="flex items-center gap-2 text-sm text-gray-700"
+                          className="flex items-center gap-2 text-base text-gray-700"
                         >
                           <Check className="w-4 h-4 text-blue-500" />
-                          {feature}
+                          <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition">
+                  <Button className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white text-base font-semibold py-2 rounded-xl">
                     {start}
                   </Button>
                 </CardContent>

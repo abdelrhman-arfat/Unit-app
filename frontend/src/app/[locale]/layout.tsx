@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import AppProvider from "../_RTK/AppProvider";
 import Footer from "../_components/Layout/Footer";
 import { LangInitializer } from "../_components/Layout/LangInitializer";
+import { Toaster } from "react-hot-toast";
 const roboto = Roboto({
   variable: "--font-roboto",
   weight: ["300", "400", "500", "600"],
@@ -32,10 +33,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable} w-full antialiased`}>
+        <Toaster position="top-center" />
         <AppProvider>
           <NextIntlClientProvider messages={message}>
             <LangInitializer />
-            <div className="container mx-auto  px-6 sm:px-8 md:px-14">
+            <div className="">
               {children}
             </div>
             <Footer />
