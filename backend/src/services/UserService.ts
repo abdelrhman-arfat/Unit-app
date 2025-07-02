@@ -34,10 +34,29 @@ class UserService {
     });
   }
 
-  async updateUserById(id: string, data: Partial<user>): Promise<user> {
+  async updateUserById(id: string, data: Partial<user>) {
     return await prisma.user.update({
       where: { id: Number(id) },
       data,
+      select: userSelection,
+    });
+  }
+
+  async deleteUserById(id: string) {
+    return await prisma.user.delete({
+      where: { id: Number(id) },
+    });
+  }
+
+  async updateUserRole(id: string, role: roles) {
+    return await prisma.user.update({
+      where: { id: Number(id) },
+      data: { role },
+      select: {
+        id: true,
+        role: true,
+        email: true,
+      },
     });
   }
 

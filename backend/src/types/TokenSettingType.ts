@@ -1,6 +1,6 @@
 export type TokenSettingType = (maxAge: number) => {
   httpOnly: boolean;
   secure: boolean;
-  sameSite: "none";
+  sameSite: "none" | "lax" | "strict";
   maxAge: number;
 };

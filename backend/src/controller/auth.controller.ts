@@ -8,9 +8,7 @@ import { Tokens } from "../constants/Tokens.js";
 
 import type { TokenSettingType } from "../types/TokenSettingType.js";
 import { userService } from "../services/UserService.js";
-import { Grades, Roles } from "../types/enums.js";
-import { User } from "../types/User.js";
-import { roles, user } from "@prisma/client";
+import { grades, roles, user } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 
 dotenv.config();
@@ -178,8 +176,8 @@ const userInCreate = ({
   name,
   email,
   image: image || "",
-  role: Roles.student,
-  grade: Grades.first,
+  role: roles.student,
+  grade: grades.first,
 });
 
 /**
@@ -191,7 +189,7 @@ const userInCreate = ({
  */
 export const setResponseForAuth = (
   res: Response,
-  user: user | User,
+  user: user,
   message: string
 ): Response => {
   const payload = {
