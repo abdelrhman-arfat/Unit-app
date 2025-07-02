@@ -1,6 +1,6 @@
 import { userService } from "../services/UserService.js";
 import { Request, Response } from "express";
-import { jsonStandard, setResponse } from "../utils/jsonStander.js";
+import { setResponse } from "../utils/jsonStander.js";
 import { grades, roles, specializations } from "@prisma/client";
 import setPagination, { getCountOfPages } from "../utils/setPagination.js";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
@@ -140,7 +140,7 @@ const updateMyProfile = async (req: Request, res: Response) => {
   return setResponse(res, { data: user }, 200, "User profile updated");
 };
 /**
- * @name    getUsersByCommunity
+  @name    getUsersByCommunity
   @desc    Get users by community name
 */
 const getUsersByCommunity = async (req: Request, res: Response) => {

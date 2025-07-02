@@ -38,10 +38,20 @@ class JwtService {
     });
   }
 
+  /**
+   * @name verifyToken
+   * @param token
+   * @returns the payload of the token if the token is valid
+   */
   verifyToken(token: string): string | JwtPayload {
     return jwt.verify(token, this.secret);
   }
 
+  /**
+   * @name decodeToken
+   * @param token
+   * @returns the payload of the token
+   */
   decodeToken(token: string): null | string | JwtPayload {
     return jwt.decode(token);
   }

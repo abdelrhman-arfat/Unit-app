@@ -19,10 +19,11 @@ declare global {
 }
 
 const UnauthorizedResponse = (res: Response) => {
-  return setResponse(res, { data: null }, 401, "Unauthorized");
+  return setResponse(res, { data: null }, 401, "login first and try again");
 };
 
 /**
+ * @name isLoginMiddleware
  * @param req
  * @param res
  * @param next
@@ -39,7 +40,7 @@ export const isLoginMiddleware = async (
     return UnauthorizedResponse(res);
   }
 
-  const payload = jwtService.decodeToken(token) as JwtPayload;
+  const payload = jwtService.verifyToken(token) as JwtPayload;
   if (!payload) {
     return UnauthorizedResponse(res);
   }
