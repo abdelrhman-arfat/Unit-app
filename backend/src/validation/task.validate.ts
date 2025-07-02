@@ -8,13 +8,28 @@ export const validateCreateTask = [
     .notEmpty()
     .withMessage("description is required"),
   body("startDate")
-    .isISO8601()
-    .toDate()
-    .withMessage("startDate must be a valid date"),
+    .matches(/^\d{4}-\d{2}-\d{2}$/)
+    .withMessage("Start date must be in YYYY-MM-DD format")
+    .custom((value) => {
+      const start = new Date(value + "T00:00:00");
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      if (start < now) {
+        throw new Error("Start date must be in the future");
+      }
+      return true;
+    }),
   body("endDate")
-    .isISO8601()
-    .toDate()
-    .withMessage("endDate must be a valid date"),
+    .matches(/^\d{4}-\d{2}-\d{2}$/)
+    .withMessage("End date must be in YYYY-MM-DD format")
+    .custom((value, { req }) => {
+      const start = new Date(req.body.startDate + "T00:00:00");
+      const end = new Date(value + "T00:00:00");
+      if (end <= start) {
+        throw new Error("End date must be after start date");
+      }
+      return true;
+    }),
   body("subjectId")
     .isInt({ min: 1 })
     .withMessage("subjectId must be a valid integer"),

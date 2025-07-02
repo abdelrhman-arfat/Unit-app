@@ -14,15 +14,6 @@ import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 export const createTask = async (req: Request, res: Response) => {
   const { title, description, startDate, endDate, subjectId } = req.body;
 
-  if (!testDatePattern(endDate) || !testDatePattern(startDate)) {
-    return setResponse(
-      res,
-      { data: null },
-      400,
-      "Date must be in format yyyy-mm-dd"
-    );
-  }
-
   if (new Date(endDate) < new Date(startDate)) {
     return setResponse(
       res,
@@ -105,7 +96,7 @@ export const updateTask = async (req: Request, res: Response) => {
 
   if (title) task.title = title;
   if (description) task.description = description;
-  if (!testDatePattern(endDate)) {
+  if (endDate && !testDatePattern(endDate)) {
     return setResponse(
       res,
       { data: null },

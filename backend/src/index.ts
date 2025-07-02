@@ -16,6 +16,8 @@ import { asyncWrapper } from "./utils/AsyncWrapper.js";
 import "./config/PassportGoogleConfig.js";
 import "./config/PassportMicrosoftConfig.js";
 import { taskRouter } from "./routes/task.route.js";
+import { eventRouter } from "./routes/event.route.js";
+import { quizRouter } from "./routes/quiz.route.js";
 
 const allowedOrigins = CLIENT_URL || "http://localhost:3000";
 const app = express();
@@ -43,6 +45,8 @@ app.use("/docs", docsRouter);
 app.use("/community", communityRouter);
 app.use("/subject", subjectRouter);
 app.use("/task", taskRouter);
+app.use("/event", eventRouter);
+app.use("/quiz", quizRouter);
 app.use(
   "*",
   asyncWrapper((req: Request, res: Response) => {
