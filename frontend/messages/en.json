@@ -62,6 +62,12 @@
       "futureDesc": "We are committed to continuous development, aiming to scale our platform for use by all universities across Egypt. By creating a unified educational ecosystem, we hope to empower students nationwide to succeed in their academic journey with ease and support.",
       "cta": "Get Started"
   },
+    "MainPage":{
+    "main":"Main",
+    "docs":"Summaries",
+    "quiz":"Quizzes",
+    "tasks":"Tasks"
+  },
   "footer": {
     "copyright": "All rights reserved",
     "description": "We aim to provide the best educational services in a simple, effective, and enjoyable way for all students.",

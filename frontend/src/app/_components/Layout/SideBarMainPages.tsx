@@ -1,57 +1,59 @@
-// components/ResponsiveSidebarLayout.tsx
 "use client";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  Home,
-  BookOpenText,
-  HelpCircle,
-  CheckSquare,
-  CalendarDays,
-  Menu,
-} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { returnDirection } from "@/app/utils/funcs/TextDirection";
+import { useLangSelector } from "@/app/hooks/Selectors";
+import { Menu } from "lucide-react";
+import { useSidebarLinks } from "@/app/hooks/useSidebarLinks";
+import LanguageSwitcher from "../Buttons/LanguageSwitcher";
 
-const navItems = [
-  { name: "Main", href: "/main", icon: Home },
-  { name: "Summaries", href: "/summaries", icon: BookOpenText },
-  { name: "Quiz", href: "/quiz", icon: HelpCircle },
-  { name: "Tasks", href: "/tasks", icon: CheckSquare },
-  { name: "Events", href: "/events", icon: CalendarDays },
-];
 export default function ResponsiveSidebarLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const lang = useLangSelector();
+  const direction = returnDirection(lang); // "ltr" or "rtl"
+  const isRTL = direction === "rtl";
 
   return (
-    <div className="flex h-screen">
-      {/* Mobile Toggle */}
-      <div className="md:hidden p-4 fixed top-0 left-0 z-50">
+    <div className="flex h-screen" dir={direction}>
+      {/* Sidebar - Mobile */}
+      <div
+        className={cn(
+          "md:hidden p-4 fixed top-0 z-50",
+          isRTL ? "right-0" : "left-0"
+        )}
+      >
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon">
               <Menu className="w-5 h-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-64 p-4">
-            <SidebarContent pathname={pathname} />
+          <SheetContent side={isRTL ? "right" : "left"} className="w-64 p-4">
+            <SidebarContent pathname={pathname} isRTL={isRTL} />
           </SheetContent>
         </Sheet>
       </div>
 
-      {/* Sidebar - Visible on md+ */}
-      <aside className="hidden md:flex w-64 bg-white border-r shadow-sm p-4">
-        <SidebarContent pathname={pathname} />
-      </aside>
+      {/* Sidebar - Desktop */}
+      {isRTL ? (
+        <aside className="hidden md:flex w-64 bg-white border-l shadow-sm p-4">
+          <SidebarContent pathname={pathname} isRTL={isRTL} />
+        </aside>
+      ) : (
+        <aside className="hidden md:flex w-64 bg-white border-r shadow-sm p-4">
+          <SidebarContent pathname={pathname} isRTL={isRTL} />
+        </aside>
+      )}
 
       {/* Main content */}
       <main className="flex-1 overflow-y-auto p-6 pt-16 md:pt-6 bg-white w-full">
@@ -61,13 +63,22 @@ export default function ResponsiveSidebarLayout({
   );
 }
 
-function SidebarContent({ pathname }: { pathname: string }) {
+function SidebarContent({
+  pathname,
+  isRTL,
+}: {
+  pathname: string;
+  isRTL: boolean;
+}) {
+  const navItems = useSidebarLinks();
   return (
     <div className="flex flex-col w-full">
       {/* App Name */}
-      <h2 className="text-2xl font-bold text-indigo-600 mb-2 px-2">
-        Unit Platform
-      </h2>
+      <div className="flex w-full items-center justify-between">
+        <h2 className="text-2xl font-bold text-indigo-600 mb-2 px-2">UNIT</h2>
+        <LanguageSwitcher />
+      </div>
+
       <Separator className="mb-2" />
 
       {/* Nav Links */}
@@ -87,7 +98,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
                 )}
               >
                 <span className="flex items-center w-full">
-                  <Icon className="w-4 h-4 mr-2" />
+                  <Icon className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
                   {name}
                 </span>
               </Button>

@@ -11,8 +11,8 @@ import { Link } from "@/i18n/navigation";
 
 export default function LandingPageHeader() {
   return (
-    <header className="sticky  top-0 z-50 w-full  bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className=" flex h-20 items-center justify-between">
+    <header className="sticky   top-0 z-50 w-full  bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className=" w-[90%] mx-auto flex h-20 items-center justify-between">
         {/* Logo */}
         <div className="flex  gap-4 items-center">
           <Logo />
