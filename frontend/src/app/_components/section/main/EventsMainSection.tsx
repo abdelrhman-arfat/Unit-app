@@ -6,6 +6,7 @@ import { useGetAllEventsQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 import { Event } from "@/app/types/Event";
 import EventCard from "../../cards/EventCard";
 import EventCardLoader from "../../loaders/EventCardLoader";
+import { Loader2 } from "lucide-react";
 
 type EventsMainSectionProps = {
   noEventsText: string;
@@ -20,9 +21,16 @@ const EventsMainSection = ({
   visitEventText,
   title,
 }: EventsMainSectionProps) => {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
 
-  const { data, isFetching } = useGetAllEventsQuery({ limit });
+  const { data, isFetching } = useGetAllEventsQuery(
+    { limit },
+    {
+      refetchOnMountOrArgChange: false,
+      refetchOnReconnect: false,
+      refetchOnFocus: false,
+    }
+  );
 
   const events: Event[] = data?.data?.data ?? [];
   const totalPages = data?.data?.pages ?? 1;
@@ -54,10 +62,13 @@ const EventsMainSection = ({
           next={fetchMore}
           hasMore={hasMore}
           loader={
-            <div className="flex flex-col items-center gap-6 mt-6">
-              {Array.from({ length: 2 }).map((_, i) => (
-                <EventCardLoader key={i} />
-              ))}
+            <div className="w-full py-4 flex justify-center">
+              <div className="flex items-center gap-2 text-indigo-600">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span className="text-sm font-medium animate-pulse">
+                  Loading more events...
+                </span>
+              </div>
             </div>
           }
           endMessage={
