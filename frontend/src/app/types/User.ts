@@ -1,4 +1,4 @@
-import { grades } from "./Grades";
+import { grades } from "./grades";
 import { roles } from "./roles";
 import { specializations } from "./Specialization";
 
