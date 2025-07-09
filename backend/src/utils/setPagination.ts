@@ -2,7 +2,6 @@ import { Request } from "express";
 
 /**
  * @param page the page of the pagination
- * @param limit the limit of the pagination
  * @returns [skip, limit]
  */
 const setPagination = (req: Request) => {

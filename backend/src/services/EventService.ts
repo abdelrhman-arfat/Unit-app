@@ -7,8 +7,10 @@ class EventService {
     return await prisma.event.create({ data });
   }
 
-  async getAll() {
+  async getAll(skip?: number, limit?: number) {
     return await prisma.event.findMany({
+      ...(skip && { skip }),
+      ...(limit && { take: limit }),
       orderBy: { createdAt: "desc" },
     });
   }
