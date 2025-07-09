@@ -11,6 +11,11 @@ class EventService {
     return await prisma.event.findMany({
       ...(skip && { skip }),
       ...(limit && { take: limit }),
+      where: {
+        startDate: {
+          gte: new Date(),
+        },
+      },
       orderBy: { createdAt: "desc" },
     });
   }

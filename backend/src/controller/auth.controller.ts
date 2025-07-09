@@ -77,7 +77,6 @@ const login = async (req: Request, res: Response) => {
  */
 const loginWithGoogle = async (req: Request, res: Response) => {
   const user = req.user;
-  console.log("USER IN TOKEN GENERATION:", user);
 
   const [token, cookieOfToken, refreshToken, cookieOfRefreshToken] =
     setUserTokens(user);
