@@ -39,7 +39,6 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={message}>
             <LangInitializer />
             <RefreshToken />
-
             <div className="">{children}</div>
             <Footer />
           </NextIntlClientProvider>

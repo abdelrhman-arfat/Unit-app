@@ -23,7 +23,7 @@ const UserCard = () => {
   const dispatch = useAppDispatcher();
   const handleLogout = useCallback(async () => {
     toast
-      .promise(Logout(), {
+      .promise(Logout, {
         loading: "Logging out...",
         success: (res) => res?.data.message || "Logged out successfully",
         error: (err) => err?.response.data.message || "Error logging out",

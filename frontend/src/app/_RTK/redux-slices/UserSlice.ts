@@ -20,12 +20,8 @@ const userSlice = createSlice({
       };
       return state;
     },
-    logout: (state) => {
-      state = {
-        isLoggedIn: false,
-        user: {},
-      };
-      return state;
+    logout: () => {
+      return initialState;
     },
   },
 });

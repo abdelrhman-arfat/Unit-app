@@ -9,10 +9,10 @@ import { useGetMeQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 import { setUserData } from "@/app/_RTK/redux-slices/UserSlice";
 import { useAppDispatcher } from "@/app/hooks/AppDispatcher";
 
-const GoogleCallbackPage = () => {
+const OAuthSuccess = () => {
   const router = useRouter();
   const dispatch = useAppDispatcher();
-  
+
   const { data, isLoading, isError, isSuccess } = useGetMeQuery();
 
   useEffect(() => {
@@ -77,4 +77,4 @@ const GoogleCallbackPage = () => {
   );
 };
 
-export default GoogleCallbackPage;
+export default OAuthSuccess;

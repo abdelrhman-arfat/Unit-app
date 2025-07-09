@@ -23,9 +23,7 @@ export const api = createApi({
   }),
   endpoints: (b) => ({
     // ----------------------- Auth -----------------------
-    refreshToken: b.query<TResponse<User>, void>({
-      query: () => "/auth/refresh-token",
-    }),
+
     // ----------------------- USERS -----------------------
     getMe: b.query<TResponse<User>, void>({
       query: () => "/user/get-me",
@@ -57,7 +55,6 @@ export const api = createApi({
 
 export const {
   useGetMeQuery,
-  useRefreshTokenQuery,
   useGetAllEventsQuery,
   useGetAllDocsQuery,
   useGetAllDocsForTheUserQuery,
