@@ -1,7 +1,7 @@
-import ContactUsMainSection from "@/app/_components/section/main/ContactUsMainSection";
-import HeroMainSection from "@/app/_components/section/main/HeroMainSection";
-import PricingMainSection from "@/app/_components/section/main/PricingMainSection";
-import ServicesMainSection from "@/app/_components/section/main/ServicesMainSection";
+import ContactUsMainSection from "@/app/_components/section/home/ContactUsMainSection";
+import HeroMainSection from "@/app/_components/section/home/HeroMainSection";
+import PricingMainSection from "@/app/_components/section/home/PricingMainSection";
+import ServicesMainSection from "@/app/_components/section/home/ServicesMainSection";
 import { services } from "@/app/types/Services";
 import { ExtractPlans, TPlan } from "@/app/utils/funcs/ExtractPlans";
 import { ExtractService } from "@/app/utils/funcs/ExtractService";

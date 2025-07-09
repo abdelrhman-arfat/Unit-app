@@ -3,9 +3,9 @@ import { Heading } from "@/components/ui/Heading";
 import { Paragraph } from "@/components/ui/Paragraph";
 import Link from "next/link";
 import SignUpForm from "@/app/_components/forms/SignUpForm";
-import LoginWithMicrosoft from "@/app/_components/Buttons/LoginWithMicrosoft";
 import { getTranslations } from "next-intl/server";
 import Logo from "@/app/_components/common/Logo";
+import LoginWithGoogle from "@/app/_components/Buttons/LoginWithGoogle";
 
 const SignupPage = async () => {
   const t = await getTranslations("SignUpPage");
@@ -34,7 +34,7 @@ const SignupPage = async () => {
         confirmPasswordPlaceholder={t("confirmPasswordPlaceholder")}
         signUpBtn={t("signUpBtn")}
       />
-      <LoginWithMicrosoft />
+      <LoginWithGoogle />
 
       <div className="text-center text-sm">
         {t("alreadyAccount")}{" "}

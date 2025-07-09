@@ -63,7 +63,12 @@
     "main":"الرئيسية",
     "docs":"ملخصات",
     "quiz":"اختبارات",
-    "tasks":"مهام"
+    "tasks":"مهام",
+    "events":"فعاليات",
+    "noEventsText": " لا توجد فعاليات.",
+    "allEventsLoadedText": " تم تحميل جميع الفعاليات.",
+    "visitEventText": " زيارة الحدث",
+    "loadingText": "جاري التحميل..."
   },
   "footer": {
     "copyright": "جميع الحقوق محفوظة",

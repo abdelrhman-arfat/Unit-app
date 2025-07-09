@@ -3,9 +3,9 @@ import { Heading } from "@/components/ui/Heading";
 import { Paragraph } from "@/components/ui/Paragraph";
 import Link from "next/link";
 import LoginForm from "@/app/_components/forms/LoginForm";
-import LoginWithMicrosoft from "@/app/_components/Buttons/LoginWithMicrosoft";
 import Logo from "@/app/_components/common/Logo";
 import { getTranslations } from "next-intl/server";
+import LoginWithGoogle from "@/app/_components/Buttons/LoginWithGoogle";
 
 const LoginPage = async () => {
   const t = await getTranslations("LoginPage");
@@ -31,7 +31,7 @@ const LoginPage = async () => {
         forgotPasswordText={t("forgotPassword")}
         loginBtn={t("loginBtn")}
       />
-      <LoginWithMicrosoft />
+      <LoginWithGoogle />
 
       <div className="text-center text-sm pt-4 space-x-1">
         <span>{t("noAccount")}</span>
