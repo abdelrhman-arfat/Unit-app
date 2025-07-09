@@ -12,6 +12,7 @@ import { useLangSelector } from "@/app/hooks/Selectors";
 import { Menu } from "lucide-react";
 import { useSidebarLinks } from "@/app/hooks/useSidebarLinks";
 import LanguageSwitcher from "../Buttons/LanguageSwitcher";
+import UserCard from "../cards/UserCard";
 
 export default function ResponsiveSidebarLayout({
   children,
@@ -20,7 +21,7 @@ export default function ResponsiveSidebarLayout({
 }) {
   const pathname = usePathname();
   const lang = useLangSelector();
-  const direction = returnDirection(lang); // "ltr" or "rtl"
+  const direction = returnDirection(lang);
   const isRTL = direction === "rtl";
 
   return (
@@ -71,41 +72,57 @@ function SidebarContent({
   isRTL: boolean;
 }) {
   const navItems = useSidebarLinks();
+
   return (
-    <div className="flex flex-col w-full">
-      {/* App Name */}
-      <div className="flex w-full items-center justify-between">
-        <h2 className="text-2xl font-bold text-indigo-600 mb-2 px-2">UNIT</h2>
-        <LanguageSwitcher />
+    <div className="flex flex-col w-full max-h-[80vh] justify-between">
+      <div>
+        {/* Logo and Language Switcher */}
+        <div className="flex items-center justify-between mb-4 px-2">
+          <h2 className="text-3xl font-extrabold text-indigo-600 tracking-tight">
+            UNIT
+          </h2>
+        </div>
+
+        <Separator className="mb-4" />
+
+        {/* Nav Links */}
+        <nav className="flex flex-col gap-1 w-full">
+          {navItems.map(({ name, href, icon: Icon }) => {
+            const isActive = pathname.includes(href);
+
+            return (
+              <Link href={href} key={name}>
+                <div
+                  className={cn(
+                    "flex items-center justify-between px-4 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium cursor-pointer",
+                    isActive
+                      ? "bg-indigo-600 text-white shadow hover:bg-indigo-700"
+                      : "hover:bg-gray-100 text-gray-700"
+                  )}
+                >
+                  <span className="flex-1 text-start ">{name}</span>
+                  <span
+                    className={cn(
+                      "w-5 h-5 flex-shrink-0",
+                      isRTL ? "mr-2" : "ml-2"
+                    )}
+                  >
+                    <Icon className="w-full h-full" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </nav>
       </div>
-
-      <Separator className="mb-2" />
-
-      {/* Nav Links */}
-      <nav className="flex flex-col gap-0.5 w-full">
-        {navItems.map(({ name, href, icon: Icon }) => {
-          const isActive = pathname.includes(href);
-          return (
-            <Link href={href} key={name} passHref legacyBehavior>
-              <Button
-                asChild
-                variant="ghost"
-                className={cn(
-                  "w-full justify-start rounded-md text-sm font-medium transition-colors px-3 py-2",
-                  isActive
-                    ? "bg-indigo-600 text-white"
-                    : "hover:bg-indigo-600 hover:text-white text-indigo-600"
-                )}
-              >
-                <span className="flex items-center w-full">
-                  <Icon className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
-                  {name}
-                </span>
-              </Button>
-            </Link>
-          );
-        })}
-      </nav>
+      {/* Footer */}
+      <div className="mt-6 px-2">
+        <Separator className="mb-3" />
+        <div className="flex items-center w-full gap-4 justify-between ">
+          <UserCard />
+          <LanguageSwitcher />
+        </div>
+      </div>
     </div>
   );
 }

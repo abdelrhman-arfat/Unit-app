@@ -1,7 +1,18 @@
-import React from "react";
+import EventsMainSection from "@/app/_components/section/main/EventsMainSection";
+import { getTranslations } from "next-intl/server";
 
-const MainPage = () => {
-  return <div>MainPage</div>;
+const MainPage = async () => {
+  const t = await getTranslations("MainPage");
+  return (
+    <>
+      <EventsMainSection
+        title={t("events")}
+        noEventsText={t("noEventsText")}
+        allEventsLoadedText={t("allEventsLoadedText")}
+        visitEventText={t("visitEventText")}
+      />
+    </>
+  );
 };
 
 export default MainPage;
