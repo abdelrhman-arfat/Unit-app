@@ -6,7 +6,8 @@ import { useGetAllEventsQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 import { Event } from "@/app/types/Event";
 import EventCard from "../../cards/EventCard";
 import EventCardLoader from "../../loaders/EventCardLoader";
-import { Loader2 } from "lucide-react";
+import LoaderGetMoreData from "../../loaders/LoaderGetMoreData";
+import ErrorFetchingData from "../../common/ErrorFetchingData";
 
 type EventsMainSectionProps = {
   noEventsText: string;
@@ -23,12 +24,10 @@ const EventsMainSection = ({
 }: EventsMainSectionProps) => {
   const [limit, setLimit] = useState(5);
 
-  const { data, isFetching } = useGetAllEventsQuery(
+  const { data, isFetching, isError } = useGetAllEventsQuery(
     { limit },
     {
-      refetchOnMountOrArgChange: false,
       refetchOnReconnect: false,
-      refetchOnFocus: false,
     }
   );
 
@@ -41,13 +40,17 @@ const EventsMainSection = ({
       setLimit((prev) => prev + 10);
     }
   };
+  if (isError) {
+    return <ErrorFetchingData />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-8">
-      <div className="max-w-2xl mx-auto mb-8">
-        <h1 className="text-3xl font-extrabold text-indigo-700 tracking-tight text-center">
+      <div className="relative max-w-3xl mx-auto mb-12 text-center">
+        <h1 className="text-2xl md:text-4xl font-bold text-indigo-700 tracking-tight leading-tight">
           {title}
         </h1>
+        <div className="mt-3 w-24 h-1 bg-indigo-500 mx-auto rounded-full animate-pulse" />
       </div>
 
       {events.length === 0 && isFetching ? (
@@ -61,16 +64,7 @@ const EventsMainSection = ({
           dataLength={events.length}
           next={fetchMore}
           hasMore={hasMore}
-          loader={
-            <div className="w-full py-4 flex justify-center">
-              <div className="flex items-center gap-2 text-indigo-600">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="text-sm font-medium animate-pulse">
-                  Loading more events...
-                </span>
-              </div>
-            </div>
-          }
+          loader={<LoaderGetMoreData name="events" />}
           endMessage={
             events.length === 0 ? (
               <p className="text-center text-gray-400 mt-8 text-sm">

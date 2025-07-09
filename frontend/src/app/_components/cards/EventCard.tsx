@@ -6,16 +6,11 @@ import { CalendarDays, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Event } from "@/app/types/Event";
+import { motion } from "framer-motion";
 
 type EventCardProps = {
-  event: {
-    title: string;
-    description: string;
-    link: string;
-    image?: string;
-    startDate: string;
-    endDate: string;
-  };
+  event: Event;
   visitEventText: string;
 };
 
@@ -24,49 +19,60 @@ const EventCard = ({ event, visitEventText }: EventCardProps) => {
   const hasImage = image && image.trim() !== "";
 
   return (
-    <Card className="rounded-2xl max-w-[800px] overflow-hidden shadow-md hover:shadow-lg transition">
-      {hasImage && (
-        <div className="relative h-48 w-full">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-        </div>
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ scale: 1.01 }}
+    >
+      <Card className="rounded-2xl max-w-[800px] border border-gray-200 bg-white shadow-sm hover:shadow-md hover:border-green-200 transition-all duration-300 p-0">
+        {hasImage && (
+          <div className="relative w-full aspect-[3/1.2] overflow-hidden rounded-t-2xl">
+            <Image
+              src={image}
+              alt={title}
+              fill
+              priority
+              className="object-cover transition-transform duration-300 hover:scale-[1.02]"
+            />
+          </div>
+        )}
 
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-xl font-bold text-indigo-700">
-          {title}
-        </CardTitle>
-      </CardHeader>
+        <CardHeader className="pt-4 px-5 pb-1">
+          <CardTitle className="text-[22px] font-bold text-neutral-900 tracking-tight leading-tight">
+            {title}
+          </CardTitle>
+        </CardHeader>
 
-      <CardContent className="space-y-4 text-sm text-gray-600">
-        <p>{description}</p>
+        <CardContent className="space-y-4 text-[15px] text-neutral-700 px-5 pb-5">
+          <p className="leading-relaxed">{description}</p>
 
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <CalendarDays className="w-4 h-4" />
-          <span>
-            {new Date(startDate).toLocaleDateString()} -{" "}
-            {new Date(endDate).toLocaleDateString()}
-          </span>
-        </div>
+          <div className="flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-1 bg-green-50 text-green-800 px-3 py-1 rounded-full">
+              <CalendarDays className="w-4 h-4" />
+              <span className="font-medium">
+                {new Date(startDate).toLocaleDateString()} –{" "}
+                {new Date(endDate).toLocaleDateString()}
+              </span>
+            </div>
+          </div>
 
-        <div className="pt-2">
-          <Button
-            variant="link"
-            className="text-indigo-600 p-0 h-auto text-sm"
-            asChild
-          >
-            <Link href={link} target="_blank" rel="noopener noreferrer">
-              {visitEventText} <ExternalLink className="w-4 h-4 ml-1" />
-            </Link>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          <div className="pt-2">
+            <Button
+              variant="link"
+              className="text-indigo-600 hover:text-indigo-700 p-0 h-auto text-sm font-medium inline-flex items-center gap-1"
+              asChild
+            >
+              <Link href={link} target="_blank" rel="noopener noreferrer">
+                {visitEventText}
+                <ExternalLink className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 

@@ -1,14 +1,27 @@
+"use client";
 import Link from "next/link";
 import { Instagram, Linkedin } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { getTranslations } from "next-intl/server";
-
-const Footer = async () => {
-  const t = await getTranslations("footer");
-
+import { useLangSelector } from "@/app/hooks/Selectors";
+import { returnDirection } from "@/app/utils/funcs/TextDirection";
+import { useTranslations } from "next-intl";
+import React, { useMemo } from "react";
+const Footer = () => {
+  const t = useTranslations("footer");
+  const lang = useLangSelector();
+  const direction = useMemo(() => {
+    return returnDirection(lang);
+  }, [lang]);
   return (
-    <footer className="bg-white border-t shadow-inner pt-16 pb-8 px-6 md:px-12 text-indigo-900">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10">
+    <footer
+      dir={direction}
+      className="bg-white border-t shadow-inner pt-16 pb-8 px-6 md:px-12 text-indigo-900"
+    >
+      <div
+        className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 ${
+          direction === "rtl" ? "md:flex-row-reverse" : ""
+        }`}
+      >
         {/* Branding and Description */}
         <div className="md:col-span-4">
           <h2 className="text-3xl font-bold text-indigo-800 mb-4">Unit</h2>
@@ -16,7 +29,6 @@ const Footer = async () => {
             {t("description")}
           </p>
         </div>
-
         {/* Quick Links */}
         <div className="md:col-span-4">
           <h4 className="text-lg font-semibold text-indigo-700 mb-4">
@@ -57,7 +69,6 @@ const Footer = async () => {
             </li>
           </ul>
         </div>
-
         {/* Social Media */}
         <div className="md:col-span-4">
           <h4 className="text-lg font-semibold text-indigo-700 mb-4">
@@ -86,4 +97,4 @@ const Footer = async () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

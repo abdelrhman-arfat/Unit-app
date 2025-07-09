@@ -3,7 +3,7 @@ import React from "react";
 const EventCardLoader = () => {
   return (
     <div className="flex flex-col items-center gap-6 mt-4">
-      <div className=" w-full sm:w-[675px] md:max-w-[800px] rounded-2xl bg-white shadow-md animate-pulse overflow-hidden">
+      <div className=" w-full min-w-[300px] sm:w-[675px] md:max-w-[800px] rounded-2xl bg-white shadow-md animate-pulse overflow-hidden">
         {/* Image Skeleton */}
         <div className="h-48 w-full bg-gray-200" />
 

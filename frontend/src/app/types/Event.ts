@@ -3,7 +3,7 @@ export type Event = {
   title: string;
   description: string;
   link: string;
-  image: string;
+  image?: string;
   startDate: string;
   endDate: string;
   createdAt: string;

@@ -7,6 +7,7 @@ import AppProvider from "../_RTK/AppProvider";
 import Footer from "../_components/Layout/Footer";
 import { LangInitializer } from "../_components/Layout/LangInitializer";
 import { Toaster } from "react-hot-toast";
+import RefreshToken from "../_components/Layout/RefreshToken";
 const roboto = Roboto({
   variable: "--font-roboto",
   weight: ["300", "400", "500", "600"],
@@ -37,9 +38,9 @@ export default async function RootLayout({
         <AppProvider>
           <NextIntlClientProvider messages={message}>
             <LangInitializer />
-            <div className="">
-              {children}
-            </div>
+            <RefreshToken />
+
+            <div className="">{children}</div>
             <Footer />
           </NextIntlClientProvider>
         </AppProvider>

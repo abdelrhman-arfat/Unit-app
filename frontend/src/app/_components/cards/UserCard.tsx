@@ -12,13 +12,27 @@ import {
 import { LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
+import { Logout } from "@/app/utils/api/Logout";
+import { useAppDispatcher } from "@/app/hooks/AppDispatcher";
+import { logout } from "@/app/_RTK/redux-slices/UserSlice";
 
 const UserCard = () => {
   const { user } = useUserSelector();
   const router = useRouter();
+  const dispatch = useAppDispatcher();
   const handleLogout = useCallback(async () => {
-    console.log("Logging out...");
-  }, []);
+    toast
+      .promise(Logout(), {
+        loading: "Logging out...",
+        success: (res) => res?.data.message || "Logged out successfully",
+        error: (err) => err?.response.data.message || "Error logging out",
+      })
+      .then(() => {
+        dispatch(logout());
+        router.replace("/");
+      });
+  }, [router, dispatch]);
   const goToProfile = useCallback(async () => {
     router.push("/profile");
   }, [router]);

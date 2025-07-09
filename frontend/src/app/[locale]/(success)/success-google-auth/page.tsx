@@ -5,15 +5,15 @@ import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { useGetMyQuery } from "@/app/_RTK/RTK-query/RTKQuery";
+import { useGetMeQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 import { setUserData } from "@/app/_RTK/redux-slices/UserSlice";
 import { useAppDispatcher } from "@/app/hooks/AppDispatcher";
 
 const GoogleCallbackPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatcher();
-
-  const { data, isLoading, isError, isSuccess } = useGetMyQuery();
+  
+  const { data, isLoading, isError, isSuccess } = useGetMeQuery();
 
   useEffect(() => {
     if (isSuccess && data?.data?.data) {

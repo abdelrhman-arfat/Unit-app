@@ -62,7 +62,7 @@
       "futureDesc": "We are committed to continuous development, aiming to scale our platform for use by all universities across Egypt. By creating a unified educational ecosystem, we hope to empower students nationwide to succeed in their academic journey with ease and support.",
       "cta": "Get Started"
   },
-    "MainPage":{
+  "MainPage":{
     "main":"Main",
     "docs":"Summaries",
     "quiz":"Quizzes",
@@ -72,6 +72,17 @@
     "allEventsLoadedText": "All events loaded.",
     "visitEventText": "Visit Event",
     "loadingText": "Loading..."
+  },
+  "SummaryPage":{
+  "title": "Summary Dashboard",
+  "showPDF": "Show PDF",
+  "description": "Here is a quick overview of system statistics and recent activity."
+},
+ "filters": {
+    "selectSubject": "Select Subject",
+    "selectSubjectPlaceholder": "Choose a subject...",
+    "allSubjects":"All Subjects",
+    "loading": "Loading..."
   },
   "footer": {
     "copyright": "All rights reserved",
@@ -117,4 +128,10 @@
     "description": "The page you are looking for does not exist or has been moved.",
     "button": "Go Back Home"
   }
+  ,
+  "ErrorFetchingData": {
+    "title": "An error occurred while loading data",
+    "message": "We couldn't fetch the data. Please check your connection and try again."
+}
+
 }

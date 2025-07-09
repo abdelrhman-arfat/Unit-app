@@ -8,6 +8,7 @@ import {
   getDocsBySubjectId,
   getDocsByGrade,
   getDocsBySpecialization,
+  getDocsForTheUser,
 } from "../controller/docs.controller.js";
 import { asyncWrapper } from "../utils/AsyncWrapper.js";
 import { validationMiddleware } from "../middleware/validationMiddleware.js";
@@ -25,6 +26,7 @@ const router = Router();
 router
   .use(asyncWrapper(isLoginMiddleware))
   .get("/", asyncWrapper(getAllDocs))
+  .get("/by-user", asyncWrapper(getDocsForTheUser))
   .get("/by-id/:id", asyncWrapper(getDocById))
   .get(
     "/by-subject/:subjectId",

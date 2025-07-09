@@ -3,7 +3,9 @@ import {
   documentation,
   grades,
   specializations,
+  user,
 } from "@prisma/client";
+import { title } from "process";
 
 const prisma = new PrismaClient();
 
@@ -107,6 +109,20 @@ class DocsService {
         subject: {
           specialization,
         },
+        isDeleted: false,
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+  async getDocsForTheUser(user: user, where?: any) {
+    return await prisma.documentation.findMany({
+      where: {
+        ...where,
+        subject: {
+          grade: user.grade,
+          specialization: user.specialization,
+        },
+      
         isDeleted: false,
       },
       orderBy: { createdAt: "desc" },

@@ -4,9 +4,15 @@ import { useUserSelector } from "@/app/hooks/Selectors";
 import { Link } from "@/i18n/navigation";
 import React from "react";
 
-const CheckIfLogin = ({ children }: { children: React.ReactNode }) => {
+const CheckIfLogin = ({
+  children,
+  isLogging = false,
+}: {
+  children: React.ReactNode;
+  isLogging?: boolean;
+}) => {
   const user = useUserSelector();
-  if (!user.isLoggedIn) {
+  if (user.isLoggedIn === isLogging) {
     return <>{children}</>;
   }
 
@@ -29,19 +35,20 @@ const CheckIfLogin = ({ children }: { children: React.ReactNode }) => {
           </svg>
 
           <h2 className="text-2xl font-bold text-indigo-700">
-            You&apos;re already logged in
+            {!isLogging ? "You're already logged in" : "You'r  e not logged in"}
           </h2>
 
           <p className="text-gray-500 text-sm max-w-xs">
-            We&apos;re redirecting you to your dashboard. If it doesn&apos;t
-            happen automatically, click the button below.
+            {!isLogging
+              ? "We are redirecting you to your dashboard. If it doesn't happen automatically, click the button below."
+              : "Please log in to continue."}
           </p>
 
           <Link
-            href="/main"
+            href={!isLogging ? "/main" : "/login"}
             className="mt-2 inline-block px-5 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-full shadow-md transition-all duration-200"
           >
-            Go to Dashboard
+            {!isLogging ? "Dashboard" : "Log in"}
           </Link>
         </div>
       </div>

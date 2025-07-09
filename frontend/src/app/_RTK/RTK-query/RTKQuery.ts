@@ -1,5 +1,7 @@
 import { API_ULR } from "@/app/constants/ENV";
+import { Docs } from "@/app/types/Docs";
 import { Event } from "@/app/types/Event";
+import { Subject } from "@/app/types/Subject";
 import { User } from "@/app/types/User";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -20,8 +22,12 @@ export const api = createApi({
     credentials: "include",
   }),
   endpoints: (b) => ({
+    // ----------------------- Auth -----------------------
+    refreshToken: b.query<TResponse<User>, void>({
+      query: () => "/auth/refresh-token",
+    }),
     // ----------------------- USERS -----------------------
-    getMy: b.query<TResponse<User>, void>({
+    getMe: b.query<TResponse<User>, void>({
       query: () => "/user/get-me",
     }),
     // ----------------------- Events -----------------------
@@ -31,7 +37,30 @@ export const api = createApi({
     >({
       query: ({ page = 1, limit = 20 }) => `/event?limit=${limit}&page=${page}`,
     }),
+    // ----------------------- Docs -----------------------
+    getAllDocs: b.query<TResponse<Docs[]>, void>({
+      query: () => `/docs`,
+    }),
+    getAllDocsForTheUser: b.query<TResponse<Docs[]>, { subjectId?: number }>({
+      query: ({ subjectId }) =>
+        `/docs/by-user${subjectId ? `?subjectId=${subjectId}` : ""}`,
+    }),
+    // ----------------------- Subjects -----------------------
+    getAllSubjects: b.query<TResponse<Subject[]>, void>({
+      query: () => `/subject`,
+    }),
+    getAllSubjectForTheUser: b.query<TResponse<Subject[]>, void>({
+      query: () => `/subject/by-user`,
+    }),
   }),
 });
 
-export const { useGetMyQuery, useGetAllEventsQuery } = api;
+export const {
+  useGetMeQuery,
+  useRefreshTokenQuery,
+  useGetAllEventsQuery,
+  useGetAllDocsQuery,
+  useGetAllDocsForTheUserQuery,
+  useGetAllSubjectForTheUserQuery,
+  useGetAllSubjectsQuery,
+} = api;

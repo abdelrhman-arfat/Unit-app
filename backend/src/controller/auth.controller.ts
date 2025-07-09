@@ -134,11 +134,11 @@ const updateToken = async (req: Request, res: Response) => {
   }
 
   const token = jwtService.generateToken({ id: req.user.id });
-
+  const user = req.user;
   return res
     .cookie(Tokens.token, token, tokenSetting(defaultMaxAgeToken))
     .status(200)
-    .json(jsonStandard(null, 200, "Token updated"));
+    .json(jsonStandard({ data: userInResponse(user) }, 200, "Token updated"));
 };
 
 export {

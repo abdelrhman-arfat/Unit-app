@@ -63,6 +63,24 @@ export const getAllDocs = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name    getDocsForTheUser
+ * @desc    Get all documentation for the user
+ */
+
+export const getDocsForTheUser = async (req: Request, res: Response) => {
+  const user = req.user as any;
+  const { subjectId, title } = req.query;
+  let where = {};
+  if (subjectId) where = { ...where, subjectId: Number(subjectId) };
+  if (title) {
+    where = { ...where, title: { startsWith: title.toString().toLowerCase() } };
+  }
+
+  const docs = await docsService.getDocsForTheUser(user, where);
+  return setResponse(res, { data: docs }, 200, "Docs for the user fetched");
+};
+
+/**
   @name    getDocById
   @desc    Get single documentation by ID
 */

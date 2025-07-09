@@ -32,6 +32,6 @@ export const setResponse = (
   status: number,
   message: string
 ): Response => {
-  const responseData = pages ? { data, pages } : data;
+  const responseData = { data, pages };
   return res.status(status).json(jsonStandard(responseData, status, message));
 };
