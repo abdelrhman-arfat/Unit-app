@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 
@@ -10,6 +10,7 @@ import type { TokenSettingType } from "../types/TokenSettingType.js";
 import { userService } from "../services/UserService.js";
 import { grades, roles, user } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
+import { CLIENT_URL } from "../constants/ENV.js";
 
 dotenv.config();
 
@@ -76,7 +77,18 @@ const login = async (req: Request, res: Response) => {
  */
 const loginWithGoogle = async (req: Request, res: Response) => {
   const user = req.user;
-  return setResponseForAuth(res, user, "login with google Successfully");
+  console.log("USER IN TOKEN GENERATION:", user);
+
+  const [token, cookieOfToken, refreshToken, cookieOfRefreshToken] =
+    setUserTokens(user);
+
+  res.cookie(Tokens.token, token, cookieOfToken as CookieOptions);
+  res.cookie(
+    Tokens.refreshToken,
+    refreshToken,
+    cookieOfRefreshToken as CookieOptions
+  );
+  return res.redirect(CLIENT_URL + "/success-google-auth");
 };
 
 /**
@@ -187,6 +199,22 @@ const userInCreate = ({
  * @param message
  * @returns response with handled tokens and json data
  */
+
+const setUserTokens = (user: user) => {
+  const payload = {
+    id: user.id,
+  };
+  console.log("USER IN TOKEN GENERATION:", user);
+  console.log("PAYLOAD:", payload);
+
+  const token = jwtService.generateToken(payload);
+  const refreshToken = jwtRefreshService.generateToken(payload);
+
+  const cookieOfToken = tokenSetting(defaultMaxAgeToken);
+  const cookieOfRefreshToken = tokenSetting(defaultMaxAgeRefreshToken);
+  return [token, cookieOfToken, refreshToken, cookieOfRefreshToken];
+};
+
 export const setResponseForAuth = (
   res: Response,
   user: user,
@@ -195,17 +223,18 @@ export const setResponseForAuth = (
   const payload = {
     id: user.id,
   };
-  const token = jwtService.generateToken(payload);
-  const refreshToken = jwtRefreshService.generateToken(payload);
-
-  const cookieOfToken = tokenSetting(defaultMaxAgeToken);
-  const cookieOfRefreshToken = tokenSetting(defaultMaxAgeRefreshToken);
+  const [token, cookieOfToken, refreshToken, cookieOfRefreshToken] =
+    setUserTokens(user);
 
   const returnedUser = userInResponse(user);
 
   return res
-    .cookie(Tokens.token, token, cookieOfToken)
-    .cookie(Tokens.refreshToken, refreshToken, cookieOfRefreshToken)
+    .cookie(Tokens.token, token, cookieOfToken as CookieOptions)
+    .cookie(
+      Tokens.refreshToken,
+      refreshToken,
+      cookieOfRefreshToken as CookieOptions
+    )
     .status(200)
     .json(jsonStandard({ data: returnedUser }, 200, message));
 };

@@ -55,6 +55,7 @@ passport.use(
         // }
 
         const userData = {
+          id: userExist.id,
           email,
           name,
           image,

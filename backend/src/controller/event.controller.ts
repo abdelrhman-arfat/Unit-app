@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { eventService } from "../services/EventService.js";
 import { setResponse } from "../utils/jsonStander.js";
+import setPagination from "../utils/setPagination.js";
 
 /**
+ * @name createEvent
  * @desc Create a new event
  */
 export const createEvent = async (req: Request, res: Response) => {
@@ -22,14 +24,17 @@ export const createEvent = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name getAllEvents
  * @desc Get all events
  */
 export const getAllEvents = async (req: Request, res: Response) => {
-  const events = await eventService.getAll();
+  const [skip, limit] = setPagination(req);
+  const events = await eventService.getAll(skip, limit);
   return setResponse(res, { data: events }, 200, "Events fetched");
 };
 
 /**
+ * @name getEventById
  * @desc Get event by ID
  */
 export const getEventById = async (req: Request, res: Response) => {
@@ -42,6 +47,7 @@ export const getEventById = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name    updateEvent
  * @desc Update event
  */
 export const updateEvent = async (req: Request, res: Response) => {
@@ -81,6 +87,7 @@ export const updateEvent = async (req: Request, res: Response) => {
 };
 
 /**
+ * @name    deleteEvent
  * @desc Delete event
  */
 export const deleteEvent = async (req: Request, res: Response) => {
