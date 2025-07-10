@@ -1,19 +1,18 @@
 import UpdateSubjectId from "@/app/_components/Buttons/UpdateSubjectId";
-import DocsSummariesSection from "@/app/_components/section/summaries/DocsSummariesSection";
+import QuizzesSection from "@/app/_components/section/quizzes/QuizzesSection";
 import { getTranslations } from "next-intl/server";
 import React from "react";
 
 const page = async () => {
-  const t = await getTranslations("SummaryPage");
+  const t = await getTranslations("QuizzesSection");
 
   return (
     <div>
       <UpdateSubjectId />
-      <DocsSummariesSection
-        showPDF={t("showPDF")}
-        emptyPDF={t("emptyPDF")}
+      <QuizzesSection
         title={t("title")}
-        description={t("description")}
+        noQuizzes={t("noQuizzes")}
+        loadingText={t("loading")}
       />
     </div>
   );

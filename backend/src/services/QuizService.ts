@@ -8,7 +8,12 @@ class QuizService {
   }
   async getAllForUser(where: any, skip: number, limit: number) {
     return await prisma.quiz.findMany({
-      where,
+      where: {
+        startDate: {
+          gte: new Date(),
+        },
+        ...where,
+      },
       select: {
         id: true,
         title: true,
@@ -19,6 +24,8 @@ class QuizService {
             specialization: true,
           },
         },
+        startDate: true,
+        duration: true,
       },
       orderBy: { createdAt: "desc" },
       ...(skip && { skip }),
@@ -45,6 +52,8 @@ class QuizService {
             image: true,
           },
         },
+        startDate: true,
+        duration: true,
       },
       orderBy: { createdAt: "desc" },
       ...(skip && { skip }),

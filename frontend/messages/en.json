@@ -74,10 +74,24 @@
     "loadingText": "Loading..."
   },
   "SummaryPage":{
-  "title": "Summary Dashboard",
+  "title": "Summaries Dashboard",
   "showPDF": "Show PDF",
+  "emptyPDF": "No PDF available with this filters",
   "description": "Here is a quick overview of system statistics and recent activity."
-},
+  },
+  "QuizzesSection": {
+    "title": "Available Quizzes",
+    "noQuizzes": "No quizzes available at the moment",
+    "loading": "Loading quizzes..."
+  },
+  "QuizCard": {
+    "subject": "Subject",
+    "grade": "Grade",
+    "specialization": "Specialization",
+    "date": "Date",
+    "duration": "Duration",
+    "minutes": "minutes"
+  },
  "filters": {
     "selectSubject": "Select Subject",
     "selectSubjectPlaceholder": "Choose a subject...",

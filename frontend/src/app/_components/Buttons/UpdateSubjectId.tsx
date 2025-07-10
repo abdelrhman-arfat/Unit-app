@@ -10,19 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "next-intl";
+import { useFilterSelector } from "@/app/hooks/Selectors";
 
-type Props = {
-  translations: {
-    selectSubject: string;
-    selectSubjectPlaceholder: string;
-    loading: string;
-    allSubjects: string;
-  };
-};
-
-const UpdateSubjectId = ({ translations }: Props) => {
+const UpdateSubjectId = () => {
+  const t2 = useTranslations("filters");
+  const selectSubject = t2("selectSubject");
+  const selectSubjectPlaceholder = t2("selectSubjectPlaceholder");
+  const loading = t2("loading");
+  const allSubjects = t2("allSubjects");
   const { data, isLoading } = useGetAllSubjectForTheUserQuery();
   const dispatch = useAppDispatcher();
+  const filter = useFilterSelector();
   const subjects = data?.data?.data ?? [];
 
   const handleSelectChange = (value: string) => {
@@ -37,17 +36,24 @@ const UpdateSubjectId = ({ translations }: Props) => {
     <div className="w-full sm:max-w-[200px] px-4 md:px-0 my-4">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 max-w-2xl mx-auto">
         <label className="text-sm font-medium text-gray-700 whitespace-nowrap">
-          {translations.selectSubject}
+          {selectSubject}
         </label>
-        <Select onValueChange={handleSelectChange}>
+        <Select
+          value={
+            filter.subjectId && filter.subjectId !== null
+              ? String(filter.subjectId)
+              : "all"
+          }
+          onValueChange={handleSelectChange}
+        >
           <SelectTrigger className="w-full md:max-w-[300px]">
-            <SelectValue placeholder={translations.selectSubjectPlaceholder} />
+            <SelectValue placeholder={selectSubjectPlaceholder} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{translations.allSubjects}</SelectItem>
+            <SelectItem value="all">{allSubjects}</SelectItem>
             {isLoading ? (
               <SelectItem value="loading" disabled>
-                {translations.loading}
+                {loading}
               </SelectItem>
             ) : (
               subjects.map((subject) => (

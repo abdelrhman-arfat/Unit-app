@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { FileText } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import AnimationCard1 from "../common/AnimationCard1";
 
 type Props = {
   title: string;
@@ -21,13 +21,7 @@ type Props = {
 
 const DocsCard = ({ title, description, link, createdAt, showPDF }: Props) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      whileHover={{ scale: 1.03 }}
-    >
+    <AnimationCard1>
       <Card className="transition-shadow duration-300 h-full flex flex-col">
         <CardHeader className="flex flex-row items-center gap-3">
           <FileText className="text-indigo-500" />
@@ -39,7 +33,9 @@ const DocsCard = ({ title, description, link, createdAt, showPDF }: Props) => {
           </div>
         </CardHeader>
         <CardContent className="flex-grow">
-          <p className="text-sm text-gray-700 mb-4">{description}</p>
+          <p className="text-sm min-h-[40px]  line-clamp-2 text-gray-700 mb-4">
+            {description}
+          </p>
           <Link
             href={link}
             target="_blank"
@@ -49,7 +45,7 @@ const DocsCard = ({ title, description, link, createdAt, showPDF }: Props) => {
           </Link>
         </CardContent>
       </Card>
-    </motion.div>
+    </AnimationCard1>
   );
 };
 

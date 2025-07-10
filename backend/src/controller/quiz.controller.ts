@@ -62,11 +62,13 @@ export const getAllQuizzes = async (req: Request, res: Response) => {
  */
 export const getAllForUser = async (req: Request, res: Response) => {
   const user = req.user as user;
+  const subjectId = req.query.subjectId;
   const where = {
     subject: {
       grade: user.grade,
       specialization: user.specialization,
     },
+    ...(subjectId && { subjectId: Number(subjectId) }),
   };
   const [skip, limit] = setPagination(req);
   const quizzes = await quizService.getAllForUser(where, skip, limit);

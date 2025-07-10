@@ -4,20 +4,30 @@ import { useGetAllDocsForTheUserQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 import { useFilterSelector } from "@/app/hooks/Selectors";
 import DocsCard from "../../cards/DocsCard";
 import DocsCardLoader from "../../loaders/DocsCardLoader";
-import { Card, CardContent } from "@/components/ui/card";
-import { FileX } from "lucide-react";
+import ErrorFetchingData from "../../common/ErrorFetchingData";
+import NoData from "../../common/NoData";
 
 type Props = {
   title: string;
   description: string;
   showPDF: string;
+  emptyPDF: string;
 };
 
-const DocsSummariesSection = ({ title, description, showPDF }: Props) => {
+const DocsSummariesSection = ({
+  title,
+  description,
+  showPDF,
+  emptyPDF,
+}: Props) => {
   const filter = useFilterSelector();
-  const { data, isLoading } = useGetAllDocsForTheUserQuery({
+  const { data, isLoading, isError } = useGetAllDocsForTheUserQuery({
     subjectId: filter.subjectId ?? undefined,
   });
+
+  if (isError) {
+    return <ErrorFetchingData />;
+  }
 
   const docs = data?.data?.data ?? [];
 
@@ -29,13 +39,13 @@ const DocsSummariesSection = ({ title, description, showPDF }: Props) => {
       </div>
 
       {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
             <DocsCardLoader key={i} />
           ))}
         </div>
       ) : docs.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {docs.map((doc) => (
             <DocsCard
               key={doc.id}
@@ -48,12 +58,7 @@ const DocsSummariesSection = ({ title, description, showPDF }: Props) => {
           ))}
         </div>
       ) : (
-        <Card className="mt-8 border-dashed border-2 border-gray-200 bg-muted text-center py-12">
-          <CardContent className="flex flex-col items-center justify-center gap-3">
-            <FileX size={48} className="text-gray-400" />
-            <p className="text-gray-500">{showPDF}</p>
-          </CardContent>
-        </Card>
+        <NoData message={emptyPDF} />
       )}
     </section>
   );

@@ -74,8 +74,21 @@
   "SummaryPage":{
     "title": "لوحة معلومات الملخصات",
     "description": "هذه لوحة معلومات سريعة لمعلومات النظام والنشاطات الحديثة.",
+    "emptyPDF": "لا يوجد ملف متاح مع هذه المدخلات",
     "showPDF": "عرض الملف"
-
+  },
+  "QuizzesSection": {
+    "title": "الاختبارات المتاحة",
+    "noQuizzes": "لا توجد اختبارات متاحة حالياً",
+    "loading": "جاري تحميل الاختبارات..."
+  },
+  "QuizCard": {
+    "subject": "المادة",
+    "grade": "السنة",
+    "specialization": "التخصص",
+    "date": "التاريخ",
+    "duration": "المدة",
+    "minutes": "دقيقة"
   },
   "filters": {
     "selectSubject": "اختر المادة",

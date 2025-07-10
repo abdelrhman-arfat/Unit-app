@@ -8,7 +8,7 @@ export function useSidebarLinks() {
     return [
       { name: tr("main"), href: "/main", icon: Home },
       { name: tr("docs"), href: "/summaries", icon: BookOpenText },
-      { name: tr("quiz"), href: "/quiz", icon: HelpCircle },
+      { name: tr("quiz"), href: "/quizzes", icon: HelpCircle },
       { name: tr("tasks"), href: "/tasks", icon: CheckSquare },
     ];
   }, [tr]);
