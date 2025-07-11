@@ -13,7 +13,6 @@ const page = async () => {
         showPDF={t("showPDF")}
         emptyPDF={t("emptyPDF")}
         title={t("title")}
-        description={t("description")}
       />
     </div>
   );

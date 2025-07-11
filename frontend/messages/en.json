@@ -64,7 +64,7 @@
   },
   "MainPage":{
     "main":"Main",
-    "docs":"Summaries",
+    "docs":"PDFs",
     "quiz":"Quizzes",
     "tasks":"Tasks",
     "events":"Events",
@@ -76,8 +76,7 @@
   "SummaryPage":{
   "title": "Summaries Dashboard",
   "showPDF": "Show PDF",
-  "emptyPDF": "No PDF available with this filters",
-  "description": "Here is a quick overview of system statistics and recent activity."
+  "emptyPDF": "No PDF available with this filters"
   },
   "QuizzesSection": {
     "title": "Available Quizzes",

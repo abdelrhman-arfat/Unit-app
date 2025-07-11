@@ -74,7 +74,7 @@ function SidebarContent({
   const navItems = useSidebarLinks();
 
   return (
-    <div className="flex flex-col w-full max-h-[80vh] justify-between">
+    <div className="flex flex-col w-full max-h-[90vh] justify-between">
       <div>
         {/* Logo and Language Switcher */}
         <div className="flex items-center justify-between mb-4 px-2">

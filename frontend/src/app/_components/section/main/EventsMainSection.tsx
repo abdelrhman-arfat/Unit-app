@@ -8,6 +8,7 @@ import EventCard from "../../cards/EventCard";
 import EventCardLoader from "../../loaders/EventCardLoader";
 import LoaderGetMoreData from "../../loaders/LoaderGetMoreData";
 import ErrorFetchingData from "../../common/ErrorFetchingData";
+import TitleOfSection from "../../common/TitleOfSection";
 
 type EventsMainSectionProps = {
   noEventsText: string;
@@ -46,13 +47,7 @@ const EventsMainSection = ({
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-8">
-      <div className="relative max-w-3xl mx-auto mb-12 text-center">
-        <h1 className="text-2xl md:text-4xl font-bold text-indigo-700 tracking-tight leading-tight">
-          {title}
-        </h1>
-        <div className="mt-3 w-24 h-1 bg-indigo-500 mx-auto rounded-full animate-pulse" />
-      </div>
-
+      <TitleOfSection title={title} />
       {events.length === 0 && isFetching ? (
         <div className="flex flex-col items-center gap-6">
           {Array.from({ length: 3 }).map((_, i) => (

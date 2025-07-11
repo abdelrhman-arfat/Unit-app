@@ -44,13 +44,15 @@ const UserCard = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex items-center gap-2 w-fit justify-start p-2 hover:bg-gray-100 rounded-lg"
+          className="flex items-center gap-2 w-fit justify-start px-2 py-4 hover:scale-105 rounded-lg"
         >
-          <Avatar className="w-8 h-8">
+          <Avatar className="w-10 h-10">
             <AvatarImage src={user.image} alt={user.name} />
             <AvatarFallback>{user.name?.[0]?.toUpperCase()}</AvatarFallback>
           </Avatar>
-          <span className="font-medium text-sm truncate">{user.name}</span>
+          <span className="font-medium text-sm truncate line-clamp-1">
+            {user.name}
+          </span>
         </Button>
       </DropdownMenuTrigger>
 
