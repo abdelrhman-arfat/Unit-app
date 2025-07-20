@@ -7,16 +7,17 @@ import { v2 as cloudinary } from "cloudinary";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import path from "path";
+import { asyncWrapper } from "../utils/AsyncWrapper.js";
 
 cloudinary.config({
   cloud_name: CLOUDINARY_CLOUD_NAME,
   api_key: CLOUDINARY_API_KEY,
   api_secret: CLOUDINARY_API_SECRET,
 });
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: async (req, file) => {
-    console.log("file", file);
+  params: asyncWrapper(async (req, file) => {
     const timestamp = Date.now();
     const originalName = file.originalname.split(".")[0];
     return {
@@ -24,7 +25,7 @@ const storage = new CloudinaryStorage({
       format: path.extname(file.originalname).slice(1) || "png",
       public_id: `${originalName}_${timestamp}`,
     };
-  },
+  }),
 });
 const upload = multer({ storage });
 

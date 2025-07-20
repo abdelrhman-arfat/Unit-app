@@ -31,6 +31,7 @@ router
 
 router
   .use(asyncWrapper(isLoginMiddleware), asyncWrapper(isAdminMiddleware))
+  .get("/by-admin", asyncWrapper(getAllEvents))
   .post(
     "/",
     upload.single("image"),

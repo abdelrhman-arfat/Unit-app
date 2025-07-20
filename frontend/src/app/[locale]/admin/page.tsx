@@ -1,10 +1,10 @@
-import CreateEventForm from "@/app/_components/forms/CreateEventForm";
+import EventsTable from "@/app/_components/ui/EventsTable";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <CreateEventForm />
+      <EventsTable />
     </div>
   );
 };

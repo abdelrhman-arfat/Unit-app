@@ -17,7 +17,6 @@ type EventCardProps = {
 const EventCard = ({ event, visitEventText }: EventCardProps) => {
   const { title, description, link, image, startDate, endDate } = event;
   const hasImage = image && image.trim() !== "";
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -59,16 +58,20 @@ const EventCard = ({ event, visitEventText }: EventCardProps) => {
           </div>
 
           <div className="pt-2">
-            <Button
-              variant="link"
-              className="text-indigo-600 hover:text-indigo-700 p-0 h-auto text-sm font-medium inline-flex items-center gap-1"
-              asChild
-            >
-              <Link href={link} target="_blank" rel="noopener noreferrer">
-                {visitEventText}
-                <ExternalLink className="w-4 h-4" />
-              </Link>
-            </Button>
+            {link && link.startsWith("https://") && (
+              <div className="pt-2">
+                <Button
+                  variant="link"
+                  className="text-indigo-600 hover:text-indigo-700 p-0 h-auto text-sm font-medium inline-flex items-center gap-1"
+                  asChild
+                >
+                  <Link href={link} target="_blank">
+                    {visitEventText}
+                    <ExternalLink className="w-4 h-4" />
+                  </Link>
+                </Button>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

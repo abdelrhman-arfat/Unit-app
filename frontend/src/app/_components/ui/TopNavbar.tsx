@@ -7,6 +7,7 @@ import LanguageSwitcher from "../Buttons/LanguageSwitcher";
 import UserCard from "../cards/UserCard";
 import { useSidebarLinks } from "@/app/hooks/useSidebarLinks";
 import SidebarContent from "./SidebarContent";
+import Logo from "../common/Logo";
 
 type Props = {
   isRTL: boolean;
@@ -28,9 +29,7 @@ const TopNavbar = ({ isRTL }: Props) => {
             </SheetContent>
           </Sheet>
         </div>
-        <h1 className="text-xl font-bold text-indigo-600 tracking-tight">
-          UNIT
-        </h1>
+        <Logo />
       </div>
 
       <div className="flex items-center gap-4">

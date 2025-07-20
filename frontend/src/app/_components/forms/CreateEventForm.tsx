@@ -12,9 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UploadCloud } from "lucide-react";
-import AnimationCard1 from "../common/AnimationCard1";
 
-export default function CreateEventForm() {
+export default function CreateEventForm({ refetch }: { refetch: () => void }) {
   const setFile = useState<File | null>(null)[1];
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -49,8 +48,8 @@ export default function CreateEventForm() {
           error: "Failed to create event ❌",
         }
       )
-      .then((res) => {
-        console.log(JSON.stringify(res, null, 2));
+      .then(() => {
+        refetch();
       });
 
     form.reset();
@@ -59,27 +58,28 @@ export default function CreateEventForm() {
   };
 
   return (
-    <AnimationCard1>
-      <Card className="max-w-xl mx-auto p-4 space-y-4 shadow-md border border-gray-200 bg-white">
-        <form onSubmit={handleSubmit}>
-          <CardHeader className="flex flex-row items-center gap-3 mb-4">
-            <UploadCloud className="text-indigo-500" />
-            <div>
-              <CardTitle className="text-lg">Create New Event</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground">
-                Fill in the details below
-              </CardDescription>
-            </div>
-          </CardHeader>
+    <Card className="w-full mx-auto p-4 shadow-md border border-gray-200 bg-white">
+      <form onSubmit={handleSubmit}>
+        <CardHeader className="flex flex-row items-center gap-3 mb-4">
+          <UploadCloud className="text-indigo-500" />
+          <div>
+            <CardTitle className="text-lg">Create New Event</CardTitle>
+            <CardDescription className="text-sm text-muted-foreground">
+              Fill in the details below
+            </CardDescription>
+          </div>
+        </CardHeader>
 
-          <CardContent className="space-y-4">
+        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left Side Form */}
+          <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">Title</label>
               <input
                 name="title"
                 type="text"
                 required
-                className="w-full input rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
@@ -91,7 +91,7 @@ export default function CreateEventForm() {
                 name="description"
                 required
                 rows={3}
-                className="w-full input rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
@@ -101,7 +101,7 @@ export default function CreateEventForm() {
                 name="link"
                 type="url"
                 required
-                className="w-full input rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
@@ -114,7 +114,7 @@ export default function CreateEventForm() {
                   name="startDate"
                   type="date"
                   required
-                  className="w-full input rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
@@ -125,46 +125,65 @@ export default function CreateEventForm() {
                   name="endDate"
                   type="date"
                   required
-                  className="w-full input rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
             </div>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                File Upload
+          {/* Right Side Upload */}
+          <div className="space-y-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Upload Image
+            </label>
+
+            <div className="flex items-center gap-4">
+              <label
+                htmlFor="image-upload"
+                className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-indigo-50 hover:text-indigo-600"
+              >
+                <UploadCloud className="w-4 h-4" />
+                Choose Image
               </label>
-              <input
-                name="image"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+
+              {previewUrl && (
+                <span className="text-sm text-gray-500 truncate max-w-[200px]">
+                  {previewUrl.split("/").pop()}
+                </span>
+              )}
             </div>
 
+            <input
+              id="image-upload"
+              name="image"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+
             {previewUrl && (
-              <div className="mt-4">
-                <p className="text-sm text-gray-500 mb-1">Image Preview:</p>
-                <div className="relative w-full h-64 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-                  <Image
-                    src={previewUrl}
-                    alt="Selected Preview"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+              <div className="relative w-full h-60 rounded-xl overflow-hidden border border-gray-300 shadow-md">
+                <Image
+                  src={previewUrl}
+                  alt="Preview"
+                  fill
+                  className="object-cover transition-transform duration-300 hover:scale-105"
+                />
               </div>
             )}
+          </div>
+        </CardContent>
 
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
-            >
-              Create Event
-            </button>
-          </CardContent>
-        </form>
-      </Card>
-    </AnimationCard1>
+        <div className="p-4">
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+          >
+            Create Event
+          </button>
+        </div>
+      </form>
+    </Card>
   );
 }

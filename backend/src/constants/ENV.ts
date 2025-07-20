@@ -10,7 +10,7 @@ const CLIENT_URL = process.env.CLIENT_URL as string;
 
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME as string;
 const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY as string;
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_CLOUD_SECRET as string;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET as string;
 
 const GOOGLE_AUTH_ID = process.env.GOOGLE_AUTH_ID;
 const GOOGLE_AUTH_SECRET = process.env.GOOGLE_AUTH_SECRET;

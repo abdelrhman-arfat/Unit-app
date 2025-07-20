@@ -59,9 +59,19 @@ export const api = createApi({
     getAllSubjectForTheUser: b.query<TResponse<Subject[]>, void>({
       query: () => `/subject/by-user`,
     }),
-    getAllTasksForTheUser: b.query<TResponse<Task[]>, { subjectId?: number }>({
+    // ----------------------- Tasks -----------------------
+    getAllTasksForTheUser: b.query<
+      TResponse<Task[]>,
+      { page?: number; limit?: number }
+    >({
+      query: ({ limit, page }) =>
+        `/task/by-user${page ? `?page=${page}` : ""}${
+          limit ? `&limit=${limit}` : ""
+        }`,
+    }),
+    getAllTasks: b.query<TResponse<Task[]>, { subjectId?: number }>({
       query: ({ subjectId }) =>
-        `/task/by-user${subjectId ? `?subjectId=${subjectId}` : ""}`,
+        `/task${subjectId ? `?subjectId=${subjectId}` : ""}`,
     }),
   }),
 });
@@ -75,4 +85,5 @@ export const {
   useGetAllSubjectForTheUserQuery,
   useGetAllSubjectsQuery,
   useGetAllTasksForTheUserQuery,
+  useGetAllTasksQuery,
 } = api;
