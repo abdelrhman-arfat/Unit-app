@@ -1,3 +1,4 @@
+import Footer from "@/app/_components/Layout/Footer";
 import LandingPageHeader from "@/app/_components/Layout/LandingPageHeader";
 
 export default function RootLayout({
@@ -9,6 +10,7 @@ export default function RootLayout({
     <div className="md:container mx-auto  ">
       <LandingPageHeader />
       <div className="">{children}</div>
+      <Footer />
     </div>
   );
 }

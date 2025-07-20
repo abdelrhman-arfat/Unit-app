@@ -3,6 +3,7 @@ import { Docs } from "@/app/types/Docs";
 import { Event } from "@/app/types/Event";
 import { Quiz } from "@/app/types/Quiz";
 import { Subject } from "@/app/types/Subject";
+import { Task } from "@/app/types/Tasks";
 import { User } from "@/app/types/User";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -58,6 +59,10 @@ export const api = createApi({
     getAllSubjectForTheUser: b.query<TResponse<Subject[]>, void>({
       query: () => `/subject/by-user`,
     }),
+    getAllTasksForTheUser: b.query<TResponse<Task[]>, { subjectId?: number }>({
+      query: ({ subjectId }) =>
+        `/task/by-user${subjectId ? `?subjectId=${subjectId}` : ""}`,
+    }),
   }),
 });
 
@@ -69,4 +74,5 @@ export const {
   useGetAllQuizzesForTheUserQuery,
   useGetAllSubjectForTheUserQuery,
   useGetAllSubjectsQuery,
+  useGetAllTasksForTheUserQuery,
 } = api;

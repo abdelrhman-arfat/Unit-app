@@ -21,7 +21,7 @@ const router = Router();
 router
   .use(asyncWrapper(isLoginMiddleware))
   .get("/", asyncWrapper(getAllTasks))
-  .get("/my-tasks", asyncWrapper(getTasksForMe));
+  .get("/by-user", asyncWrapper(getTasksForMe));
 
 // Routes only for admins
 router

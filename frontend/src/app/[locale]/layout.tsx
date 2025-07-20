@@ -4,7 +4,6 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import AppProvider from "../_RTK/AppProvider";
-import Footer from "../_components/Layout/Footer";
 import { LangInitializer } from "../_components/Layout/LangInitializer";
 import { Toaster } from "react-hot-toast";
 import RefreshToken from "../_components/Layout/RefreshToken";
@@ -40,7 +39,6 @@ export default async function RootLayout({
             <LangInitializer />
             <RefreshToken />
             <div className="">{children}</div>
-            <Footer />
           </NextIntlClientProvider>
         </AppProvider>
       </body>

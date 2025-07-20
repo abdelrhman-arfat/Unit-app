@@ -84,10 +84,11 @@ class TaskService {
     });
   }
 
-  async getTasksByUser(user: user) {
+  async getTasksByUser(user: user, subjectId?: number | null) {
     return await prisma.task.findMany({
       where: {
         subject: {
+          ...(subjectId && { id: subjectId }),
           specialization: user.specialization,
           grade: user.grade,
         },

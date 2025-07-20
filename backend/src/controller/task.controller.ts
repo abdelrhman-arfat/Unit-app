@@ -79,7 +79,10 @@ export const getAllTasks = async (req: Request, res: Response) => {
 */
 export const getTasksForMe = async (req: Request, res: Response) => {
   const user = req.user as user;
-  const tasks = await taskService.getTasksByUser(user);
+  const subjectId = req.query.subjectId
+    ? Number(req.query.subjectId)
+    : undefined;
+  const tasks = await taskService.getTasksByUser(user, subjectId);
   return setResponse(res, { data: tasks }, 200, "Tasks for user fetched");
 };
 

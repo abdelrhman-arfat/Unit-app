@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "learning node js , express.js , mongodb ,",
+  "description": "Unit 4 Project - Faculty of Computers and Information Students Platform, Tanta University",
   "main": "dist/index.js",
   "scripts": {
     "db:push": "npx prisma db push",

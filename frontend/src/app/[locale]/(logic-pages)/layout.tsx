@@ -1,5 +1,5 @@
 import CheckIfLogin from "@/app/_components/common/CheckIfLogin";
-import SideBarMainLayout from "@/app/_components/Layout/SideBarMainPages";
+import ResponsiveSidebarLayout from "@/app/_components/Layout/ResponsiveSidebarLayout";
 
 export default function RootLayout({
   children,
@@ -9,9 +9,9 @@ export default function RootLayout({
   return (
     <>
       <CheckIfLogin isLogging={true}>
-        <SideBarMainLayout>
+        <ResponsiveSidebarLayout>
           <div className="">{children}</div>
-        </SideBarMainLayout>
+        </ResponsiveSidebarLayout>
       </CheckIfLogin>
     </>
   );

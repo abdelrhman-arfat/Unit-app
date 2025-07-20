@@ -12,6 +12,5 @@ export function useSidebarLinks() {
       { name: tr("tasks"), href: "/tasks", icon: CheckSquare },
     ];
   }, [tr]);
-
   return navItems();
 }

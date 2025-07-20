@@ -203,9 +203,6 @@ const setUserTokens = (user: user) => {
   const payload = {
     id: user.id,
   };
-  console.log("USER IN TOKEN GENERATION:", user);
-  console.log("PAYLOAD:", payload);
-
   const token = jwtService.generateToken(payload);
   const refreshToken = jwtRefreshService.generateToken(payload);
 
