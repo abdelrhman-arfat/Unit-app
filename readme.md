@@ -32,7 +32,7 @@ A full-stack web application designed to bring together students of the faculty 
 | TypeScript      | Prisma ORM          | Docker Compose    |
 | Tailwind CSS    | MySQL               | Redis             |
 | Shadcn/UI       | bcrypt              | Nodemon + ts-node |
-| React Hot Toast | Multer + Cloudinary | Microsoft OAuth   |
+| React Hot Toast | Multer + Cloudinary | Google OAuth   |
 
 ---
 
