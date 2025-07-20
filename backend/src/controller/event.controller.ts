@@ -10,7 +10,6 @@ import setPagination from "../utils/setPagination.js";
 export const createEvent = async (req: Request, res: Response) => {
   const { title, description, link, startDate, endDate } = req.body;
   const image = req?.file?.path || "";
-
   const event = await eventService.create({
     title,
     description,

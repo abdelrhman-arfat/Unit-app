@@ -13,16 +13,14 @@ cloudinary.config({
   api_key: CLOUDINARY_API_KEY,
   api_secret: CLOUDINARY_API_SECRET,
 });
-
-const folderName = "unit";
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: async (_req, file) => {
+  params: async (req, file) => {
+    console.log("file", file);
     const timestamp = Date.now();
     const originalName = file.originalname.split(".")[0];
     return {
-      folder: folderName,
+      folder: "unit ",
       format: path.extname(file.originalname).slice(1) || "png",
       public_id: `${originalName}_${timestamp}`,
     };
@@ -48,7 +46,7 @@ const deleteExistImage = async (oldImage: string) => {
       return;
     }
 
-    const public_id = `${folderName}/${fullBaseName}`;
+    const public_id = `unit/${fullBaseName}`;
 
     await cloudinary.uploader.destroy(public_id);
   } catch (err: any) {

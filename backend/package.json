@@ -23,7 +23,7 @@
     "@prisma/client": "^6.9.0",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
-    "cloudinary": "^1.41.3",
+      "cloudinary": "^1.41.3",
     "commander": "^13.1.0",
     "concurrently": "^9.1.2",
     "cookie-parser": "^1.4.7",
