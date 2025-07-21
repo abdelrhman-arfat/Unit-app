@@ -116,7 +116,7 @@ const EventsTable = () => {
                       <Link
                         href={event.link}
                         target="_blank"
-                        className="text-indigo-600 hover:underline text-sm font-medium"
+                        className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-white text-green-600 border border-green-200 hover:bg-green-50 hover:text-green-700 dark:bg-zinc-800 dark:text-green-400 dark:border-green-600 dark:hover:bg-zinc-700 transition-all"
                       >
                         Open
                       </Link>

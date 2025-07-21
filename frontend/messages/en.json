@@ -73,6 +73,14 @@
     "visitEventText": "Visit Event",
     "loadingText": "Loading..."
   },
+  "AdminPage":{
+    "main":"Main",
+    "docs":"PDFs",
+    "quiz":"Quizzes",
+    "tasks":"Tasks",
+    "events":"Events",
+    "users":"Users"
+  },
   "SummaryPage":{
   "title": "Summaries Dashboard",
   "showPDF": "Show PDF",

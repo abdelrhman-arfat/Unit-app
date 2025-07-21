@@ -1,4 +1,4 @@
-import EventsTable from "@/app/_components/ui/EventsTable";
+import EventsTable from "@/app/_components/tables/EventsTable";
 import React from "react";
 
 const page = () => {

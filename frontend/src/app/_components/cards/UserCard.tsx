@@ -9,13 +9,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { LogOut, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Logout } from "@/app/utils/api/Logout";
 import { useAppDispatcher } from "@/app/hooks/AppDispatcher";
 import { logout } from "@/app/_RTK/redux-slices/UserSlice";
+import { useRouter } from "@/i18n/navigation";
+import { ROLES } from "@/app/constants/Admins";
 
 const UserCard = () => {
   const { user } = useUserSelector();
@@ -37,6 +38,9 @@ const UserCard = () => {
 
   const goToProfile = useCallback(() => {
     router.push("/profile");
+  }, [router]);
+  const goToAdmin = useCallback(() => {
+    router.push("/admin");
   }, [router]);
 
   if (!user) return null;
@@ -66,9 +70,18 @@ const UserCard = () => {
           onClick={goToProfile}
           className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-black dark:hover:text-white rounded-md px-2 py-2"
         >
-          <User className="w-4 h-4" />
+          <Settings className="w-4 h-4" />
           <span>Profile</span>
         </DropdownMenuItem>
+        {user.role === ROLES.ADMIN && (
+          <DropdownMenuItem
+            onClick={goToAdmin}
+            className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-black dark:hover:text-white rounded-md px-2 py-2"
+          >
+            <User className="w-4 h-4" />
+            <span>Admin</span>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem
           onClick={handleLogout}
           className="flex items-center gap-2 text-red-500 cursor-pointer transition-all duration-200 hover:bg-red-100 dark:hover:bg-red-800 hover:text-red-700 dark:hover:text-red-300 rounded-md px-2 py-2"
