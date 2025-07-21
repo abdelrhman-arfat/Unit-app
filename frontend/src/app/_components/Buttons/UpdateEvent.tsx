@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import Update from "./Update";
 
 type Props = {
   event: Event;
@@ -61,12 +62,7 @@ const UpdateEvent = ({ event, refetch }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          size="sm"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white"
-        >
-          Update
-        </Button>
+        <Update setOpen={setOpen} />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>

@@ -79,7 +79,8 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
                 name="title"
                 type="text"
                 required
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Enter event title"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
@@ -91,7 +92,8 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
                 name="description"
                 required
                 rows={3}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Brief description of the event"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
@@ -101,7 +103,8 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
                 name="link"
                 type="url"
                 required
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="https://event-link.com"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
@@ -178,7 +181,7 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
         <div className="p-4">
           <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors cursor-pointer"
           >
             Create Event
           </button>
