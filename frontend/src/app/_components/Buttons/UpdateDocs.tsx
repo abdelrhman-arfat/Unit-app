@@ -20,16 +20,19 @@ const UpdateDocs = ({ docs, refetch }: Props) => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await toast.promise(axiosInstance.put(`/docs/${id}`, formData), {
-        loading: "Updating document...",
-        success: (res) => {
-          refetch();
-          setOpen(false);
-          return res?.data?.message || "Document updated";
-        },
-        error: (err) =>
-          err?.response?.data?.message || "Failed to update document",
-      });
+      await toast.promise(
+        axiosInstance.put(`/docs/update-docs/${id}`, formData),
+        {
+          loading: "Updating document...",
+          success: (res) => {
+            refetch();
+            setOpen(false);
+            return res?.data?.message || "Document updated";
+          },
+          error: (err) =>
+            err?.response?.data?.message || "Failed to update document",
+        }
+      );
     } catch {
       toast.error("Unexpected error occurred");
     }

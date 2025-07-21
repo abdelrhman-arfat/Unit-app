@@ -99,14 +99,14 @@ export const getDocById = async (req: Request, res: Response) => {
 */
 export const createDoc = async (req: Request, res: Response) => {
   const { title, subjectId, link, description } = req.body;
-  const subject = await subjectService.getById(subjectId);
+  const subject = await subjectService.getById(Number(subjectId));
   if (!subject) {
     return setResponse(res, { data: null }, 404, "Subject not found");
   }
   const uploaderId = req.user.id;
   const doc = await docsService.createDoc({
     title,
-    subjectId,
+    subjectId: Number(subjectId),
     link,
     description,
     uploaderId,

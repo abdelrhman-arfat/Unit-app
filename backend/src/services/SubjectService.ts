@@ -27,7 +27,7 @@ class SubjectService {
 
   async getById(id: number): Promise<subject | null> {
     return await prisma.subject.findUnique({
-      where: { id },
+      where: { id: Number(id) },
       select: subjectSelection,
     });
   }

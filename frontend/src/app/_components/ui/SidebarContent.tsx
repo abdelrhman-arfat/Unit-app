@@ -18,8 +18,6 @@ type Props = {
 const SidebarContent = ({ navItem }: Props) => {
   const navItems = navItem();
   const pathname = usePathname();
-  console.log(JSON.stringify(navItems, null, 2));
-  console.log(JSON.stringify(pathname, null, 2));
   return (
     <div className="flex flex-col justify-between h-full w-full">
       <nav className="flex flex-col gap-2">

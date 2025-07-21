@@ -30,7 +30,13 @@ class DocsService {
     >
   ): Promise<documentation> {
     return await prisma.documentation.create({
-      data,
+      data: {
+        link: data.link,
+        description: data.description,
+        title: data.title,
+        subjectId: Number(data.subjectId),
+        uploaderId: Number(data.uploaderId),
+      },
     });
   }
 
@@ -122,7 +128,7 @@ class DocsService {
           grade: user.grade,
           specialization: user.specialization,
         },
-      
+
         isDeleted: false,
       },
       orderBy: { createdAt: "desc" },

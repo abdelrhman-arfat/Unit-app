@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import Link from "next/link";
 import { useGetAllEventsQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 import { Event as EventType } from "@/app/types/Event";
 import OpenCard from "../cards/OpenCard";
@@ -19,9 +18,17 @@ import UpdateEvent from "../Buttons/UpdateEvent";
 import NoData from "../common/NoData";
 import DeleteBTN from "../Buttons/DeleteBTN";
 import { deleteEventById } from "@/app/utils/api/DeleteEventById";
+import Open from "../Buttons/Open";
+import AppLoader from "../loaders/AppLoader";
+import TableHeaderData from "../ui/TableHeaderData";
 
 const EventsTable = () => {
-  const { data, isLoading, isError, refetch } = useGetAllEventsQuery({});
+  const { data, isLoading, isError, refetch } = useGetAllEventsQuery(
+    {},
+    {
+      pollingInterval: 5 * 60 * 1000,
+    }
+  );
 
   const events = data?.data?.data;
 
@@ -38,21 +45,12 @@ const EventsTable = () => {
 
       {/* Events Table */}
       {isLoading ? (
-        <div className="text-center py-10 text-muted-foreground text-sm">
-          Loading events...
-        </div>
-      ) : isError || !events ? (
+        <AppLoader />
+      ) : isError ? (
         <NoData message="Failed to load events" />
       ) : (
         <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
-          <div className="p-4 border-b">
-            <h2 className="text-lg font-semibold text-foreground">
-              All Events
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Total: {events.length} events
-            </p>
-          </div>
+          <TableHeaderData length={events?.length ?? 0} name="event" />
           <div className="overflow-x-auto">
             <Table>
               <TableHeader className="bg-muted">
@@ -66,7 +64,7 @@ const EventsTable = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {events.map((event: EventType) => (
+                {events?.map((event: EventType) => (
                   <TableRow key={event.id} className="hover:bg-muted/40">
                     {/* Image */}
                     <TableCell>
@@ -109,19 +107,7 @@ const EventsTable = () => {
 
                     {/* Link */}
                     <TableCell>
-                      {event.link ? (
-                        <Link
-                          href={event.link}
-                          target="_blank"
-                          className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-white text-green-600 border border-green-200 hover:bg-green-50 hover:text-green-700 dark:bg-zinc-800 dark:text-green-400 dark:border-green-600 dark:hover:bg-zinc-700 transition-all"
-                        >
-                          Open
-                        </Link>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">
-                          No Link
-                        </span>
-                      )}
+                      <Open link={event.link} />
                     </TableCell>
 
                     {/* Actions */}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { axiosInstance } from "@/app/utils/api/axiosInstance";
 import {
@@ -11,19 +10,37 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useGetAllSubjectsQuery } from "@/app/_RTK/RTK-query/RTKQuery";
 
 export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
-  const setFile = useState<File | null>(null)[1];
+  const { data, isLoading } = useGetAllSubjectsQuery();
+  const subjects = data?.data?.data || [];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-
+    console.log({
+      title: formData.get("title") as string,
+      description: formData.get("description") as string,
+      subjectId: formData.get("subjectId") as string,
+      link: formData.get("link") as string,
+    });
+    if (
+      !formData.get("title") ||
+      !formData.get("description") ||
+      !formData.get("subjectId") ||
+      !formData.get("link")
+    ) {
+      return toast.error("Please fill in all fields");
+    }
     await toast
       .promise(
-        axiosInstance.post("/docs", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
+        axiosInstance.post("/docs", {
+          title: formData.get("title") as string,
+          description: formData.get("description") as string,
+          subjectId: Number(formData.get("subjectId")),
+          link: formData.get("link") as string,
         }),
         {
           loading: "Creating document...",
@@ -31,10 +48,10 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
           error: "Failed to create document ❌",
         }
       )
-      .then(() => {
+      .then((res) => {
+        console.log(res);
         refetch();
         form.reset();
-        setFile(null);
       });
   };
 
@@ -46,7 +63,7 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
             Create Document
           </CardTitle>
           <CardDescription className="text-sm text-gray-500 mt-1">
-            Provide a title, description, subject ID, and a document link.
+            Provide a title, description, subject name, and document link.
           </CardDescription>
         </CardHeader>
 
@@ -59,6 +76,8 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
               <input
                 name="title"
                 type="text"
+                min={4}
+                max={50}
                 required
                 placeholder="Enter document title"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
@@ -72,6 +91,7 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
               <textarea
                 name="description"
                 required
+                minLength={10}
                 rows={4}
                 placeholder="Add a brief description"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
@@ -95,16 +115,24 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Subject ID
+                Subject
               </label>
-              <input
+              <select
                 name="subjectId"
-                type="number"
-                min={1}
                 required
-                placeholder="e.g., 123"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-              />
+              >
+                <option value="">Select a subject</option>
+                {isLoading ? (
+                  <option disabled>Loading...</option>
+                ) : (
+                  subjects.map((subject) => (
+                    <option key={subject.id} value={subject.id}>
+                      {subject.name}
+                    </option>
+                  ))
+                )}
+              </select>
             </div>
           </div>
         </CardContent>
