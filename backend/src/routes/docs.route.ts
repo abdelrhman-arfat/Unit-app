@@ -54,7 +54,7 @@ router
     asyncWrapper(validationMiddleware),
     asyncWrapper(createDoc)
   )
-  .put("/:id", asyncWrapper(updateDoc))
-  .delete("/:id", asyncWrapper(deleteDoc));
+  .put("/update-docs/:id", asyncWrapper(updateDoc))
+  .delete("/delete-docs/:id", asyncWrapper(deleteDoc));
 
 export { router as docsRouter };

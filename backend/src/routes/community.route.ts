@@ -27,29 +27,24 @@ router
   .get("/by-id/:id", asyncWrapper(getCommunityById))
   .get("/by-name/:name", asyncWrapper(getCommunityByName));
 router
+  .use(asyncWrapper(isLoginMiddleware), asyncWrapper(isAdminMiddleware))
   .post(
     "/",
-    asyncWrapper(isLoginMiddleware),
-    asyncWrapper(isAdminMiddleware),
     upload.single("image"),
     validateCreateCommunity,
     asyncWrapper(validationMiddleware),
     asyncWrapper(createCommunity)
   )
   .put(
-    "/:id",
+    "/update-community/:id",
     validateUpdateCommunity,
     asyncWrapper(validationMiddleware),
-    asyncWrapper(isLoginMiddleware),
-    asyncWrapper(isAdminMiddleware),
     asyncWrapper(updateCommunityById)
   )
   .delete(
-    "/:id",
+    "/delete-community/:id",
     validateDeleteCommunity,
     asyncWrapper(validationMiddleware),
-    asyncWrapper(isLoginMiddleware),
-    asyncWrapper(isAdminMiddleware),
     asyncWrapper(deleteCommunityById)
   );
 

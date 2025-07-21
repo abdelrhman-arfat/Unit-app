@@ -38,12 +38,12 @@ router
     asyncWrapper(createSubject)
   )
   .delete(
-    "/:id",
+    "/delete-subject/:id",
     asyncWrapper(validationMiddleware),
     asyncWrapper(deleteSubject)
   )
   .put(
-    "/:id",
+    "/update-subject/:id",
     validateSubjectId,
     asyncWrapper(validationMiddleware),
     asyncWrapper(updateSubject)
