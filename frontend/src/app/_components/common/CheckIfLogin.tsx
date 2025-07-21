@@ -35,7 +35,7 @@ const CheckIfLogin = ({
           </svg>
 
           <h2 className="text-2xl font-bold text-indigo-700">
-            {!isLogging ? "You're already logged in" : "You'r  e not logged in"}
+            {!isLogging ? "You're already logged in" : "You're not logged in"}
           </h2>
 
           <p className="text-gray-500 text-sm max-w-xs">

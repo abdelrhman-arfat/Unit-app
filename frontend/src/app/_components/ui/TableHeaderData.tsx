@@ -5,13 +5,11 @@ type Props = {
 };
 const TableHeaderData = ({ length, name }: Props) => {
   return (
-    <div className="p-4 border-b">
+    <div className="p-4 border-b flex justify-between items-center">
       <h2 className="text-lg font-semibold text-foreground">
-        All {name[0].toUpperCase() + name.slice(1).toLowerCase()}
+        {name[0].toUpperCase() + name.slice(1)}
       </h2>
-      <p className="text-sm text-muted-foreground">
-        Total: {length} {name.toLowerCase()}
-      </p>
+      <p className="text-xl text-muted-foreground">Total: {length}</p>
     </div>
   );
 };

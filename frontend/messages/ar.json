@@ -71,12 +71,26 @@
     "loadingText": "جاري التحميل..."
   },
   "AdminPage":{
+    "FillData":"املأ البيانات",
+    "SubmitBTN":"اضافة",
+    "Description":"",
     "main":"الفعاليات",
     "docs":"ملخصات",
     "quiz":"اختبارات",
     "tasks":"مهام",
     "events":"فعاليات",
-    "users":"المستخدمين"
+    "users":"المستخدمين",
+    "AllEvents":"جميع الفعاليات",
+    "AddNewEvent":"اضافة حدث جديد",
+    "AllQuizes":"جميع الاختبارات",
+    "AddNewQuiz":"اضافة اختبار جديد",
+    "AllTasks":"جميع المهام",
+    "AddNewTask":"اضافة مهمة جديدة",
+    "AllUsers":"جميع المستخدمين",
+    "AddNewUser":"اضافة مستخدم جديد",
+    "AllDocs":"جميع الملخصات",
+    "AddNewDocs":"اضافة ملخص جديد"
+
   },
   "SummaryPage":{
     "title": "لوحة معلومات الملخصات",

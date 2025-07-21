@@ -21,6 +21,7 @@ import { deleteEventById } from "@/app/utils/api/DeleteEventById";
 import Open from "../Buttons/Open";
 import AppLoader from "../loaders/AppLoader";
 import TableHeaderData from "../ui/TableHeaderData";
+import { useTranslations } from "next-intl";
 
 const EventsTable = () => {
   const { data, isLoading, isError, refetch } = useGetAllEventsQuery(
@@ -30,16 +31,17 @@ const EventsTable = () => {
     }
   );
 
+  const t = useTranslations("AdminPage");
+  console.log(t("AllEvents"));
   const events = data?.data?.data;
 
   return (
     <div className="space-y-6 px-4 py-6">
       {/* OpenCard for Create Form */}
       <OpenCard
-        title="Events"
-        buttonText="Add Event"
+        title={t("AllEvents")}
+        buttonText={t("AddNewEvent")}
         component={<CreateEventForm refetch={refetch} />}
-        description="Create and manage your events easily."
         icon={<HomeIcon className="text-green-600" />}
       />
 
@@ -50,7 +52,7 @@ const EventsTable = () => {
         <NoData message="Failed to load events" />
       ) : (
         <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
-          <TableHeaderData length={events?.length ?? 0} name="event" />
+          <TableHeaderData length={events?.length ?? 0} name={t("AllEvents")} />
           <div className="overflow-x-auto">
             <Table>
               <TableHeader className="bg-muted">

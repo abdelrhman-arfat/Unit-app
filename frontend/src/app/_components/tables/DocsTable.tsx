@@ -20,26 +20,28 @@ import Open from "../Buttons/Open";
 import AppLoader from "../loaders/AppLoader";
 import NoData from "../common/NoData";
 import TableHeaderData from "../ui/TableHeaderData";
+import { useTranslations } from "next-intl";
 
 const DocsTable = () => {
   const { data, isLoading, isError, refetch } = useGetAllDocsQuery(undefined, {
     pollingInterval: 5 * 60 * 1000, // 5 minutes
   });
 
+  const t = useTranslations("AdminPage");
+
   const docs = data?.data.data;
 
   return (
     <div className="space-y-6 px-4 py-6">
       <OpenCard
-        title="Documents"
-        buttonText="Add Document"
+        title={t("AllDocs")}
+        buttonText={t("AddNewDocs")}
         component={<CreateDocsForm refetch={refetch} />}
-        description="Upload and manage your study materials."
         icon={<BookOpenCheck className="text-green-600" />}
       />
 
       <div className="rounded-xl bg-card shadow-md overflow-hidden">
-        <TableHeaderData length={docs?.length ?? 0} name="document" />
+        <TableHeaderData length={docs?.length ?? 0} name={t("AllDocs")} />
         {isLoading ? (
           <AppLoader />
         ) : isError ? (

@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useGetAllSubjectsQuery } from "@/app/_RTK/RTK-query/RTKQuery";
+import { useTranslations } from "next-intl";
 
 export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
   const { data, isLoading } = useGetAllSubjectsQuery();
+  const t = useTranslations("AdminPage");
   const subjects = data?.data?.data || [];
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -60,10 +61,10 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
       <form onSubmit={handleSubmit}>
         <CardHeader className="mb-6 p-0">
           <CardTitle className="text-xl font-semibold text-gray-800">
-            Create Document
+            {t("AddNewDocs")}
           </CardTitle>
           <CardDescription className="text-sm text-gray-500 mt-1">
-            Provide a title, description, subject name, and document link.
+            {t("Description")}
           </CardDescription>
         </CardHeader>
 
@@ -142,7 +143,7 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
             type="submit"
             className="w-full bg-indigo-500 text-white hover:bg-indigo-700 duration-300"
           >
-            Create Document
+            {t("SubmitBTN")}
           </Button>
         </div>
       </form>

@@ -12,11 +12,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UploadCloud } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function CreateEventForm({ refetch }: { refetch: () => void }) {
   const setFile = useState<File | null>(null)[1];
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
+  const t = useTranslations("AdminPage");
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0] ?? null;
     setFile(selected);
@@ -63,9 +64,9 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
         <CardHeader className="flex flex-row items-center gap-3 mb-4">
           <UploadCloud className="text-indigo-500" />
           <div>
-            <CardTitle className="text-lg">Create New Event</CardTitle>
+            <CardTitle className="text-lg">{t("AddNewEvent")}</CardTitle>
             <CardDescription className="text-sm text-muted-foreground">
-              Fill in the details below
+              {t("FillData")}
             </CardDescription>
           </div>
         </CardHeader>
@@ -183,7 +184,7 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors cursor-pointer"
           >
-            Create Event
+            {t("SubmitBTN")}
           </button>
         </div>
       </form>

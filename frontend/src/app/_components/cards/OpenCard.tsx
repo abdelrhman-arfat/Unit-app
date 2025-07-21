@@ -7,18 +7,11 @@ import { useCallback, useMemo, useState } from "react";
 interface SettingCardProps {
   icon: React.ReactNode;
   title: string;
-  description: string;
   buttonText: string;
   component?: React.ReactNode;
 }
 
-const OpenCard = ({
-  icon,
-  title,
-  description,
-  buttonText,
-  component,
-}: SettingCardProps) => {
+const OpenCard = ({ icon, title, buttonText, component }: SettingCardProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const compo = useMemo(() => component, [component]);
 
@@ -36,7 +29,6 @@ const OpenCard = ({
               <h3 className="text-base font-semibold text-foreground">
                 {title}
               </h3>
-              <p className="text-sm text-muted-foreground">{description}</p>
             </div>
           </div>
           <Button

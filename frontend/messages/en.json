@@ -74,12 +74,24 @@
     "loadingText": "Loading..."
   },
   "AdminPage":{
+    "FillData":"Fill in the details below",
+    "SubmitBTN":"Submit",
     "main":"Main",
     "docs":"PDFs",
     "quiz":"Quizzes",
     "tasks":"Tasks",
     "events":"Events",
-    "users":"Users"
+    "users":"Users",
+    "AllEvents": "All Events",
+    "AddNewEvent": "Add New Event",
+    "AllQuizzes": "All Quizzes",
+    "AddNewQuiz": "Add New Quiz",
+    "AllTasks": "All Tasks",
+    "AddNewTask": "Add New Task",
+    "AllUsers": "All Users",
+    "AddNewUser": "Add New User",
+    "AllDocs": "All PDFs",
+    "AddNewDoc": "Add New PDF"
   },
   "SummaryPage":{
   "title": "Summaries Dashboard",
