@@ -101,13 +101,14 @@ export const updateQuiz = async (req: Request, res: Response) => {
   }
   const { title, description, subjectId, startDate, duration } = req.body;
 
-  if (title) quiz.title = title;
-  if (description) quiz.description = description;
-  if (subjectId) quiz.subjectId = subjectId;
-  if (startDate) quiz.startDate = new Date(startDate);
-  if (duration) quiz.duration = duration;
+  const data: any = {};
+  if (title) data.title = title;
+  if (description) data.description = description;
+  if (subjectId) data.subjectId = subjectId;
+  if (startDate) data.startDate = new Date(startDate);
+  if (duration) data.duration = duration;
 
-  const updated = await quizService.update(id, quiz);
+  const updated = await quizService.update(id, data);
   return setResponse(res, { data: updated }, 200, "Quiz updated");
 };
 

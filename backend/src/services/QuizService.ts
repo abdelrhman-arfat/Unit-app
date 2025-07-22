@@ -16,6 +16,8 @@ class QuizService {
       },
       select: {
         id: true,
+        description: true,
+        subjectId: true,
         title: true,
         subject: {
           select: {
@@ -38,6 +40,8 @@ class QuizService {
       select: {
         id: true,
         title: true,
+        subjectId: true,
+        description: true,
         subject: {
           select: {
             name: true,
@@ -68,6 +72,7 @@ class QuizService {
         id: true,
         title: true,
         description: true,
+        subjectId: true,
         subject: {
           select: {
             name: true,
@@ -84,7 +89,6 @@ class QuizService {
         },
         startDate: true,
         duration: true,
-        subjectId: true,
       },
     });
   }

@@ -75,6 +75,9 @@ export const api = createApi({
           `/quiz/by-user${subjectId ? `?subjectId=${subjectId}` : ""}`,
       }
     ),
+    getAllQuizzes: b.query<TResponse<Quiz[]>, { subjectId?: number }>({
+      query: ({}) => `/quiz `,
+    }),
     // ----------------------- Subjects -----------------------
     getAllSubjects: b.query<TResponse<Subject[]>, void>({
       query: () => `/subject`,
@@ -106,6 +109,7 @@ export const {
   useGetAllDocsQuery,
   useGetAllDocsForTheUserQuery,
   useGetAllQuizzesForTheUserQuery,
+  useGetAllQuizzesQuery,
   useGetAllSubjectForTheUserQuery,
   useGetAllSubjectsQuery,
   useGetAllTasksForTheUserQuery,

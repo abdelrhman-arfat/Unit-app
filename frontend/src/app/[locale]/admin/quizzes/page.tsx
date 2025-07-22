@@ -1,9 +1,12 @@
-import React from 'react'
+import QuizzesTable from "@/app/_components/tables/QuizzesTable";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <QuizzesTable />
+    </div>
+  );
+};
 
-export default page
+export default page;
