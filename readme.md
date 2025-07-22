@@ -88,9 +88,12 @@ MICROSOFT_AUTH_SERVER_CALLBACK=http://localhost:4000/auth/microsoft/callback
 ```
 
 ## 🐟 Docker Build Dev :
-
+1. First Time
 ```bash
   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+```
+```bash
+  npm run dev:docker
 ```
 
 ## 📘 Prisma Schema Overview
