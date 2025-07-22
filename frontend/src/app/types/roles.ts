@@ -5,3 +5,12 @@ export type roles =
   | "worker"
   | "leader"
   | "student";
+
+export enum rolesEnum {
+  admin = "admin",
+  doctor = "doctor",
+  assistant = "assistant",
+  worker = "worker",
+  leader = "leader",
+  student = "student",
+}

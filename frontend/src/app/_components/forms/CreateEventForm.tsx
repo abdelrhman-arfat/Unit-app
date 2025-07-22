@@ -144,7 +144,7 @@ export default function CreateEventForm({ refetch }: { refetch: () => void }) {
             <div className="flex items-center gap-4">
               <label
                 htmlFor="image-upload"
-                className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-indigo-50 hover:text-indigo-600"
+                className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-indigo-50 duration-300 hover:text-indigo-600"
               >
                 <UploadCloud className="w-4 h-4" />
                 Choose Image

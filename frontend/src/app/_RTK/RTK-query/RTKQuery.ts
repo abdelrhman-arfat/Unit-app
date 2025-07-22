@@ -1,7 +1,10 @@
 import { API_ULR } from "@/app/constants/ENV";
 import { Docs } from "@/app/types/Docs";
 import { Event } from "@/app/types/Event";
+import { grades } from "@/app/types/grades";
 import { Quiz } from "@/app/types/Quiz";
+import { roles } from "@/app/types/roles";
+import { specializations } from "@/app/types/Specialization";
 import { Subject } from "@/app/types/Subject";
 import { Task } from "@/app/types/Tasks";
 import { User } from "@/app/types/User";
@@ -30,12 +33,32 @@ export const api = createApi({
     getMe: b.query<TResponse<User>, void>({
       query: () => "/user/get-me",
     }),
+
+    getAllUsers: b.query<
+      TResponse<User[]>,
+      {
+        page?: number;
+        limit?: number;
+        email?: string;
+        specialization?: specializations;
+        grade?: grades;
+        role?: roles;
+      }
+    >({
+      query: ({ page, limit, email, specialization, grade, role }) =>
+        `/user?${limit ? `limit=${limit}&` : ""}${page ? `page=${page}&` : ""}${email ? `email=${email}&` : ""}${specialization ? `specialization=${specialization}&` : ""}${grade ? `grade=${grade}&` : ""}${role ? `role=${role}&` : ""}`.replace(
+          /&$/,
+          ""
+        ),
+    }),
+
     // ----------------------- Events -----------------------
     getAllEvents: b.query<
       TResponse<Event[]>,
       { page?: number; limit?: number }
     >({
-      query: ({ page = 1, limit = 20 }) => `/event?limit=${limit}&page=${page}`,
+      query: ({ page, limit }) =>
+        `/event?${page && `page=${page}`}&${limit && `limit=${limit}`}`,
     }),
     // ----------------------- Docs -----------------------
     getAllDocs: b.query<TResponse<Docs[]>, void>({
@@ -78,6 +101,7 @@ export const api = createApi({
 
 export const {
   useGetMeQuery,
+  useGetAllUsersQuery,
   useGetAllEventsQuery,
   useGetAllDocsQuery,
   useGetAllDocsForTheUserQuery,

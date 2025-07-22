@@ -7,7 +7,6 @@ import {
   register,
   updateToken,
   loginWithGoogle,
- 
 } from "../controller/auth.controller.js";
 import { asyncWrapper } from "../utils/AsyncWrapper.js";
 import { isLoginMiddleware } from "../middleware/isLoginMiddleware.js";
@@ -15,6 +14,7 @@ import {
   loginValidation,
   registerValidation,
 } from "../validation/auth.validate.js";
+
 const router = Router();
 
 router

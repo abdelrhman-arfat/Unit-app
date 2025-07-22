@@ -66,7 +66,6 @@ const login = async (req: Request, res: Response) => {
   if (!isMatch) {
     return res.status(401).json(jsonStandard(null, 401, invalidMessage));
   }
-
   return setResponseForAuth(res, user, "login Successfully");
 };
 

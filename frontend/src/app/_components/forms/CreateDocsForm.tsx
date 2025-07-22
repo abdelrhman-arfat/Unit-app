@@ -5,7 +5,6 @@ import { axiosInstance } from "@/app/utils/api/axiosInstance";
 import {
   Card,
   CardContent,
-  CardHeader,
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
@@ -59,16 +58,14 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
   return (
     <Card className="w-full max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6">
       <form onSubmit={handleSubmit}>
-        <CardHeader className="mb-6 p-0">
-          <CardTitle className="text-xl font-semibold text-gray-800">
-            {t("AddNewDocs")}
-          </CardTitle>
-          <CardDescription className="text-sm text-gray-500 mt-1">
-            {t("Description")}
+        <div>
+          <CardTitle className="text-lg">{t("AddNewDocs")}</CardTitle>
+          <CardDescription className="text-sm text-muted-foreground">
+            {t("FillData")}
           </CardDescription>
-        </CardHeader>
+        </div>
 
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 p-0">
+        <CardContent className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 p-0">
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">

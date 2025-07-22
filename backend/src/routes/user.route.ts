@@ -17,7 +17,7 @@ router
   .use(asyncWrapper(isLoginMiddleware))
   .get("/get-me", asyncWrapper(getMe))
   .get("/community/:communityName", asyncWrapper(getUsersByCommunity))
-  .get("/all-users", asyncWrapper(isAdminMiddleware), asyncWrapper(getAllUsers))
+  .get("/", asyncWrapper(isAdminMiddleware), asyncWrapper(getAllUsers))
   .put("/update-my-profile", asyncWrapper(updateMyProfile))
   .put(
     "/update-role",

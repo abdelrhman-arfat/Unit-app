@@ -90,8 +90,8 @@
     "AddNewTask": "Add New Task",
     "AllUsers": "All Users",
     "AddNewUser": "Add New User",
-    "AllDocs": "All PDFs",
-    "AddNewDoc": "Add New PDF"
+    "AllDocs": "All Documents ",
+    "AddNewDocs": "Add New Document"
   },
   "SummaryPage":{
   "title": "Summaries Dashboard",

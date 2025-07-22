@@ -49,7 +49,7 @@ const SignUpForm = ({
       return;
     }
     setIsSignUp(true);
-    toast
+    await toast
       .promise(signup(email, password, name), {
         loading: "Signing up...",
         success: (res) => res?.data.message || "Signup successfully",

@@ -27,7 +27,7 @@ const EventsTable = () => {
   const { data, isLoading, isError, refetch } = useGetAllEventsQuery(
     {},
     {
-      pollingInterval: 5 * 60 * 1000,
+      pollingInterval: 5 * 60 * 1000, // 5 minutes
     }
   );
 

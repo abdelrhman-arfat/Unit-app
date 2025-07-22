@@ -22,7 +22,7 @@ const LoginForm = ({
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const dispatch = useAppDispatcher();
   const router = useRouter();
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
@@ -41,8 +41,8 @@ const LoginForm = ({
     }
     setIsLogin(true);
 
-    toast
-      .promise(login({ email, password }), {
+    await toast
+      .promise(login(email, password), {
         loading: "Logging in...",
         success: (res) => res?.data.message || "Login successfully",
         error: (err) => err.response.data.message || "Login failed",
