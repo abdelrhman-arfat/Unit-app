@@ -28,7 +28,9 @@ const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   const existingUser = await userService.getUserByEmail(email);
   if (existingUser) {
-    return res.status(409).json(jsonStandard(null, 409, "User already exists"));
+    return res
+      .status(409)
+      .json(jsonStandard(null, 409, "Email already exists"));
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);

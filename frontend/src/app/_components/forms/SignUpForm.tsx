@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import toast from "react-hot-toast";
-import { signup } from "@/app/utils/api/Signup";
 import { emailPattern } from "@/app/utils/patterns/email";
 import { setUserData } from "@/app/_RTK/redux-slices/UserSlice";
 import { useAppDispatcher } from "@/app/hooks/AppDispatcher";
 import { Loader } from "lucide-react";
 import { SignUpFormProps } from "@/app/types/SignUpFormProps";
+import { axiosInstance } from "@/app/utils/api/axiosInstance";
 
 const SignUpForm = ({
   nameLabel,
@@ -50,11 +50,18 @@ const SignUpForm = ({
     }
     setIsSignUp(true);
     await toast
-      .promise(signup(email, password, name), {
-        loading: "Signing up...",
-        success: (res) => res?.data.message || "Signup successfully",
-        error: (err) => err.response.data.message || "Signup failed",
-      })
+      .promise(
+        axiosInstance.post("/auth/register", {
+          email,
+          name,
+          password,
+        }),
+        {
+          loading: "Signing up...",
+          success: (res) => res?.data.message || "Signup successfully",
+          error: (err) => err.response.data.message || "Signup failed",
+        }
+      )
       .then((res) => {
         dispatch(setUserData(res?.data.data.data));
         router.replace("/main");

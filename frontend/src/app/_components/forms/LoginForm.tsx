@@ -4,12 +4,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { emailPattern } from "@/app/utils/patterns/email";
-import { login } from "@/app/utils/api/Login";
 import { Loader } from "lucide-react";
 import { useAppDispatcher } from "@/app/hooks/AppDispatcher";
 import { setUserData } from "@/app/_RTK/redux-slices/UserSlice";
 import { useRouter } from "@/i18n/navigation";
 import { LoginFormProps } from "@/app/types/LoginFormProps";
+import { axiosInstance } from "@/app/utils/api/axiosInstance";
 
 const LoginForm = ({
   emailLabel,
@@ -42,12 +42,19 @@ const LoginForm = ({
     setIsLogin(true);
 
     await toast
-      .promise(login(email, password), {
-        loading: "Logging in...",
-        success: (res) => res?.data.message || "Login successfully",
-        error: (err) => err.response.data.message || "Login failed",
-      })
+      .promise(
+        axiosInstance.post("/auth/login", {
+          email,
+          password,
+        }),
+        {
+          loading: "Logging in...",
+          success: (res) => res?.data.message || "Login successfully",
+          error: (err) => err.response.data.message || "Login failed",
+        }
+      )
       .then((res) => {
+        console.log(res);
         dispatch(setUserData(res?.data.data.data));
         router.replace("/main");
       })
