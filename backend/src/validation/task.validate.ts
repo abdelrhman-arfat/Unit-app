@@ -35,6 +35,31 @@ export const validateCreateTask = [
     .withMessage("subjectId must be a valid integer"),
 ];
 
+export const validateUpdateTask = [
+  param("id").isInt({ min: 1 }).withMessage("Task ID must be a valid integer"),
+
+  body("title").optional().isString().withMessage("Title must be a string"),
+  body("description")
+    .optional()
+    .isString()
+    .withMessage("Description must be a string"),
+
+  body("endDate").optional(),
+
+  body("startDate")
+    .optional()
+    .matches(/^\d{4}-\d{2}-\d{2}$/)
+    .withMessage("Start date must be in YYYY-MM-DD format")
+    .custom((value, { req }) => {
+      const start = new Date(req.body.startDate + "T00:00:00");
+      const end = new Date(value + "T00:00:00");
+      if (end <= start) {
+        throw new Error("End date must be after start date");
+      }
+      return true;
+    }),
+];
+
 export const validateTaskId = [
   param("id")
     .notEmpty()

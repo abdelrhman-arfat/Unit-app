@@ -42,6 +42,7 @@ class SubjectService {
   async delete(id: number): Promise<subject> {
     return await prisma.subject.delete({
       where: { id },
+      
     });
   }
 

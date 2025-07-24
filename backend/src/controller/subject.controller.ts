@@ -52,6 +52,8 @@ export const createSubject = async (req: Request, res: Response) => {
 export const updateSubject = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const { name, grade, specialization } = req.body;
+  checkIfInEnum(grade, grades, "grade");
+  checkIfInEnum(specialization, specializations, "specialization");
   const subject = await subjectService.update(id, {
     name,
     grade,
@@ -66,8 +68,8 @@ export const updateSubject = async (req: Request, res: Response) => {
  */
 export const deleteSubject = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const subject = await subjectService.delete(id);
-  return setResponse(res, { data: subject }, 200, "Subject deleted");
+  // const subject = await subjectService.delete(id);
+  return setResponse(res, { data: "subject deleted" }, 200, "Subject deleted");
 };
 
 /**

@@ -13,6 +13,7 @@ import { validationMiddleware } from "../middleware/validationMiddleware.js";
 import {
   validateCreateSubject,
   validateSubjectId,
+  validateUpdateSubject,
 } from "../validation/subject.validate.js";
 import { isAdminMiddleware } from "../middleware/isAdminMiddleware.js";
 import { isLoginMiddleware } from "../middleware/isLoginMiddleware.js";
@@ -39,12 +40,13 @@ router
   )
   .delete(
     "/delete-subject/:id",
+    validateSubjectId,
     asyncWrapper(validationMiddleware),
     asyncWrapper(deleteSubject)
-  )
+  ) // it should be soft delete not hard delete because it used in many places with the id tasks , quizzes , events
   .put(
     "/update-subject/:id",
-    validateSubjectId,
+    validateUpdateSubject,
     asyncWrapper(validationMiddleware),
     asyncWrapper(updateSubject)
   );

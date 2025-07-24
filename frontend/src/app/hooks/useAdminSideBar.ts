@@ -6,6 +6,7 @@ import {
   HelpCircle,
   CheckSquare,
   Users2Icon,
+  PenTool,
 } from "lucide-react";
 export const useAdminSideBar = () => {
   const tr = useTranslations("AdminPage");
@@ -15,5 +16,6 @@ export const useAdminSideBar = () => {
     { name: tr("quiz"), href: "/admin/quizzes", icon: HelpCircle },
     { name: tr("tasks"), href: "/admin/tasks", icon: CheckSquare },
     { name: tr("users"), href: "/admin/users", icon: Users2Icon },
+    { name: tr("subjects"), href: "/admin/subjects", icon: PenTool },
   ];
 };

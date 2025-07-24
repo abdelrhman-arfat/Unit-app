@@ -12,6 +12,7 @@ import { isAdminMiddleware } from "../middleware/isAdminMiddleware.js";
 import {
   validateCreateTask,
   validateTaskId,
+  validateUpdateTask,
 } from "../validation/task.validate.js";
 import { validationMiddleware } from "../middleware/validationMiddleware.js";
 
@@ -34,7 +35,7 @@ router
   )
   .put(
     "/update-task/:id",
-    validateTaskId,
+    validateUpdateTask,
     asyncWrapper(validationMiddleware),
     asyncWrapper(updateTask)
   )
