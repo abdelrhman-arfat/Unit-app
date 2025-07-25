@@ -5,6 +5,7 @@ import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { grades, specializations, user } from "@prisma/client";
 import setPagination, { getCountOfPages } from "../utils/setPagination.js";
 import { subjectService } from "../services/SubjectService.js";
+import RedisService from "../services/RedisService.js";
 
 /**
  * @name    createQuiz
@@ -27,6 +28,8 @@ export const createQuiz = async (req: Request, res: Response) => {
     startDate: new Date(startDate),
     duration,
   });
+
+  await RedisService.delKeysByPrefix("quiz:");
 
   return setResponse(res, { data: quiz }, 201, "Quiz created");
 };
@@ -71,9 +74,18 @@ export const getAllForUser = async (req: Request, res: Response) => {
     ...(subjectId && { subjectId: Number(subjectId) }),
   };
   const [skip, limit] = setPagination(req);
-  const quizzes = await quizService.getAllForUser(where, skip, limit);
-  const count = await quizService.countAll(where);
+
+  const [count, quizzes] = await Promise.all([
+    quizService.countAll(where),
+    RedisService.doKeyAndCache(
+      "quizzes",
+      { skip, limit },
+      () => quizService.getAllForUser(where, skip, limit),
+      300
+    ),
+  ]);
   const pages = getCountOfPages(limit, count);
+
   return setResponse(res, { data: quizzes, pages }, 200, "Quizzes fetched");
 };
 /**
@@ -107,9 +119,11 @@ export const updateQuiz = async (req: Request, res: Response) => {
   if (subjectId) data.subjectId = subjectId;
   if (startDate) data.startDate = new Date(startDate);
   if (duration) data.duration = duration;
-
-  const updated = await quizService.update(id, data);
-  return setResponse(res, { data: updated }, 200, "Quiz updated");
+  await Promise.all([
+    await quizService.update(id, data),
+    await RedisService.delKeysByPrefix("quiz:"),
+  ]);
+  return setResponse(res, { data: null }, 200, "Quiz updated");
 };
 
 /**
@@ -122,6 +136,9 @@ export const deleteQuiz = async (req: Request, res: Response) => {
   if (!quiz) {
     return setResponse(res, { data: null }, 404, "Quiz not found");
   }
-  await quizService.delete(id);
+  await Promise.all([
+    await quizService.delete(id),
+    await RedisService.delKeysByPrefix("quiz:"),
+  ]);
   return setResponse(res, { data: null }, 200, "Quiz deleted");
 };

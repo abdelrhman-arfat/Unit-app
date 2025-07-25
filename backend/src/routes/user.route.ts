@@ -25,7 +25,7 @@ router
     asyncWrapper(updateUserRole)
   )
   .delete(
-    "/delete-user/:id",
+    "/delete-user/:id", // should be soft deleted or block because it has foreign keys
     asyncWrapper(isAdminMiddleware),
     asyncWrapper(deleteUserById)
   );

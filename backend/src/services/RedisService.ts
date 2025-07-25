@@ -13,38 +13,51 @@ class RedisService {
     return RedisService.instance;
   }
 
-  createKey(name: string, filter: object): string {
+  static createKey(name: string, filter: object): string {
     return `${name}:${JSON.stringify(filter)}`;
   }
 
-  async getDataInCache<T = any>(key: string): Promise<T | null> {
+  static async getDataInCache<T = any>(key: string): Promise<T | null> {
     const result = await redis.get(key);
     return result ? JSON.parse(result) : null;
   }
-  async doKeyAndCache<T>(
+  static async doKeyAndCache<T>(
     name: string,
     filter: object,
     fetchFunction: () => Promise<T>,
     ttl = 300 // Cache time in seconds
   ): Promise<T> {
-    const key = this.createKey(name, filter);
+    const key = RedisService.createKey(name, filter);
 
-    const cached = await this.getDataInCache<T>(key);
-    if (cached) return cached;
+    const cached = await RedisService.getDataInCache<T>(key);
+    if (cached) {
+      return cached;
+    }
 
     const freshData = await fetchFunction();
     await redis.set(key, JSON.stringify(freshData), "EX", ttl);
-
     return freshData;
   }
 
-  async storeDataInCache<T>(key: string, data: T): Promise<void> {
+  static async storeDataInCache<T>(key: string, data: T): Promise<void> {
     await redis.set(key, JSON.stringify(data));
   }
 
-  async deleteDataInCache(key: string): Promise<number> {
+  /**
+   * @name delKeysByPrefix
+   * @param prefix
+   * @description delete keys by prefix with pattern for ex:`name` -> `name:filter1:filter1...etc`
+   */
+  static async delKeysByPrefix(prefix: string) {
+    const keys = await redis.keys(`${prefix}*`);
+    if (keys.length > 0) {
+      await redis.del(...keys);
+    }
+  }
+
+  static async deleteDataInCache(key: string): Promise<number> {
     return await redis.del(key);
   }
 }
 
-export default RedisService.getInstance();
+export default RedisService;

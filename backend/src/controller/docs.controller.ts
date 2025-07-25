@@ -6,6 +6,7 @@ import setPagination from "../utils/setPagination.js";
 import { grades, specializations } from "@prisma/client";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { subjectService } from "../services/SubjectService.js";
+import RedisService from "../services/RedisService.js";
 
 // ------------------------------ Controllers --------------------------------
 /**
@@ -75,9 +76,16 @@ export const getDocsForTheUser = async (req: Request, res: Response) => {
   if (title) {
     where = { ...where, title: { startsWith: title.toString().toLowerCase() } };
   }
+  const grade = user.grade as grades;
+  const specialization = user.specialization as specializations;
+  const data = await RedisService.doKeyAndCache(
+    "docs",
+    { grade, specialization, where },
+    () => docsService.getDocsForTheUser(grade, specialization, where),
+    300
+  );
 
-  const docs = await docsService.getDocsForTheUser(user, where);
-  return setResponse(res, { data: docs }, 200, "Docs for the user fetched");
+  return setResponse(res, { data: data }, 200, "Docs for the user fetched");
 };
 
 /**
@@ -111,6 +119,7 @@ export const createDoc = async (req: Request, res: Response) => {
     description,
     uploaderId,
   });
+  await RedisService.delKeysByPrefix("docs:");
   return setResponse(res, { data: doc }, 201, "Doc created");
 };
 
@@ -136,8 +145,10 @@ export const updateDoc = async (req: Request, res: Response) => {
   if (description) {
     docs.description = description;
   }
-
-  await docsService.updateDoc(id, docs);
+  Promise.all([
+    await docsService.updateDoc(id, docs),
+    await RedisService.delKeysByPrefix("docs:"),
+  ]);
 
   return setResponse(res, { data: docs }, 200, "Doc updated");
 };
@@ -154,8 +165,11 @@ export const deleteDoc = async (req: Request, res: Response) => {
     return setResponse(res, { data: null }, 404, "Doc not found");
   }
 
-  const doc = await docsService.softDeleteDoc(id);
-  return setResponse(res, { data: doc }, 200, "Doc deleted");
+  Promise.all([
+    await docsService.softDeleteDoc(id),
+    await RedisService.delKeysByPrefix("docs:"),
+  ]);
+  return setResponse(res, { data: null }, 200, "Doc deleted");
 };
 
 /**
@@ -173,31 +187,4 @@ export const getDocsBySubjectId = async (req: Request, res: Response) => {
     return setResponse(res, { data: null }, 404, "Docs not found");
   }
   return setResponse(res, { data: docs }, 200, "Docs by subject fetched");
-};
-
-/**
-  @name    getDocsByGrade
-  @desc    Get docs by grade
-*/
-export const getDocsByGrade = async (req: Request, res: Response) => {
-  const grade = req.params.grade as grades;
-  checkIfInEnum(grade, grades, "grade");
-  const docs = await docsService.getDocsByGrade(grade);
-  return setResponse(res, { data: docs }, 200, "Docs by grade fetched");
-};
-
-/**
-  @name    getDocsBySpecialization
-  @desc    Get docs by specialization
-*/
-export const getDocsBySpecialization = async (req: Request, res: Response) => {
-  const specialization = req.params.specialization as specializations;
-  checkIfInEnum(specialization, specializations, "specialization");
-  const docs = await docsService.getDocsBySpecialization(specialization);
-  return setResponse(
-    res,
-    { data: docs },
-    200,
-    "Docs by specialization fetched"
-  );
 };

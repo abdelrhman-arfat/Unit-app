@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { eventService } from "../services/EventService.js";
 import { setResponse } from "../utils/jsonStander.js";
 import setPagination from "../utils/setPagination.js";
+import { event, roles } from "@prisma/client";
+import RedisService from "../services/RedisService.js";
 
 /**
  * @name createEvent
@@ -29,8 +31,17 @@ export const createEvent = async (req: Request, res: Response) => {
  */
 export const getAllEvents = async (req: Request, res: Response) => {
   const [skip, limit] = setPagination(req);
-  const events = await eventService.getAll(skip, limit);
-  return setResponse(res, { data: events }, 200, "Events fetched");
+  if (req.user && req.user.role === roles.admin) {
+    const data = await eventService.getAll(skip, limit);
+    return setResponse(res, { data: data }, 200, "Events fetched");
+  }
+  const data = await RedisService.doKeyAndCache(
+    "events",
+    { skip, limit },
+    () => eventService.getAll(skip, limit),
+    300
+  );
+  return setResponse(res, { data }, 200, "Events fetched");
 };
 
 /**

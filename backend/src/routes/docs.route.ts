@@ -6,8 +6,6 @@ import {
   updateDoc,
   deleteDoc,
   getDocsBySubjectId,
-  getDocsByGrade,
-  getDocsBySpecialization,
   getDocsForTheUser,
 } from "../controller/docs.controller.js";
 import { asyncWrapper } from "../utils/AsyncWrapper.js";
@@ -33,17 +31,6 @@ router
     validateSubjectId,
     asyncWrapper(validationMiddleware),
     asyncWrapper(getDocsBySubjectId)
-  )
-  .get(
-    "/by-grade/:grade",
-    validateGrade,
-    asyncWrapper(validationMiddleware),
-    asyncWrapper(getDocsByGrade)
-  )
-  .get(
-    "/by-specialization/:specialization",
-    validateSpecialization,
-    asyncWrapper(getDocsBySpecialization)
   );
 
 router

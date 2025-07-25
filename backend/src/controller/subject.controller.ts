@@ -3,6 +3,7 @@ import { subjectService } from "../services/SubjectService.js";
 import { setResponse } from "../utils/jsonStander.js";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { grades, specializations } from "@prisma/client";
+import RedisService from "../services/RedisService.js";
 
 /**
  * @name       getAllSubjects
@@ -41,7 +42,7 @@ export const createSubject = async (req: Request, res: Response) => {
     grade,
     specialization,
   });
-
+  await RedisService.delKeysByPrefix("subject:");
   return setResponse(res, { data: subject }, 201, "Subject created");
 };
 
@@ -59,6 +60,7 @@ export const updateSubject = async (req: Request, res: Response) => {
     grade,
     specialization,
   });
+  await RedisService.delKeysByPrefix("subject:");
   return setResponse(res, { data: subject }, 200, "Subject updated");
 };
 
@@ -69,6 +71,7 @@ export const updateSubject = async (req: Request, res: Response) => {
 export const deleteSubject = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   // const subject = await subjectService.delete(id);
+  await RedisService.delKeysByPrefix("subject:");
   return setResponse(res, { data: "subject deleted" }, 200, "Subject deleted");
 };
 
@@ -82,10 +85,15 @@ export const getSubjectsByUserData = async (req: Request, res: Response) => {
 
   checkIfInEnum(grade, grades, "grade");
   checkIfInEnum(specialization, specializations, "specialization");
-
-  const subjects = await subjectService.getSubjectByUserData(
-    grade,
-    specialization
+  const subjects = await RedisService.doKeyAndCache(
+    "subject",
+    { grade, specialization },
+    () => subjectService.getSubjectByUserData(grade, specialization),
+    600
   );
+  // const subjects = await subjectService.getSubjectByUserData(
+  //   grade,
+  //   specialization
+  // );
   return setResponse(res, { data: subjects }, 200, "Subjects by grade");
 };

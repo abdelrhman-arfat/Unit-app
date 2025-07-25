@@ -50,6 +50,5 @@ export const isLoginMiddleware = async (
     return UnauthorizedResponse(res);
   }
   req.user = user as user;
-  (req.user as any).password && delete (req.user as any).password;
   next();
 };

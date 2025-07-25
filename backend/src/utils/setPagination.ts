@@ -5,7 +5,7 @@ import { Request } from "express";
  * @returns [skip, limit]
  */
 const setPagination = (req: Request) => {
-  let { page = 1, limit = 20 } = req.query;
+  let { page = 1, limit = 50 } = req.query;
   page = isNaN(+page) || +page < 1 ? 1 : +page;
   limit = isNaN(+limit) || +limit < 1 ? 20 : Math.min(+limit, 100);
   const skip = (page - 1) * limit;

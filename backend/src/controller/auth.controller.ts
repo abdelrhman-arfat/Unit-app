@@ -80,7 +80,7 @@ const loginWithGoogle = async (req: Request, res: Response) => {
   const user = req.user;
 
   const [token, cookieOfToken, refreshToken, cookieOfRefreshToken] =
-    setUserTokens(user);
+    setUserTokens(user as user);
 
   res.cookie(Tokens.token, token, cookieOfToken as CookieOptions);
   res.cookie(

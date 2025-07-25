@@ -120,13 +120,17 @@ class DocsService {
       orderBy: { createdAt: "desc" },
     });
   }
-  async getDocsForTheUser(user: user, where?: any) {
+  async getDocsForTheUser(
+    grade: grades,
+    specialization: specializations,
+    where?: any
+  ) {
     return await prisma.documentation.findMany({
       where: {
         ...where,
         subject: {
-          grade: user.grade,
-          specialization: user.specialization,
+          grade: grade,
+          specialization: specialization,
         },
 
         isDeleted: false,

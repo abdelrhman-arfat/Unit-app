@@ -4,6 +4,7 @@ import { subjectService } from "../services/SubjectService.js";
 import { setResponse } from "../utils/jsonStander.js";
 import { grades, specializations, user } from "@prisma/client";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
+import RedisService from "../services/RedisService.js";
 
 // ------------------------------ Controllers --------------------------------
 
@@ -37,6 +38,7 @@ export const createTask = async (req: Request, res: Response) => {
     creatorId,
   });
 
+  await RedisService.delKeysByPrefix("tasks:");
   return setResponse(res, { data: task }, 201, "Task created");
 };
 
@@ -82,7 +84,14 @@ export const getTasksForMe = async (req: Request, res: Response) => {
   const subjectId = req.query.subjectId
     ? Number(req.query.subjectId)
     : undefined;
-  const tasks = await taskService.getTasksByUser(user, subjectId);
+
+  const grade = user.grade as grades;
+  const specialization = user.specialization as specializations;
+  const tasks = await RedisService.doKeyAndCache(
+    "tasks",
+    { grade, specialization, subjectId },
+    () => taskService.getTasksByUser(grade, specialization, subjectId)
+  );
   return setResponse(res, { data: tasks }, 200, "Tasks for user fetched");
 };
 
@@ -129,6 +138,7 @@ export const updateTask = async (req: Request, res: Response) => {
   }
 
   const updated = await taskService.updateTask(id, task);
+  await RedisService.delKeysByPrefix("tasks:");
   return setResponse(res, { data: updated }, 200, "Task updated");
 };
 
@@ -143,6 +153,7 @@ export const deleteTask = async (req: Request, res: Response) => {
   if (!exists) return setResponse(res, { data: null }, 404, "Task not found");
 
   await taskService.deleteTask(id);
+  await RedisService.delKeysByPrefix("tasks:");
   return setResponse(res, { data: null }, 200, "Task deleted");
 };
 
