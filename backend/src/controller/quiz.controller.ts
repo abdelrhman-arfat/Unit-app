@@ -6,6 +6,8 @@ import { grades, specializations, user } from "@prisma/client";
 import setPagination, { getCountOfPages } from "../utils/setPagination.js";
 import { subjectService } from "../services/SubjectService.js";
 import RedisService from "../services/RedisService.js";
+import { userService } from "../services/UserService.js";
+import { emailService } from "../services/EmailService.js";
 
 /**
  * @name    createQuiz
@@ -28,7 +30,12 @@ export const createQuiz = async (req: Request, res: Response) => {
     startDate: new Date(startDate),
     duration,
   });
+  const users = await userService.getAllUsers({
+    grade: subject.grade,
+    specialization: subject.specialization,
+  });
 
+  await emailService.sendQuizEmail(users as user[], quiz, "New Quiz");
   await RedisService.delKeysByPrefix("quiz:");
 
   return setResponse(res, { data: quiz }, 201, "Quiz created");

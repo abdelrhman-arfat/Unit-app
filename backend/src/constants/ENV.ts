@@ -25,6 +25,11 @@ const MICROSOFT_AUTH_SERVER_CALLBACK =
 const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 
+const RABBITMQ_URL = process.env.RABBITMQ_URL;
+
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+
 export {
   PORT,
   JWT_SECRET,
@@ -43,4 +48,7 @@ export {
   MICROSOFT_AUTH_SERVER_CALLBACK,
   REDIS_HOST,
   REDIS_PORT,
+  RABBITMQ_URL,
+  EMAIL_USER,
+  EMAIL_PASS,
 };

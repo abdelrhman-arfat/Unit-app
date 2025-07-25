@@ -11,6 +11,7 @@ import { userService } from "../services/UserService.js";
 import { grades, roles, user } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 import { CLIENT_URL } from "../constants/ENV.js";
+import { emailService } from "../services/EmailService.js";
 
 dotenv.config();
 
@@ -47,6 +48,8 @@ const register = async (req: Request, res: Response) => {
       .status(500)
       .json(jsonStandard(null, 500, "can't create the suers"));
   }
+
+  await emailService.sendHello(newUser);
 
   return setResponseForAuth(res, newUser, "Register successfully");
 };

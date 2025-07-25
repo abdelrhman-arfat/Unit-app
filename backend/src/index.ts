@@ -20,6 +20,7 @@ import "./config/RedisConfig.js";
 import { taskRouter } from "./routes/task.route.js";
 import { eventRouter } from "./routes/event.route.js";
 import { quizRouter } from "./routes/quiz.route.js";
+import { connectRabbitMQ } from "./config/RabbitMQ.js";
 
 const allowedOrigins = CLIENT_URL || "http://localhost:3000";
 const app = express();
@@ -56,6 +57,7 @@ app.use(
   })
 );
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await connectRabbitMQ();
   console.log("server is running on port " + PORT);
 });

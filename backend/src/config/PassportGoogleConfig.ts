@@ -7,6 +7,7 @@ import {
 } from "../constants/ENV.js";
 import { userService } from "../services/UserService.js";
 import { grades, roles, specializations, user } from "@prisma/client";
+import { emailService } from "../services/EmailService.js";
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -38,9 +39,10 @@ passport.use(
         } as user;
 
         let userExist = await userService.getUserByEmail(email);
-        userExist = userExist
-          ? userExist
-          : await userService.createUser(userCreateData);
+        if (!userExist) {
+          userExist = await userService.createUser(userCreateData);
+          await emailService.sendHello(userExist);
+        }
 
         // if (!userExist) {
         //   await sendEmail(

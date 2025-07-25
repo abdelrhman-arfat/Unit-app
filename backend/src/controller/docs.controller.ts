@@ -3,10 +3,12 @@ import { docsService } from "../services/DocsService.js";
 import { setResponse } from "../utils/jsonStander.js";
 import setPagination from "../utils/setPagination.js";
 
-import { grades, specializations } from "@prisma/client";
+import { grades, specializations, user } from "@prisma/client";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import { subjectService } from "../services/SubjectService.js";
 import RedisService from "../services/RedisService.js";
+import { userService } from "../services/UserService.js";
+import { emailService } from "../services/EmailService.js";
 
 // ------------------------------ Controllers --------------------------------
 /**
@@ -120,6 +122,13 @@ export const createDoc = async (req: Request, res: Response) => {
     uploaderId,
   });
   await RedisService.delKeysByPrefix("docs:");
+  const users = await userService.getAllUsers({
+    grade: subject.grade,
+    specialization: subject.specialization,
+  });
+
+  await emailService.sendDocsEmail(users as user[], doc, "New doc");
+
   return setResponse(res, { data: doc }, 201, "Doc created");
 };
 

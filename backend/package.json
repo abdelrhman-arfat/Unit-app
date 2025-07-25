@@ -14,7 +14,8 @@
     "bash": "docker exec -it backend-backend-1 bash",
     "dev:docker": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
     "down:docker": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down",
-    "build:docker": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build"
+    "build:docker": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build",
+    "start:worker": "npx tsx src/worker/email.worker.ts"
   },
   "keywords": [],
   "author": "Abdo Yasser <abdoarfat2006@gmail.com> (https://github.com/abdelrhman-arfat)",
@@ -22,6 +23,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^6.9.0",
+    "amqplib": "^0.10.8",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^1.41.3",
@@ -38,6 +40,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.2",
     "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.5",
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
@@ -47,6 +50,7 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.7",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
@@ -67,6 +71,7 @@
     "prisma": "^6.9.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.2"
   }
 }

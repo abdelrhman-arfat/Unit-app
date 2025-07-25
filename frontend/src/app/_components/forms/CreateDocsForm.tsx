@@ -20,12 +20,7 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    console.log({
-      title: formData.get("title") as string,
-      description: formData.get("description") as string,
-      subjectId: formData.get("subjectId") as string,
-      link: formData.get("link") as string,
-    });
+
     if (
       !formData.get("title") ||
       !formData.get("description") ||
@@ -48,8 +43,7 @@ export default function CreateDocsForm({ refetch }: { refetch: () => void }) {
           error: "Failed to create document ❌",
         }
       )
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         refetch();
         form.reset();
       });

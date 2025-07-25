@@ -5,6 +5,8 @@ import { setResponse } from "../utils/jsonStander.js";
 import { grades, specializations, user } from "@prisma/client";
 import { checkIfInEnum } from "../utils/checkIfInEnum.js";
 import RedisService from "../services/RedisService.js";
+import { userService } from "../services/UserService.js";
+import { emailService } from "../services/EmailService.js";
 
 // ------------------------------ Controllers --------------------------------
 
@@ -37,6 +39,13 @@ export const createTask = async (req: Request, res: Response) => {
     subjectId,
     creatorId,
   });
+
+  const users = await userService.getAllUsers({
+    grade: subject.grade,
+    specialization: subject.specialization,
+  });
+
+  await emailService.sendTaskEmail(users as user[], task, "New task");
 
   await RedisService.delKeysByPrefix("tasks:");
   return setResponse(res, { data: task }, 201, "Task created");
