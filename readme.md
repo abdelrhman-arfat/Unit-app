@@ -1,6 +1,6 @@
 # 🎓 Faculty Community Platform
 
-A full-stack web application designed to bring together students of the faculty in one modern, unified platform. This project is built with **TypeScript**, **Next.js**, **Express**, **Prisma**, **MySQL**, **Redis**, and **Docker**, aiming to provide a centralized digital hub for all academic and community-related activities.
+A full-stack web application designed to bring together students of the faculty in one modern, unified platform. This project is built with **TypeScript**, **Next.js**, **Express**, **Prisma**, **MySQL**, **Redis**,**rabbitMQ**, and **Docker**, aiming to provide a centralized digital hub for all academic and community-related activities.
 
 ---
 
@@ -35,7 +35,7 @@ You can watch a short demo or explanation of the project using the link below:
 | --------------- | ------------------- | ----------------- |
 | Next.js         | Express.js          | Docker            |
 | TypeScript      | Prisma ORM          | Docker Compose    |
-| Tailwind CSS    | MySQL               | Redis             |
+| Tailwind CSS    | MySQL               | Redis & rabbitMQ  |
 | Shadcn/UI       | bcrypt              | Nodemon + ts-node |
 | React Hot Toast | Multer + Cloudinary | Google OAuth      |
 
