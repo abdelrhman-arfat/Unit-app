@@ -4,6 +4,11 @@ A full-stack web application designed to bring together students of the faculty 
 
 ---
 
+## 📹 Online Video
+
+You can watch a short demo or explanation of the project using the link below:
+👉 [Click here to watch the video](https://your-video-link.com)
+
 ## 🚀 Features
 
 ### 🧑‍🎓 For Students
@@ -12,7 +17,7 @@ A full-stack web application designed to bring together students of the faculty 
 - 📅 **Task & Quiz Alerts** – Automated notifications/reminders before deadlines.
 - 📨 **Messages & Email Alerts** – Important notices and alerts sent directly to students.
 - 🧪 **Quiz & Task Management** – View assigned tasks/quizzes and track deadlines.
-- 🧠 **Google Login** – Secure login using Google  OAuth 2.0.
+- 🧠 **Google Login** – Secure login using Google OAuth 2.0.
 - 📤 **Upload Files** – Using `Multer` and `Cloudinary` for secure and scalable media upload.
 
 ### 🏛️ For Faculty & Union
@@ -32,7 +37,7 @@ A full-stack web application designed to bring together students of the faculty 
 | TypeScript      | Prisma ORM          | Docker Compose    |
 | Tailwind CSS    | MySQL               | Redis             |
 | Shadcn/UI       | bcrypt              | Nodemon + ts-node |
-| React Hot Toast | Multer + Cloudinary | Google OAuth   |
+| React Hot Toast | Multer + Cloudinary | Google OAuth      |
 
 ---
 
@@ -69,6 +74,7 @@ NEXT_PUBLIC_BACKEND_URL=
 PORT=4000
 
 DATABASE_URL="mysql://abdoyasser:devpass@mysql:3306/unit"
+RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
 
 JWT_SECRET=
 JWT_REFRESH =
@@ -80,6 +86,12 @@ GOOGLE_AUTH_SECRET=
 GOOGLE_AUTH_SERVER_CALLBACK=http://localhost:4000/auth/google/callback
 GOOGLE_AUTH_URL_SUCCESS=http://localhost:3000/success
 
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+EMAIL_USER = your_email
+EMAIL_PASS = your_email_password
+
 <!-- if u will use microsoft login -->
 MICROSOFT_AUTH_ID=
 MICROSOFT_AUTH_SECRET=
@@ -88,10 +100,13 @@ MICROSOFT_AUTH_SERVER_CALLBACK=http://localhost:4000/auth/microsoft/callback
 ```
 
 ## 🐟 Docker Build Dev :
+
 1. First Time
+
 ```bash
   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 ```
+
 ```bash
   npm run dev:docker
 ```
