@@ -16,7 +16,7 @@ import { asyncWrapper } from "./utils/AsyncWrapper.js";
 import "./config/CloudinaryConfig.js";
 import "./config/PassportGoogleConfig.js";
 import "./config/PassportMicrosoftConfig.js";
-
+import "./config/RedisConfig.js";
 import { taskRouter } from "./routes/task.route.js";
 import { eventRouter } from "./routes/event.route.js";
 import { quizRouter } from "./routes/quiz.route.js";

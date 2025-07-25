@@ -9,7 +9,7 @@ import { user } from "@prisma/client";
 declare global {
   namespace Express {
     interface Request {
-      user: user;
+      user: Omit<user, "password">;
       file?: Express.Multer.File;
       files?:
         | { [fieldname: string]: Express.Multer.File[] }
@@ -49,7 +49,7 @@ export const isLoginMiddleware = async (
   if (!user) {
     return UnauthorizedResponse(res);
   }
-
   req.user = user as user;
+  (req.user as any).password && delete (req.user as any).password;
   next();
 };
