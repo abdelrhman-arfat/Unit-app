@@ -7,7 +7,7 @@ A full-stack web application designed to bring together students of the faculty 
 ## 📹 Online Video
 
 You can watch a short demo or explanation of the project using the link below:
-👉 [Click here to watch the video](https://your-video-link.com)
+👉 [Click here to watch the video](https://www.dropbox.com/scl/fi/q1p0469egfehzzego9a64/Screen-Recording-2025-07-25-080256.mp4?rlkey=ibi4bcz9sj0uci9ua752s00b0&st=wby5qsl4&dl=0)
 
 ## 🚀 Features
 
